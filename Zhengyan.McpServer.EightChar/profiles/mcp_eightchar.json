@@ -1,0 +1,20 @@
+{   
+    "Logger": {
+    "Level": "Debug", // 支持Verb/Debug/Info/Warn/Error/Fatal
+    "Outputs": [
+      {
+        "Type": "File", // 支持File（文件）/Console（控制台）两种类型
+        "Path": "logs/ec_log.txt", // 输出路径
+        "Template": "{Timestamp:yyyy-MM-dd HH:mm-ss.fff }[{Level:u3}] {Message:lj}{NewLine}{Exception}", // 输出格式模板
+        "RollingInterval": "Day", // 支持Infinite（不按时间）/Year（按年）/Month（按月）/Day（按日）/Hour（按时）/Minute（按分）
+        "FileSizeLimitBytes": 0, //日志文件大小最大上限（Byte，0为不限制大小）
+        "Encoding": "UTF-8", // 日志文件编码
+        "RetainedFileCountLimit": 10 // 最大保存文件数,超过最大文件数会自动覆盖原有文件
+      },
+      {
+        "Type": "Console",
+        "Template": "{Timestamp:yyyy-MM-dd HH:mm-ss.fff }[{Level:u3}] {Message:lj}{NewLine}{Exception}"
+      }
+    ]
+  }
+}

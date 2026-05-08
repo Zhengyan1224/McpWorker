@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Zhengyan.KBServer</name>
+    </assembly>
+    <members>
+        <member name="T:Zhengyan.KBServer.Controllers.KnowledgeController">
+            <summary>
+            Agent配置控制器
+            </summary>
+        </member>
+        <member name="M:Zhengyan.KBServer.Controllers.KnowledgeController.AddKnowledge(IKnowledgeBaseService,System.String,Zhengyan.KBServer.Models.KnowledgeContent[],System.Int32)">
+            <summary>
+            添加知识
+            </summary>
+            <param name="service"></param>
+            <param name="dbName">知识库名</param>
+            <param name="knowledgeContents">知识列表</param>
+            <param name="chunkSize">切片大小（0为不切片）</param>
+            <returns>添加成功数</returns>
+        </member>
+        <member name="M:Zhengyan.KBServer.Controllers.KnowledgeController.SearchKnowledge(IKnowledgeBaseService,System.String,System.String,System.Int32)">
+            <summary>
+            查询知识
+            </summary>
+            <param name="service"></param>
+            <param name="dbName">知识库名</param>
+            <param name="query">查询内容</param>
+            <param name="topK">返回前K条</param>
+            <returns>查询结果</returns>
+        </member>
+        <member name="M:Zhengyan.KBServer.Controllers.KnowledgeController.DeleteKnowledge(IKnowledgeBaseService,System.String,System.Int32)">
+            <summary>
+            删除知识
+            </summary>
+            <param name="service"></param>
+            <param name="dbName">知识库名</param>
+            <param name="id">知识ID</param>
+            <returns>删除结果</returns>
+        </member>
+        <member name="M:Zhengyan.KBServer.Controllers.KnowledgeController.DeleteKnowledgeBase(IKnowledgeBaseService,System.String)">
+            <summary>
+            删除知识库
+            </summary>
+            <param name="service"></param>
+            <param name="dbName">知识库名</param>
+            <returns>删除结果</returns>
+        </member>
+        <member name="T:Zhengyan.KBServer.Implements.EmbeddingRequest">
+            <summary>
+            Represents a request to the LM Studio embedding service.
+            </summary>
+        </member>
+        <member name="P:Zhengyan.KBServer.Implements.EmbeddingRequest.input">
+            <summary>
+            The input text to be embedded.
+            </summary>
+        </member>
+        <member name="P:Zhengyan.KBServer.Implements.EmbeddingRequest.model">
+            <summary>
+            The model to use for generating embeddings.
+            </summary>
+        </member>
+        <member name="T:Zhengyan.KBServer.Implements.EmbeddingData">
+            <summary>
+            Represents a single embedding datum in the response.
+            </summary>
+        </member>
+        <member name="P:Zhengyan.KBServer.Implements.EmbeddingData.object">
+            <summary>
+            The object type, typically "embedding".
+            </summary>
+        </member>
+        <member name="P:Zhengyan.KBServer.Implements.EmbeddingData.embedding">
+            <summary>
+            The embedding vector.
+            </summary>
+        </member>
+        <member name="P:Zhengyan.KBServer.Implements.EmbeddingData.index">
+            <summary>
+            The index of this embedding in the response.
+            </summary>
+        </member>
+        <member name="T:Zhengyan.KBServer.Implements.EmbeddingResponse">
+            <summary>
+            Represents the response from the LM Studio embedding service.
+            </summary>
+        </member>
+        <member name="P:Zhengyan.KBServer.Implements.EmbeddingResponse.object">
+            <summary>
+            The object type, typically "list".
+            </summary>
+        </member>
+        <member name="P:Zhengyan.KBServer.Implements.EmbeddingResponse.data">
+            <summary>
+            The list of embedding data.
+            </summary>
+        </member>
+        <member name="P:Zhengyan.KBServer.Implements.EmbeddingResponse.model">
+            <summary>
+            The model used to generate the embeddings.
+            </summary>
+        </member>
+        <member name="P:Zhengyan.KBServer.Implements.EmbeddingResponse.usage">
+            <summary>
+            Usage statistics for the request.
+            </summary>
+        </member>
+        <member name="T:Zhengyan.KBServer.Implements.Usage">
+            <summary>
+            Represents usage statistics for an embedding request.
+            </summary>
+        </member>
+        <member name="P:Zhengyan.KBServer.Implements.Usage.prompt_tokens">
+            <summary>
+            The number of tokens in the prompt.
+            </summary>
+        </member>
+        <member name="P:Zhengyan.KBServer.Implements.Usage.total_tokens">
+            <summary>
+            The total number of tokens used.
+            </summary>
+        </member>
+        <member name="T:Zhengyan.KBServer.Models.KnowledgeContent">
+            <summary>
+            文本知识内容
+            </summary>
+        </member>
+        <member name="P:Zhengyan.KBServer.Models.KnowledgeContent.Id">
+            <summary>
+            知识ID
+            </summary>
+        </member>
+        <member name="P:Zhengyan.KBServer.Models.KnowledgeContent.Content">
+            <summary>
+            内容
+            </summary>
+        </member>
+        <member name="P:Zhengyan.KBServer.Models.KnowledgeContent.MetaData">
+            <summary>
+            元数据
+            </summary>
+        </member>
+        <member name="P:Zhengyan.KBServer.Models.KnowledgeContent.Distance">
+            <summary>
+            与查询数据的距离（距离越小相似度越高）
+            </summary>
+        </member>
+    </members>
+</doc>

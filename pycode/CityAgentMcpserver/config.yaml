@@ -1,0 +1,16 @@
+mcp:
+  host: "0.0.0.0"
+  port: 28080
+  name: "城市更新智能体McpServer"
+  root_path: "cityagent"
+
+api:
+  base_url: "https://www.zgdxxczx.cn:10000"
+  token_url: "https://www.zgdxxczx.cn:10000/api/cloudna-auth/oauth/token"
+  service_route_id: "zdh"
+  timeout_seconds: 30
+  verify_ssl: false
+
+auth:
+  client_id: "Beaver"
+  client_secret: "T3FvUzqAputJnYsBFPw0TuPatzT9wNnW"

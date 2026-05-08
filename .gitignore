@@ -1,0 +1,10 @@
+bin/
+obj/
+models/
+artifacts/
+temp/
+.vscode/
+/Zhengyan.McpHost/profiles/agent/
+/Zhengyan.McpHost/profiles/chat/
+/Zhengyan.McpHost/profiles/mcp/
+appsettings.Local.json

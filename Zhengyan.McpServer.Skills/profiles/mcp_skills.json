@@ -1,0 +1,32 @@
+{
+  "SkillsRootPath": "./resources/skills",
+  "WorkspaceRootPath": "./resources/skills",
+  "EntryFileName": "SKILL.md",
+  "PreviewLength": 240,
+  "MaxContentLength": 20000,
+  "MaxFileReadLength": 200000,
+  "MaxCommandTimeoutSeconds": 120,
+  "MaxCommandOutputLength": 60000,
+  "MaxListEntries": 5000,
+  "MaxReadLines": 500,
+  "MaxSearchResults": 200,
+  "MaxSearchFiles": 2000,
+  "Logger": {
+    "Level": "Debug",
+    "Outputs": [
+      {
+        "Type": "File",
+        "Path": "logs/skills_log.txt",
+        "Template": "{Timestamp:yyyy-MM-dd HH:mm-ss.fff }[{Level:u3}] {Message:lj}{NewLine}{Exception}",
+        "RollingInterval": "Day",
+        "FileSizeLimitBytes": 0,
+        "Encoding": "UTF-8",
+        "RetainedFileCountLimit": 10
+      },
+      {
+        "Type": "Console",
+        "Template": "{Timestamp:yyyy-MM-dd HH:mm-ss.fff }[{Level:u3}] {Message:lj}{NewLine}{Exception}"
+      }
+    ]
+  }
+}

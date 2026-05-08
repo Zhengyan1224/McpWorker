@@ -1,0 +1,521 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Zhengyan.ChatUI.Desktop.ViewModels"
+        xmlns:controls="using:Zhengyan.ChatUI.Desktop.Controls"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        d:DesignWidth="1080"
+        d:DesignHeight="860"
+        x:Class="Zhengyan.ChatUI.Desktop.Views.MainWindow"
+        x:Name="RootWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="Chat Test UI"
+        Icon="/Assets/avalonia-logo.ico"
+        Width="1080"
+        Height="860"
+        MinWidth="920"
+        MinHeight="720">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="ChatPanelBorderBrush">#DDDDDD</SolidColorBrush>
+                    <SolidColorBrush x:Key="ChatSurfaceBackgroundBrush">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="ChatUserBubbleBackgroundBrush">#E3F2FD</SolidColorBrush>
+                    <SolidColorBrush x:Key="ChatUserLabelForegroundBrush">#0D47A1</SolidColorBrush>
+                    <SolidColorBrush x:Key="ChatUserTextForegroundBrush">#111827</SolidColorBrush>
+                    <SolidColorBrush x:Key="ChatAssistantBubbleBackgroundBrush">#F5F5F5</SolidColorBrush>
+                    <SolidColorBrush x:Key="ChatAssistantLabelForegroundBrush">#4B5563</SolidColorBrush>
+                    <SolidColorBrush x:Key="ChatAssistantTextForegroundBrush">#111827</SolidColorBrush>
+                    <SolidColorBrush x:Key="ChatReasoningBubbleBackgroundBrush">#EEF2FF</SolidColorBrush>
+                    <SolidColorBrush x:Key="ChatReasoningLabelForegroundBrush">#4338CA</SolidColorBrush>
+                    <SolidColorBrush x:Key="ChatReasoningTextForegroundBrush">#312E81</SolidColorBrush>
+                    <SolidColorBrush x:Key="MarkdownCodeBackgroundBrush">#F3F4F6</SolidColorBrush>
+                    <SolidColorBrush x:Key="MarkdownCodeBorderBrush">#D1D5DB</SolidColorBrush>
+                    <SolidColorBrush x:Key="MarkdownQuoteBorderBrush">#C7D2FE</SolidColorBrush>
+                    <SolidColorBrush x:Key="AttachmentBackgroundBrush">#F9FAFB</SolidColorBrush>
+                    <SolidColorBrush x:Key="AttachmentBorderBrush">#D1D5DB</SolidColorBrush>
+                    <SolidColorBrush x:Key="SecondaryTextBrush">#666666</SolidColorBrush>
+                    <SolidColorBrush x:Key="StatusErrorBrush">#B00020</SolidColorBrush>
+                    <SolidColorBrush x:Key="PrimaryButtonBackgroundBrush">#0078D4</SolidColorBrush>
+                    <SolidColorBrush x:Key="PrimaryButtonForegroundBrush">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="SecondaryButtonBackgroundBrush">#6C757D</SolidColorBrush>
+                    <SolidColorBrush x:Key="SecondaryButtonForegroundBrush">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="DangerButtonBackgroundBrush">#DC3545</SolidColorBrush>
+                    <SolidColorBrush x:Key="DangerButtonForegroundBrush">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="StreamingTextBrush">#0078D4</SolidColorBrush>
+                    <SolidColorBrush x:Key="CopyButtonBackgroundBrush">#E5E7EB</SolidColorBrush>
+                    <SolidColorBrush x:Key="CopyButtonForegroundBrush">#374151</SolidColorBrush>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="ChatPanelBorderBrush">#3A3A3A</SolidColorBrush>
+                    <SolidColorBrush x:Key="ChatSurfaceBackgroundBrush">#1E1E1E</SolidColorBrush>
+                    <SolidColorBrush x:Key="ChatUserBubbleBackgroundBrush">#1F3B57</SolidColorBrush>
+                    <SolidColorBrush x:Key="ChatUserLabelForegroundBrush">#8EC8FF</SolidColorBrush>
+                    <SolidColorBrush x:Key="ChatUserTextForegroundBrush">#ECF4FF</SolidColorBrush>
+                    <SolidColorBrush x:Key="ChatAssistantBubbleBackgroundBrush">#2A2A2A</SolidColorBrush>
+                    <SolidColorBrush x:Key="ChatAssistantLabelForegroundBrush">#D1D5DB</SolidColorBrush>
+                    <SolidColorBrush x:Key="ChatAssistantTextForegroundBrush">#F3F4F6</SolidColorBrush>
+                    <SolidColorBrush x:Key="ChatReasoningBubbleBackgroundBrush">#1E293B</SolidColorBrush>
+                    <SolidColorBrush x:Key="ChatReasoningLabelForegroundBrush">#A5B4FC</SolidColorBrush>
+                    <SolidColorBrush x:Key="ChatReasoningTextForegroundBrush">#E0E7FF</SolidColorBrush>
+                    <SolidColorBrush x:Key="MarkdownCodeBackgroundBrush">#111827</SolidColorBrush>
+                    <SolidColorBrush x:Key="MarkdownCodeBorderBrush">#374151</SolidColorBrush>
+                    <SolidColorBrush x:Key="MarkdownQuoteBorderBrush">#6366F1</SolidColorBrush>
+                    <SolidColorBrush x:Key="AttachmentBackgroundBrush">#26313D</SolidColorBrush>
+                    <SolidColorBrush x:Key="AttachmentBorderBrush">#4B5563</SolidColorBrush>
+                    <SolidColorBrush x:Key="SecondaryTextBrush">#C0C0C0</SolidColorBrush>
+                    <SolidColorBrush x:Key="StatusErrorBrush">#FF8A80</SolidColorBrush>
+                    <SolidColorBrush x:Key="PrimaryButtonBackgroundBrush">#4DA3FF</SolidColorBrush>
+                    <SolidColorBrush x:Key="PrimaryButtonForegroundBrush">#0B1B2F</SolidColorBrush>
+                    <SolidColorBrush x:Key="SecondaryButtonBackgroundBrush">#9AA4B2</SolidColorBrush>
+                    <SolidColorBrush x:Key="SecondaryButtonForegroundBrush">#101827</SolidColorBrush>
+                    <SolidColorBrush x:Key="DangerButtonBackgroundBrush">#FF7A7A</SolidColorBrush>
+                    <SolidColorBrush x:Key="DangerButtonForegroundBrush">#2F0B0B</SolidColorBrush>
+                    <SolidColorBrush x:Key="StreamingTextBrush">#8EC8FF</SolidColorBrush>
+                    <SolidColorBrush x:Key="CopyButtonBackgroundBrush">#3F4A57</SolidColorBrush>
+                    <SolidColorBrush x:Key="CopyButtonForegroundBrush">#E5E7EB</SolidColorBrush>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.Styles>
+        <Style Selector="Button.chat-action:disabled">
+            <Setter Property="Opacity" Value="0.55"/>
+        </Style>
+        <Style Selector="Button.copy-bubble">
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Height" Value="22"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Background" Value="{DynamicResource CopyButtonBackgroundBrush}"/>
+            <Setter Property="Foreground" Value="{DynamicResource CopyButtonForegroundBrush}"/>
+        </Style>
+        <Style Selector="Button.copy-bubble:pointerover">
+            <Setter Property="Opacity" Value="0.85"/>
+        </Style>
+    </Window.Styles>
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Grid RowDefinitions="Auto,*,Auto" Margin="16">
+        <StackPanel Grid.Row="0" Spacing="6" Margin="0,0,0,16">
+            <TextBlock Text="Chat Test UI" FontSize="28" FontWeight="Bold"/>
+            <TextBlock Text="Author: Zhengyan" FontSize="14" Foreground="{DynamicResource SecondaryTextBrush}"/>
+        </StackPanel>
+
+        <TabControl Grid.Row="1">
+            <TabItem Header="Chat">
+                <Grid Margin="12" RowDefinitions="*,Auto,Auto">
+                    <Grid Grid.Row="0" RowDefinitions="Auto,*" Margin="0,0,0,12">
+                        <TextBlock Grid.Row="0" Text="Chat" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                        <Border Grid.Row="1"
+                                BorderBrush="{DynamicResource ChatPanelBorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="6"
+                                Padding="10"
+                                MinHeight="120"
+                                Background="{DynamicResource ChatSurfaceBackgroundBrush}">
+                            <ScrollViewer x:Name="ChatScrollViewer"
+                                          VerticalScrollBarVisibility="Auto"
+                                          HorizontalScrollBarVisibility="Disabled">
+                                <ItemsControl ItemsSource="{Binding ChatHistory}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate x:DataType="vm:ChatMessagePairViewModel">
+                                            <StackPanel Margin="0,0,0,16" Spacing="8">
+                                                <Border Background="{DynamicResource ChatUserBubbleBackgroundBrush}" CornerRadius="8" Padding="10">
+                                                    <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,Auto">
+                                                        <TextBlock Grid.Row="0"
+                                                                   Grid.Column="0"
+                                                                   Text="User"
+                                                                   FontWeight="Bold"
+                                                                   Foreground="{DynamicResource ChatUserLabelForegroundBrush}"/>
+                                                        <Button Grid.Row="0"
+                                                                Grid.Column="1"
+                                                                Classes="copy-bubble"
+                                                                Content="Copy"
+                                                                Tag="{Binding UserMessage}"
+                                                                ToolTip.Tip="Copy this message"
+                                                                Click="CopyBubbleText_Click"/>
+                                                        <TextBlock Grid.Row="1"
+                                                                   Grid.Column="0"
+                                                                   Grid.ColumnSpan="2"
+                                                                   Margin="0,4,0,0"
+                                                                   Text="{Binding UserMessage}"
+                                                                   TextWrapping="Wrap"
+                                                                   IsVisible="{Binding HasUserMessage}"
+                                                                   Foreground="{DynamicResource ChatUserTextForegroundBrush}"/>
+                                                        <StackPanel Grid.Row="2"
+                                                                    Grid.Column="0"
+                                                                    Grid.ColumnSpan="2"
+                                                                    Margin="0,8,0,0"
+                                                                    Spacing="6"
+                                                                    IsVisible="{Binding HasUserAttachments}">
+                                                            <TextBlock Text="Attached Images"
+                                                                       FontSize="12"
+                                                                       FontWeight="SemiBold"
+                                                                       Foreground="{DynamicResource ChatUserLabelForegroundBrush}"/>
+                                                            <ItemsControl ItemsSource="{Binding UserAttachments}">
+                                                                <ItemsControl.ItemTemplate>
+                                                                    <DataTemplate x:DataType="vm:ChatImageAttachmentViewModel">
+                                                                        <Border Background="{DynamicResource AttachmentBackgroundBrush}"
+                                                                                BorderBrush="{DynamicResource AttachmentBorderBrush}"
+                                                                                BorderThickness="1"
+                                                                                CornerRadius="6"
+                                                                                Padding="8">
+                                                                            <StackPanel Spacing="2">
+                                                                                <TextBlock Text="{Binding DisplayName}" FontWeight="SemiBold"/>
+                                                                                <TextBlock Text="{Binding SourceLabel}"
+                                                                                           FontSize="11"
+                                                                                           Foreground="{DynamicResource SecondaryTextBrush}"/>
+                                                                                <TextBlock Text="{Binding Source}"
+                                                                                           FontSize="11"
+                                                                                           TextWrapping="Wrap"/>
+                                                                            </StackPanel>
+                                                                        </Border>
+                                                                    </DataTemplate>
+                                                                </ItemsControl.ItemTemplate>
+                                                            </ItemsControl>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </Border>
+
+                                                <Border Background="{DynamicResource ChatReasoningBubbleBackgroundBrush}"
+                                                        CornerRadius="8"
+                                                        Padding="10"
+                                                        IsVisible="{Binding HasAssistantReasoning}">
+                                                    <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto">
+                                                        <TextBlock Grid.Row="0"
+                                                                   Grid.Column="0"
+                                                                   Text="Thinking"
+                                                                   FontWeight="Bold"
+                                                                   Foreground="{DynamicResource ChatReasoningLabelForegroundBrush}"/>
+                                                        <Button Grid.Row="0"
+                                                                Grid.Column="1"
+                                                                Classes="copy-bubble"
+                                                                Content="Copy"
+                                                                Tag="{Binding AssistantReasoning}"
+                                                                ToolTip.Tip="Copy reasoning"
+                                                                Click="CopyBubbleText_Click"/>
+                                                        <TextBlock Grid.Row="1"
+                                                                   Grid.Column="0"
+                                                                   Grid.ColumnSpan="2"
+                                                                   Margin="0,4,0,0"
+                                                                   Text="{Binding AssistantReasoning}"
+                                                                   TextWrapping="Wrap"
+                                                                   Foreground="{DynamicResource ChatReasoningTextForegroundBrush}"/>
+                                                    </Grid>
+                                                </Border>
+
+                                                <Border Background="{DynamicResource ChatAssistantBubbleBackgroundBrush}"
+                                                        CornerRadius="8"
+                                                        Padding="10"
+                                                        IsVisible="{Binding HasAssistantMessage}">
+                                                    <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto">
+                                                        <TextBlock Grid.Row="0"
+                                                                   Grid.Column="0"
+                                                                   Text="Assistant"
+                                                                   FontWeight="Bold"
+                                                                   Foreground="{DynamicResource ChatAssistantLabelForegroundBrush}"/>
+                                                        <Button Grid.Row="0"
+                                                                Grid.Column="1"
+                                                                Classes="copy-bubble"
+                                                                Content="Copy"
+                                                                Tag="{Binding AssistantMessage}"
+                                                                ToolTip.Tip="Copy this message"
+                                                                Click="CopyBubbleText_Click"/>
+                                                        <controls:MarkdownMessageView Grid.Row="1"
+                                                                                      Grid.Column="0"
+                                                                                      Grid.ColumnSpan="2"
+                                                                                      Margin="0,4,0,0"
+                                                                                      MarkdownText="{Binding AssistantMessage}"
+                                                                                      IsVisible="{Binding HasAssistantMessage}"/>
+                                                    </Grid>
+                                                </Border>
+
+                                                <Border Background="{DynamicResource AttachmentBackgroundBrush}"
+                                                        BorderBrush="{DynamicResource AttachmentBorderBrush}"
+                                                        BorderThickness="1"
+                                                        CornerRadius="8"
+                                                        Padding="10"
+                                                        IsVisible="{Binding HasAssistantAdditionalProperties}">
+                                                    <Expander IsExpanded="{Binding IsAssistantAdditionalPropertiesExpanded, Mode=TwoWay}">
+                                                        <Expander.Header>
+                                                            <Grid ColumnDefinitions="*,Auto">
+                                                                <TextBlock Grid.Column="0"
+                                                                           Text="Additional Properties"
+                                                                           FontWeight="SemiBold"
+                                                                           VerticalAlignment="Center"
+                                                                           Foreground="{DynamicResource ChatAssistantLabelForegroundBrush}"/>
+                                                                <Button Grid.Column="1"
+                                                                        Classes="copy-bubble"
+                                                                        Margin="8,0,0,0"
+                                                                        Content="Copy"
+                                                                        Tag="{Binding AssistantAdditionalProperties}"
+                                                                        ToolTip.Tip="Copy additional properties"
+                                                                        Click="CopyBubbleText_Click"/>
+                                                            </Grid>
+                                                        </Expander.Header>
+                                                        <ScrollViewer Margin="0,8,0,0"
+                                                                      MaxHeight="240"
+                                                                      HorizontalScrollBarVisibility="Auto"
+                                                                      VerticalScrollBarVisibility="Auto">
+                                                            <TextBlock Text="{Binding AssistantAdditionalProperties}"
+                                                                       TextWrapping="NoWrap"
+                                                                       FontFamily="Consolas, Monaco, Courier New"
+                                                                       MinHeight="80"/>
+                                                        </ScrollViewer>
+                                                    </Expander>
+                                                </Border>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </Border>
+                    </Grid>
+
+                    <StackPanel Grid.Row="1" Spacing="8" Margin="0,0,0,12">
+                        <TextBlock Text="Input" FontSize="12"/>
+                        <TextBox Text="{Binding InputMessage}"
+                                 Watermark="Type a message..."
+                                 AcceptsReturn="True"
+                                 TextWrapping="Wrap"
+                                 MinHeight="90"/>
+
+                        <Border BorderBrush="{DynamicResource ChatPanelBorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="6"
+                                Padding="10">
+                            <StackPanel Spacing="8">
+                                <TextBlock Text="Image Attachments" FontSize="12" FontWeight="SemiBold"/>
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBox Text="{Binding ImageUrlInput}"
+                                             Width="420"
+                                             Watermark="https://example.com/demo.jpg or data:image/..."/>
+                                    <Button Content="Add URL"
+                                            Classes="chat-action"
+                                            Command="{Binding AddImageUrlCommand}"
+                                            Background="{DynamicResource SecondaryButtonBackgroundBrush}"
+                                            Foreground="{DynamicResource SecondaryButtonForegroundBrush}"/>
+                                    <Button Content="Add Local Image"
+                                            Classes="chat-action"
+                                            Click="AddLocalImage_Click"
+                                            Background="{DynamicResource SecondaryButtonBackgroundBrush}"
+                                            Foreground="{DynamicResource SecondaryButtonForegroundBrush}"/>
+                                    <Button Content="Clear Images"
+                                            Classes="chat-action"
+                                            Command="{Binding ClearPendingAttachmentsCommand}"
+                                            IsEnabled="{Binding HasPendingAttachments}"
+                                            Background="{DynamicResource DangerButtonBackgroundBrush}"
+                                            Foreground="{DynamicResource DangerButtonForegroundBrush}"/>
+                                </StackPanel>
+
+                                <ItemsControl ItemsSource="{Binding PendingUserAttachments}"
+                                              IsVisible="{Binding HasPendingAttachments}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate x:DataType="vm:ChatImageAttachmentViewModel">
+                                            <Border Background="{DynamicResource AttachmentBackgroundBrush}"
+                                                    BorderBrush="{DynamicResource AttachmentBorderBrush}"
+                                                    BorderThickness="1"
+                                                    CornerRadius="6"
+                                                    Padding="8"
+                                                    Margin="0,0,0,6">
+                                                <Grid ColumnDefinitions="*,Auto">
+                                                    <StackPanel Grid.Column="0" Spacing="2">
+                                                        <TextBlock Text="{Binding DisplayName}" FontWeight="SemiBold"/>
+                                                        <TextBlock Text="{Binding SourceLabel}"
+                                                                   FontSize="11"
+                                                                   Foreground="{DynamicResource SecondaryTextBrush}"/>
+                                                        <TextBlock Text="{Binding Source}"
+                                                                   FontSize="11"
+                                                                   TextWrapping="Wrap"/>
+                                                    </StackPanel>
+                                                    <Button Grid.Column="1"
+                                                            Content="Remove"
+                                                            Classes="chat-action"
+                                                            Margin="8,0,0,0"
+                                                            Tag="{Binding}"
+                                                            Click="RemovePendingAttachment_Click"
+                                                            Background="{DynamicResource DangerButtonBackgroundBrush}"
+                                                            Foreground="{DynamicResource DangerButtonForegroundBrush}"/>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="10">
+                        <Button Content="Send"
+                                Classes="chat-action"
+                                Command="{Binding SendMessageCommand}"
+                                Width="110"
+                                Background="{DynamicResource PrimaryButtonBackgroundBrush}"
+                                Foreground="{DynamicResource PrimaryButtonForegroundBrush}"/>
+                        <Button Content="Retry"
+                                Classes="chat-action"
+                                Command="{Binding RetryMessageCommand}"
+                                Width="110"
+                                Background="{DynamicResource SecondaryButtonBackgroundBrush}"
+                                Foreground="{DynamicResource SecondaryButtonForegroundBrush}"/>
+                        <Button Content="Clear"
+                                Classes="chat-action"
+                                Command="{Binding ClearChatCommand}"
+                                Width="110"
+                                Background="{DynamicResource DangerButtonBackgroundBrush}"
+                                Foreground="{DynamicResource DangerButtonForegroundBrush}"/>
+                        <TextBlock Text="Streaming..."
+                                   VerticalAlignment="Center"
+                                   Foreground="{DynamicResource StreamingTextBrush}"
+                                   IsVisible="{Binding IsSending}"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Settings">
+                <ScrollViewer Margin="12"
+                              VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel Spacing="16">
+                        <Border BorderBrush="{DynamicResource ChatPanelBorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="6"
+                                Padding="12">
+                            <StackPanel Spacing="10">
+                                <TextBlock Text="Connection" FontSize="14" FontWeight="SemiBold"/>
+                                <Grid ColumnDefinitions="*,*">
+                                    <StackPanel Grid.Column="0"
+                                                HorizontalAlignment="Stretch"
+                                                Margin="0,0,8,0"
+                                                Spacing="6">
+                                        <TextBlock Text="Server Endpoint" FontSize="12"/>
+                                        <TextBox Text="{Binding ServerEndpoint}" Watermark="http(s)://xxxxxxx:xxxx[/xxx]/v1"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1"
+                                                HorizontalAlignment="Stretch"
+                                                Margin="8,0,0,0"
+                                                Spacing="6">
+                                        <TextBlock Text="API Key" FontSize="12"/>
+                                        <TextBox Text="{Binding ApiKey}" PasswordChar="*" Watermark="API Key"/>
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                        <Border BorderBrush="{DynamicResource ChatPanelBorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="6"
+                                Padding="12">
+                            <StackPanel Spacing="10">
+                                <TextBlock Text="Model" FontSize="14" FontWeight="SemiBold"/>
+                                <Grid ColumnDefinitions="*,*">
+                                    <StackPanel Grid.Column="0"
+                                                HorizontalAlignment="Stretch"
+                                                Margin="0,0,8,0"
+                                                Spacing="6">
+                                        <TextBlock Text="Model List" FontSize="12"/>
+                                        <ComboBox ItemsSource="{Binding Models}"
+                                                  SelectedItem="{Binding SelectedModel, Mode=TwoWay}"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1"
+                                                HorizontalAlignment="Stretch"
+                                                Margin="8,0,0,0"
+                                                Spacing="6">
+                                        <TextBlock Text="Custom Model" FontSize="12"/>
+                                        <TextBox Text="{Binding SelectedModel, Mode=TwoWay}"
+                                                 Watermark="Custom model"/>
+                                    </StackPanel>
+                                </Grid>
+                                <StackPanel Orientation="Horizontal" Spacing="10">
+                                    <Button Content="Get Models"
+                                            Classes="chat-action"
+                                            Command="{Binding GetModelsCommand}"
+                                            IsEnabled="{Binding !IsLoadingModels}"
+                                            Width="140"
+                                            Background="{DynamicResource PrimaryButtonBackgroundBrush}"
+                                            Foreground="{DynamicResource PrimaryButtonForegroundBrush}"/>
+                                    <TextBlock Text="Loading..."
+                                               VerticalAlignment="Center"
+                                               Foreground="{DynamicResource StreamingTextBrush}"
+                                               IsVisible="{Binding IsLoadingModels}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <Border BorderBrush="{DynamicResource ChatPanelBorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="6"
+                                Padding="12">
+                            <StackPanel Spacing="10">
+                                <TextBlock Text="Generation" FontSize="14" FontWeight="SemiBold"/>
+                                <Grid ColumnDefinitions="*,*,*">
+                                    <StackPanel Grid.Column="0"
+                                                MinWidth="180"
+                                                MaxWidth="240"
+                                                HorizontalAlignment="Stretch"
+                                                Margin="0,0,8,0"
+                                                Spacing="6">
+                                        <TextBlock Text="Max Completion Tokens" FontSize="12"/>
+                                        <TextBox Text="{Binding MaxCompletionTokens}" Watermark="4096"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1"
+                                                MinWidth="180"
+                                                MaxWidth="240"
+                                                HorizontalAlignment="Stretch"
+                                                Margin="4,0"
+                                                Spacing="6">
+                                        <TextBlock Text="Temperature" FontSize="12"/>
+                                        <TextBox Text="{Binding Temperature}" Watermark="0.9"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2"
+                                                MinWidth="180"
+                                                MaxWidth="240"
+                                                HorizontalAlignment="Stretch"
+                                                Margin="8,0,0,0"
+                                                Spacing="6">
+                                        <TextBlock Text="Top P" FontSize="12"/>
+                                        <TextBox Text="{Binding TopP}" Watermark="0.9"/>
+                                    </StackPanel>
+                                </Grid>
+                                <Grid ColumnDefinitions="*,Auto"
+                                      VerticalAlignment="Center">
+                                    <CheckBox Grid.Column="0"
+                                              VerticalAlignment="Center"
+                                              IsChecked="{Binding UseResponsesApi, Mode=TwoWay}"
+                                              Content="Use /v1/responses (off = /v1/chat/completions)"/>
+                                    <Button Grid.Column="1"
+                                            Content="Save Settings"
+                                            Classes="chat-action"
+                                            Command="{Binding SaveSettingsCommand}"
+                                            Width="140"
+                                            Margin="12,0,0,0"
+                                            Background="{DynamicResource PrimaryButtonBackgroundBrush}"
+                                            Foreground="{DynamicResource PrimaryButtonForegroundBrush}"/>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+
+        <TextBlock Grid.Row="2"
+                   Margin="0,12,0,0"
+                   Text="{Binding StatusMessage}"
+                   Foreground="{DynamicResource StatusErrorBrush}"
+                   FontSize="12"
+                   IsVisible="{Binding HasStatusMessage}"/>
+    </Grid>
+</Window>

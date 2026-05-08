@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net9.0</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- <PackageReference Include="HNSW" Version="1.0.52302" /> -->
+    <PackageReference Include="HNSWIndex" Version="1.4.0" />
+    <PackageReference Include="MessagePack" Version="2.4.35" />
+    <PackageReference Include="MessagePack.Annotations" Version="2.4.35" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\\Zhengyan.HNSW\\Zhengyan.HNSW.csproj" />
+  </ItemGroup>
+
+</Project>

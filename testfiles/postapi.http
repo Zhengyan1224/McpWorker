@@ -1,0 +1,25 @@
+### 获取token
+POST https://zjry.nxjscx.com.cn:10001/api/nbuild-input/nInputTokenApi/getToken
+Content-Type: application/x-www-form-urlencoded
+
+secretkey=fe1b49d5f401f4347ae846eebc933e09
+
+### 证书查询接口
+POST https://zjry.nxjscx.com.cn:10001/api/nbuild-input/StaffCertApi/getViewByNameCodeCert
+Content-Type: application/json
+Token: 6ea0055dac17162b9ddf99901b82465d
+
+{
+    "idCard": "640382199412265242",
+    "realName": "史佳鹭"
+}
+
+### 测试Embedding
+POST http://110.80.146.172:7732/openapi/373cd113-3840-4b83-99bd-b228847cfc7b/v1/embeddings
+Content-Type: application/json
+Authorization: Bearer GhPGHgaK32UAp78zuJcK4jZOzrtopyVSS3ieuxOoM_s
+
+{
+  "input": "The food was delicious and the waiter...",
+  "model": "bge_m3"
+}

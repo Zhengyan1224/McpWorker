@@ -1,0 +1,547 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Zhengyan.McpHost</name>
+    </assembly>
+    <members>
+        <member name="M:Zhengyan.McpHost.Commons.Utils.GetApiKey(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            获取ApiKey
+            </summary>
+            <param name="context"></param>
+            <returns>ApiKey</returns>
+        </member>
+        <member name="T:Zhengyan.McpHost.Config.AgentConfig">
+            <summary>
+            智能体配置
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.AgentConfig.ID">
+            <summary>
+            ID
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.AgentConfig.ChatClientID">
+            <summary>
+            Chat Client ID
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.AgentConfig.McpClientIDs">
+            <summary>
+            Mcp Client ID集合
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.AgentConfig.SystemPrompt">
+            <summary>
+            系统提示词
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.AgentConfig.ApiKeyExpirations">
+            <summary>
+            设置Api-Key以及过期时间（Key为Api-Key，Value为过期时间（yyyy-MM-dd HH:mm:ss））
+            </summary>
+        </member>
+        <member name="T:Zhengyan.McpHost.Config.AgentsConfig">
+            <summary>
+            智能体配置集合
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.AgentsConfig.Agents">
+            <summary>
+            智能体配置列表
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.AgentsConfig.Storage">
+            <summary>
+            智能体配置的存储配置
+            </summary>
+        </member>
+        <member name="T:Zhengyan.McpHost.Config.ChatClientConfig">
+            <summary>
+            ChatClient配置
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.ChatClientConfig.ID">
+            <summary>
+            ID
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.ChatClientConfig.Endpoint">
+            <summary>
+            Api端点地址
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.ChatClientConfig.ApiKey">
+            <summary>
+            Api Key
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.ChatClientConfig.ModelId">
+            <summary>
+            模型ID
+            </summary>
+        </member>
+        <member name="T:Zhengyan.McpHost.Config.ChatClientsConfig">
+            <summary>
+            ChatClient配置集合
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.ChatClientsConfig.ChatClients">
+            <summary>
+            ChatClient配置列表
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.ChatClientsConfig.Storage">
+            <summary>
+            ChatClient配置的存储配置
+            </summary>
+        </member>
+        <member name="T:Zhengyan.McpHost.Config.GlobalSettings">
+            <summary>
+            全局设置
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.GlobalSettings.CurrentModelIndex">
+            <summary>
+             初始加载的模型索引
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.GlobalSettings.IsModelLoaded">
+            <summary>
+             模型是否完成了加载
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.GlobalSettings.AutoReleaseTime">
+            <summary>
+            模型自动释放时间
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.GlobalSettings.EmbedingUse">
+            <summary>
+            嵌入使用方式
+            </summary>
+        </member>
+        <member name="M:Zhengyan.McpHost.Config.GlobalSettings.InitializeGlobalSettings(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            初始化全局设置
+            </summary>
+            <param name="configuration">配置信息</param>
+        </member>
+        <member name="T:Zhengyan.McpHost.Config.McpClientConfig">
+            <summary>
+            MCP 客户端配置
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.McpClientConfig.ID">
+            <summary>
+            ID
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.McpClientConfig.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.McpClientConfig.Enabled">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.McpClientConfig.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.McpClientConfig.SamplingChatClientID">
+            <summary>
+            提供给 MCP Server 进行 Sampling 的 ChatClient ID
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.McpClientConfig.StdioConfig">
+            <summary>
+            stdio 配置（stdio/sse/streamable http 三选一）
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.McpClientConfig.SseConfig">
+            <summary>
+            sse 配置（stdio/sse/streamable http 三选一）
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.McpClientConfig.StreamableHttpConfig">
+            <summary>
+            streamable http 配置（stdio/sse/streamable http 三选一）
+            </summary>
+        </member>
+        <member name="T:Zhengyan.McpHost.Config.StdioConfig">
+            <summary>
+            stdio 配置
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.StdioConfig.Command">
+            <summary>
+            执行命令
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.StdioConfig.Arguments">
+            <summary>
+            执行参数
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.StdioConfig.EnvironmentVariables">
+            <summary>
+            环境变量
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.StdioConfig.ShutdownTimeout">
+            <summary>
+            关闭等待超时时间（秒）
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.StdioConfig.WorkingDirectory">
+            <summary>
+            工作目录
+            </summary>
+        </member>
+        <member name="T:Zhengyan.McpHost.Config.SseConfig">
+            <summary>
+            SSE 配置
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.SseConfig.Endpoint">
+            <summary>
+            SSE 端点地址
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.SseConfig.AdditionalHeaders">
+            <summary>
+            附加请求头
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.SseConfig.ConnectionTimeout">
+            <summary>
+            连接超时时间（秒）
+            </summary>
+        </member>
+        <member name="T:Zhengyan.McpHost.Config.StreamableHttpConfig">
+            <summary>
+            Streamable HTTP 配置
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.StreamableHttpConfig.Endpoint">
+            <summary>
+            Streamable HTTP 端点地址
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.StreamableHttpConfig.AdditionalHeaders">
+            <summary>
+            附加请求头
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.StreamableHttpConfig.ConnectionTimeout">
+            <summary>
+            连接超时时间（秒）
+            </summary>
+        </member>
+        <member name="T:Zhengyan.McpHost.Config.McpClientsConfig">
+            <summary>
+            MCP 客户端配置集合
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.McpClientsConfig.McpClients">
+            <summary>
+            MCP 客户端配置列表
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.McpClientsConfig.Storage">
+            <summary>
+            持久化存储配置
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.SecurityConfig.ApiKeyExpirations">
+            <summary>
+            API密钥
+            </summary>
+        </member>
+        <member name="T:Zhengyan.McpHost.Config.StorageConfig">
+            <summary>
+            存储配置
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.StorageConfig.StorageFolderPath">
+            <summary>
+            存储目录路径
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Config.StorageConfig.FileExtension">
+            <summary>
+            存储文件扩展名
+            </summary>
+        </member>
+        <member name="T:Zhengyan.McpHost.Controllers.AgentConfigController">
+            <summary>
+            Agent配置控制器
+            </summary>
+        </member>
+        <member name="M:Zhengyan.McpHost.Controllers.AgentConfigController.AddAgent(Zhengyan.McpHost.Services.GlobalObjectPoolService,Zhengyan.McpHost.Config.AgentConfig)">
+            <summary>
+            添加Agent配置
+            </summary>
+        </member>
+        <member name="M:Zhengyan.McpHost.Controllers.AgentConfigController.UpdateAgent(Zhengyan.McpHost.Services.GlobalObjectPoolService,Zhengyan.McpHost.Config.AgentConfig)">
+            <summary>
+            更新Agent配置
+            </summary>
+        </member>
+        <member name="M:Zhengyan.McpHost.Controllers.AgentConfigController.DeleteAgent(Zhengyan.McpHost.Services.GlobalObjectPoolService,System.String)">
+            <summary>
+            删除Agent配置
+            </summary>
+            <param name="id">Agent ID</param>
+        </member>
+        <member name="M:Zhengyan.McpHost.Controllers.AgentConfigController.ListAgent(Zhengyan.McpHost.Services.GlobalObjectPoolService)">
+            <summary>
+            获取Agent配置列表
+            </summary>
+        </member>
+        <member name="T:Zhengyan.McpHost.Controllers.ChatClientConfigController">
+            <summary>
+            ChatClient配置控制器
+            </summary>
+        </member>
+        <member name="M:Zhengyan.McpHost.Controllers.ChatClientConfigController.AddChatClient(Zhengyan.McpHost.Services.GlobalObjectPoolService,Zhengyan.McpHost.Config.ChatClientConfig)">
+            <summary>
+            添加ChatClient配置
+            </summary>
+            <param name="config">ChatClient配置</param>
+        </member>
+        <member name="M:Zhengyan.McpHost.Controllers.ChatClientConfigController.UpdateChatClient(Zhengyan.McpHost.Services.GlobalObjectPoolService,Zhengyan.McpHost.Config.ChatClientConfig)">
+            <summary>
+            更新ChatClient配置
+            </summary>
+            <param name="config">ChatClient配置</param>
+        </member>
+        <member name="M:Zhengyan.McpHost.Controllers.ChatClientConfigController.DeleteChatClient(Zhengyan.McpHost.Services.GlobalObjectPoolService,System.String)">
+            <summary>
+            删除ChatClient配置
+            </summary>
+            <param name="id">ChatClient ID</param>
+        </member>
+        <member name="M:Zhengyan.McpHost.Controllers.ChatClientConfigController.ListChatClient(Zhengyan.McpHost.Services.GlobalObjectPoolService)">
+            <summary>
+            获取ChatClient配置列表
+            </summary>
+        </member>
+        <member name="M:Zhengyan.McpHost.Controllers.ChatClientConfigController.CreateChatCompletionAsync(Zhengyan.McpHost.Services.GlobalObjectPoolService,Zhengyan.McpHost.Services.IMcpChatModelService,Zhengyan.OpenAIModels.ChatCompletionRequest,System.String,System.Threading.CancellationToken)">
+            <summary>
+            使用指定ChatClient进行对话测试
+            </summary>
+        </member>
+        <member name="M:Zhengyan.McpHost.Controllers.ChatClientConfigController.CreateResponseAsync(Zhengyan.McpHost.Services.GlobalObjectPoolService,Zhengyan.McpHost.Services.IMcpChatModelService,Zhengyan.OpenAIModels.ResponseRequest,System.String,System.Threading.CancellationToken)">
+            <summary>
+            使用指定 ChatClient 进行 Responses API 测试
+            </summary>
+        </member>
+        <member name="T:Zhengyan.McpHost.Controllers.McpChatController">
+            <summary>
+            对话完成控制器
+            </summary>
+        </member>
+        <member name="M:Zhengyan.McpHost.Controllers.McpChatController.#ctor(Microsoft.Extensions.Logging.ILogger{Zhengyan.McpHost.Controllers.McpChatController})">
+            <summary>
+            对话完成控制器
+            </summary>
+            <param name="logger">日志</param>
+        </member>
+        <member name="M:Zhengyan.McpHost.Controllers.McpChatController.CreateChatCompletionAsync(Zhengyan.OpenAIModels.ChatCompletionRequest,Zhengyan.McpHost.Services.IMcpChatModelService,System.Threading.CancellationToken)">
+            <summary>
+            对话完成请求
+            </summary>
+            <param name="request"></param>
+            <param name="service"></param>
+            <param name="cancellationToken"></param>
+            <remarks>
+            默认不开启流式，需要主动设置 stream:true
+            </remarks>
+            <response code="200">模型对话结果</response>
+            <response code="400">错误信息</response>
+        </member>
+        <member name="M:Zhengyan.McpHost.Controllers.McpChatController.CreateResponseAsync(Zhengyan.OpenAIModels.ResponseRequest,Zhengyan.McpHost.Services.IMcpChatModelService,System.Threading.CancellationToken)">
+            <summary>
+            Responses API 请求
+            </summary>
+        </member>
+        <member name="T:Zhengyan.McpHost.Controllers.McpClientConfigController">
+            <summary>
+            McpClient配置控制器
+            </summary>
+        </member>
+        <member name="M:Zhengyan.McpHost.Controllers.McpClientConfigController.AddMcpClientAsync(Zhengyan.McpHost.Services.GlobalObjectPoolService,Zhengyan.McpHost.Config.McpClientConfig)">
+            <summary>
+            添加McpClient配置
+            </summary>
+            <param name="config">McpClient配置</param>
+        </member>
+        <member name="M:Zhengyan.McpHost.Controllers.McpClientConfigController.UpdateMcpClientAsync(Zhengyan.McpHost.Services.GlobalObjectPoolService,Zhengyan.McpHost.Config.McpClientConfig)">
+            <summary>
+            更新McpClient配置
+            </summary>
+            <param name="config">McpClient配置</param>
+        </member>
+        <member name="M:Zhengyan.McpHost.Controllers.McpClientConfigController.DeleteMcpClientAsync(Zhengyan.McpHost.Services.GlobalObjectPoolService,System.String)">
+            <summary>
+            删除McpClient配置
+            </summary>
+            <param name="id">McpClient ID</param>
+        </member>
+        <member name="M:Zhengyan.McpHost.Controllers.McpClientConfigController.ListMcpClient(Zhengyan.McpHost.Services.GlobalObjectPoolService)">
+            <summary>
+            获取McpClient配置列表
+            </summary>
+        </member>
+        <member name="M:Zhengyan.McpHost.Controllers.McpClientConfigController.McpClientToolsAsync(Zhengyan.McpHost.Services.GlobalObjectPoolService,System.String,System.Threading.CancellationToken)">
+            <summary>
+            获取McpClient的工具列表
+            </summary>
+            <param name="id">McpClient ID</param>
+        </member>
+        <member name="M:Zhengyan.McpHost.Controllers.McpClientConfigController.McpClientCallToolAsync(Zhengyan.McpHost.Services.GlobalObjectPoolService,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.Threading.CancellationToken)">
+            <summary>
+            调用McpClient的工具
+            </summary>
+            <param name="id">McpClient ID</param>
+            <param name="toolName">工具名称</param>
+            <param name="arguments">工具参数</param>
+        </member>
+        <member name="M:Zhengyan.McpHost.Controllers.McpClientConfigController.RestartMcpClientAsync(Zhengyan.McpHost.Services.GlobalObjectPoolService,System.String)">
+            <summary>
+            重启McpClient
+            </summary>
+            <param name="id">McpClient ID</param>
+        </member>
+        <member name="M:Zhengyan.McpHost.Controllers.McpClientConfigController.StopMcpClientAsync(Zhengyan.McpHost.Services.GlobalObjectPoolService,System.String)">
+            <summary>
+            停止McpClient
+            </summary>
+            <param name="id">McpClient ID</param>
+        </member>
+        <member name="P:Zhengyan.McpHost.Controllers.ConfigModels.Current">
+            <summary>
+            当前使用的模型
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Controllers.ConfigModels.Models">
+            <summary>
+            模型列表
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Controllers.ConfigModel.Name">
+            <summary>
+            模型名称
+            </summary>
+        </member>
+        <member name="T:Zhengyan.McpHost.Controllers.McpModelController">
+            <summary>
+            模型配置控制器
+            </summary>
+        </member>
+        <member name="M:Zhengyan.McpHost.Controllers.McpModelController.GetConfigModels(Zhengyan.McpHost.Services.GlobalObjectPoolService)">
+            <summary>
+            返回已配置的模型信息
+            </summary>
+        </member>
+        <member name="M:Zhengyan.McpHost.Controllers.McpModelController.SwitchModel(System.Int32,Zhengyan.McpHost.Services.GlobalObjectPoolService)">
+            <summary>
+            切换到指定模型
+            </summary>
+            <param name="id">模型ID</param>
+        </member>
+        <member name="M:Zhengyan.McpHost.Extensions.ExtensionMethods.AddSecurity(Microsoft.AspNetCore.Builder.WebApplication,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            添加安全中间件
+            </summary>
+            <param name="application"></param>
+            <param name="configuration"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Zhengyan.McpHost.Middleware.TypeConversionMiddleware">
+            <summary>
+            类型转换中间件
+            </summary>
+        </member>
+        <member name="M:Zhengyan.McpHost.Middleware.TypeConversionMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate)">
+            <summary>
+            处理 Completions 请求中的 stop 字段
+            </summary>
+            <param name="next"></param>
+        </member>
+        <member name="M:Zhengyan.McpHost.Middleware.TypeConversionMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            InvokeAsync
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Zhengyan.McpHost.Services.ChatHistoryResult">
+            <summary>
+            消息历史记录结果
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Services.ChatHistoryResult.ChatHistory">
+            <summary>
+            历史记录
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Services.ChatHistoryResult.IsToolPromptEnabled">
+            <summary>
+            是否启用了工具提示
+            </summary>
+        </member>
+        <member name="P:Zhengyan.McpHost.Services.ChatHistoryResult.ToolStopWords">
+            <summary>
+            工具结束标记
+            </summary>
+        </member>
+        <member name="M:Zhengyan.McpHost.Services.ChatHistoryResult.#ctor(System.String,System.Boolean,System.String[])">
+            <summary>
+            消息历史记录结果
+            </summary>
+            <param name="chatHistory">历史记录</param>
+            <param name="isToolPromptEnabled">是否启用了工具提示</param>
+            <param name="toolStopWords">工具结束标记</param>
+        </member>
+        <member name="T:Zhengyan.McpHost.Services.McpChatModelService">
+            <summary>
+            Chat 模型服务
+            </summary>
+        </member>
+        <member name="M:Zhengyan.McpHost.Services.McpChatModelService.CreateChatCompletionAsync(System.String,Zhengyan.OpenAIModels.ChatCompletionRequest,System.Threading.CancellationToken)">
+            <summary>
+            聊天完成
+            </summary>
+            <param name="request"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Zhengyan.McpHost.Services.McpChatModelService.CreateChatCompletionStreamAsync(System.String,Zhengyan.OpenAIModels.ChatCompletionRequest,System.Threading.CancellationToken)">
+            <summary>
+            流式生成-聊天完成
+            </summary>
+            <param name="request"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Zhengyan.McpHost.Services.McpChatModelService.GetChatHistory(Zhengyan.OpenAIModels.ChatCompletionRequest,System.String)">
+            <summary>
+            生成对话历史
+            </summary>
+            <param name="request">请求信息</param>
+            <param name="systemPrompt">系统提示词</param>
+            <returns></returns>
+        </member>
+        <member name="M:Zhengyan.McpHost.Services.McpChatModelService.BuildChatMessage(Microsoft.Extensions.AI.ChatRole,System.Object)">
+            <summary>
+            将 OpenAI 的消息内容（纯文本 / 多模态数组）转换为 Microsoft.Extensions.AI 消息
+            </summary>
+        </member>
+    </members>
+</doc>

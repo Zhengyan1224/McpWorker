@@ -1,0 +1,35 @@
+{
+    "choices": [
+        {
+            "delta": {
+                "additional_properties": {
+                    "tool_call_results": [
+                        {
+                            "tool_name": "divine_by_3_numbers",
+                            "arguments": {},
+                            "return_values": {
+                                "content": [
+                                    {
+                                        "type": "text",
+                                        "text": "An error occurred invoking \u0027divine_by_3_numbers\u0027."
+                                    }
+                                ],
+                                "isError": true
+                            }
+                        }
+                    ]
+                }
+            },
+            "index": 59,
+            "finish_reason": "stop"
+        }
+    ],
+    "id": "chatcmpl-28a924938a484bddb7c152cccbfb5eee",
+    "created": 1747203430,
+    "model": "dev_qwen3_dn",
+    "usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0
+    }
+}

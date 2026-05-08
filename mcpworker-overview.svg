@@ -1,0 +1,173 @@
+<svg width="1600" height="960" viewBox="0 0 1600 960" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">McpWorker architecture overview</title>
+  <desc id="desc">Zhengyan.McpHost is the core gateway between chat user interfaces, OpenAI-compatible clients, configured agents, chat clients, MCP clients and MCP servers.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="960" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7FAFC"/>
+      <stop offset="1" stop-color="#E8EEF7"/>
+    </linearGradient>
+    <linearGradient id="hostFill" x1="515" y1="285" x2="1085" y2="560" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#123B72"/>
+      <stop offset="1" stop-color="#0E7490"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2 2 L10 6 L2 10 Z" fill="#475569"/>
+    </marker>
+    <style>
+      .title { font: 700 50px 'Segoe UI', 'Microsoft YaHei', sans-serif; fill: #0F172A; }
+      .subtitle { font: 400 22px 'Segoe UI', 'Microsoft YaHei', sans-serif; fill: #475569; }
+      .group-title { font: 700 22px 'Segoe UI', 'Microsoft YaHei', sans-serif; fill: #334155; }
+      .card-title { font: 700 22px 'Segoe UI', 'Microsoft YaHei', sans-serif; fill: #0F172A; }
+      .card-body { font: 400 15px 'Segoe UI', 'Microsoft YaHei', sans-serif; fill: #475569; }
+      .host-title { font: 700 34px 'Segoe UI', 'Microsoft YaHei', sans-serif; fill: #FFFFFF; }
+      .host-body { font: 400 17px 'Segoe UI', 'Microsoft YaHei', sans-serif; fill: #E0F2FE; }
+      .small { font: 600 14px 'Segoe UI', 'Microsoft YaHei', sans-serif; fill: #334155; }
+      .tiny { font: 400 13px 'Segoe UI', 'Microsoft YaHei', sans-serif; fill: #64748B; }
+      .chip { font: 600 13px 'Segoe UI', 'Microsoft YaHei', sans-serif; fill: #0F172A; }
+      .white-chip { font: 600 13px 'Segoe UI', 'Microsoft YaHei', sans-serif; fill: #ECFEFF; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="960" rx="28" fill="url(#bg)"/>
+
+  <text class="title" x="74" y="88">McpWorker</text>
+  <text class="subtitle" x="78" y="126">Host-centered OpenAI-compatible gateway, chat UIs and MCP tool servers</text>
+
+  <g>
+    <rect x="1220" y="54" width="88" height="34" rx="17" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <text class="chip" x="1246" y="76">.NET</text>
+    <rect x="1320" y="54" width="82" height="34" rx="17" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <text class="chip" x="1347" y="76">MCP</text>
+    <rect x="1414" y="54" width="112" height="34" rx="17" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <text class="chip" x="1439" y="76">OpenAI API</text>
+  </g>
+
+  <text class="group-title" x="76" y="198">Consumers</text>
+  <g>
+    <rect x="76" y="220" width="330" height="92" rx="14" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <text class="card-title" x="100" y="254">Zhengyan.ChatUI.*</text>
+    <text class="card-body" x="100" y="284">CLI / TUI / Desktop / Web</text>
+    <text class="card-body" x="100" y="306">streaming, reasoning, images</text>
+
+    <rect x="76" y="338" width="330" height="92" rx="14" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <text class="card-title" x="100" y="372">External clients</text>
+    <text class="card-body" x="100" y="402">curl, SDKs, scripts</text>
+    <text class="card-body" x="100" y="424">OpenAI-compatible payloads</text>
+
+    <rect x="76" y="456" width="330" height="92" rx="14" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <text class="card-title" x="100" y="490">Admin browser</text>
+    <text class="card-body" x="100" y="520">/mcphost/html</text>
+    <text class="card-body" x="100" y="542">Swagger: /mcphost/swagger</text>
+  </g>
+
+  <g stroke="#475569" stroke-width="2.4" fill="none" marker-end="url(#arrow)">
+    <path d="M406 266 H500"/>
+    <path d="M406 384 H500"/>
+    <path d="M406 502 H500"/>
+  </g>
+
+  <g>
+    <rect x="500" y="230" width="600" height="365" rx="24" fill="url(#hostFill)"/>
+    <text class="host-title" x="536" y="280">Zhengyan.McpHost</text>
+    <text class="host-body" x="536" y="318">core gateway and orchestration center</text>
+
+    <rect x="536" y="350" width="244" height="64" rx="12" fill="#FFFFFF" fill-opacity="0.14" stroke="#A5F3FC" stroke-opacity="0.55"/>
+    <text class="white-chip" x="558" y="376">OpenAI-compatible APIs</text>
+    <text class="host-body" x="558" y="400">chat/completions + responses</text>
+
+    <rect x="812" y="350" width="244" height="64" rx="12" fill="#FFFFFF" fill-opacity="0.14" stroke="#A5F3FC" stroke-opacity="0.55"/>
+    <text class="white-chip" x="834" y="376">Reasoning output</text>
+    <text class="host-body" x="834" y="400">streaming and non-streaming</text>
+
+    <rect x="536" y="438" width="244" height="64" rx="12" fill="#FFFFFF" fill-opacity="0.14" stroke="#A5F3FC" stroke-opacity="0.55"/>
+    <text class="white-chip" x="558" y="464">Config stores</text>
+    <text class="host-body" x="558" y="488">profiles/chat, mcp, agent</text>
+
+    <rect x="812" y="438" width="244" height="64" rx="12" fill="#FFFFFF" fill-opacity="0.14" stroke="#A5F3FC" stroke-opacity="0.55"/>
+    <text class="white-chip" x="834" y="464">Runtime management</text>
+    <text class="host-body" x="834" y="488">models, MCP tools, restart</text>
+
+    <rect x="604" y="530" width="392" height="42" rx="21" fill="#082F49" fill-opacity="0.58"/>
+    <text class="white-chip" x="637" y="556">ChatClient + Agent + McpClient composition</text>
+  </g>
+
+  <text class="group-title" x="1188" y="198">Configured model layer</text>
+  <g>
+    <rect x="1188" y="220" width="336" height="94" rx="14" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <text class="card-title" x="1212" y="254">ChatClients</text>
+    <text class="card-body" x="1212" y="284">endpoint, API key, model id</text>
+    <text class="card-body" x="1212" y="306">ApiMode: chat / responses</text>
+
+    <rect x="1188" y="340" width="336" height="94" rx="14" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <text class="card-title" x="1212" y="374">Agents</text>
+    <text class="card-body" x="1212" y="404">system prompt + ChatClient</text>
+    <text class="card-body" x="1212" y="426">attached MCP Client IDs</text>
+
+    <rect x="1188" y="460" width="336" height="94" rx="14" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <text class="card-title" x="1212" y="494">McpClients</text>
+    <text class="card-body" x="1212" y="524">stdio / SSE / Streamable HTTP</text>
+    <text class="card-body" x="1212" y="546">tool discovery + call forwarding</text>
+  </g>
+
+  <g stroke="#475569" stroke-width="2.4" fill="none" marker-end="url(#arrow)">
+    <path d="M1100 286 H1178"/>
+    <path d="M1100 388 H1178"/>
+    <path d="M1100 490 H1178"/>
+  </g>
+
+  <text class="group-title" x="76" y="676">MCP servers and services</text>
+  <g>
+    <rect x="76" y="700" width="178" height="74" rx="14" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <text class="small" x="98" y="732">Skills</text>
+    <text class="tiny" x="98" y="756">skills + workspace tools</text>
+
+    <rect x="276" y="700" width="178" height="74" rx="14" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <text class="small" x="298" y="732">WebSearcher</text>
+    <text class="tiny" x="298" y="756">search + crawl + time</text>
+
+    <rect x="476" y="700" width="178" height="74" rx="14" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <text class="small" x="498" y="732">SSH</text>
+    <text class="tiny" x="498" y="756">exec + upload/download</text>
+
+    <rect x="676" y="700" width="178" height="74" rx="14" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <text class="small" x="698" y="732">DataQuery</text>
+    <text class="tiny" x="698" y="756">CSV semantic recall</text>
+
+    <rect x="876" y="700" width="178" height="74" rx="14" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <text class="small" x="898" y="732">Memory</text>
+    <text class="tiny" x="898" y="756">long-term recall</text>
+
+    <rect x="1076" y="700" width="178" height="74" rx="14" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <text class="small" x="1098" y="732">Agent</text>
+    <text class="tiny" x="1098" y="756">send_task wrapper</text>
+
+    <rect x="1276" y="700" width="178" height="74" rx="14" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <text class="small" x="1298" y="732">Divine / EightChar</text>
+    <text class="tiny" x="1298" y="756">domain tools</text>
+
+    <rect x="476" y="802" width="178" height="74" rx="14" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <text class="small" x="498" y="834">KBServer</text>
+    <text class="tiny" x="498" y="858">knowledge base MCP</text>
+
+    <rect x="676" y="802" width="178" height="74" rx="14" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <text class="small" x="698" y="834">FSServer</text>
+    <text class="tiny" x="698" y="858">file storage MCP</text>
+
+    <rect x="876" y="802" width="378" height="74" rx="14" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <text class="small" x="898" y="834">Supporting libraries</text>
+    <text class="tiny" x="898" y="858">OpenAIModels, WebSearch, VectorDB, KnowledgeBase, Commons</text>
+  </g>
+
+  <g stroke="#475569" stroke-width="2.2" fill="none" marker-end="url(#arrow)">
+    <path d="M800 595 V650 H165 V690"/>
+    <path d="M800 595 V650 H365 V690"/>
+    <path d="M800 595 V650 H565 V690"/>
+    <path d="M800 595 V650 H765 V690"/>
+    <path d="M800 595 V650 H965 V690"/>
+    <path d="M800 595 V650 H1165 V690"/>
+    <path d="M800 595 V650 H1365 V690"/>
+    <path d="M800 595 V790 H565 V792"/>
+    <path d="M800 595 V790 H765 V792"/>
+    <path d="M800 595 V790 H1065 V792"/>
+  </g>
+</svg>

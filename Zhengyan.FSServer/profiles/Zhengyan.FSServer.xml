@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Zhengyan.FSServer</name>
+    </assembly>
+    <members>
+        <member name="T:Zhengyan.FSServer.Controllers.FSController">
+            <summary>
+            Agent配置控制器
+            </summary>
+        </member>
+        <member name="M:Zhengyan.FSServer.Controllers.FSController.UploadFile(System.Collections.Generic.List{Microsoft.AspNetCore.Http.IFormFile})">
+            <summary>
+            上传文件接口，支持多文件上传，返回文件相对路径列表
+            </summary>
+            <param name="file">文件列表</param>
+            <returns>文件相对路径列表</returns>
+        </member>
+    </members>
+</doc>

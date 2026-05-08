@@ -1,0 +1,163 @@
+POST http://localhost:9083/mcphost/api/v1/chat/completions
+Authorization: Bearer zhengyan
+Content-Type: application/json
+
+{
+  "messages": [
+    {
+      "role": "user",
+      "content": "你好/no_think"
+    },
+    {
+      "role": "assistant",
+      "content": "\u0060\u0060\u0060\n\n\n\n\u0060\u0060\u0060\n\n你好！我是郑炎工作室开发的占卜小助手，如果你有任何占卜相关的问题或者需要帮助，可以随时告诉我哦！\uD83D\uDE0A"
+    },
+    {
+      "role": "user",
+      "content": "帮我占卜一下吧"
+    },
+    {
+      "role": "assistant",
+      "content": "\u0060\u0060\u0060\n\n\n\n\u0060\u0060\u0060\n\n当然可以！使用我的数字卦占卜工具，你需要提供三个大于100的整数。这些数字可以是随机的，也可以对你有特殊的意义。请告诉我这三个数字，我将为你卜卦，并解释卦象和爻辞。\uD83D\uDE0A"
+    },
+    {
+      "role": "user",
+      "content": "112 938 532"
+    }
+  ],
+  "model": "dev_qwen3_dn",
+  "n": 1,
+  "temperature": 0.9,
+  "top_p": 0.9,
+  "stream": false,
+  "max_completion_tokens": 4096,
+  "presence_penalty": 0,
+  "frequency_penalty": 0
+}
+
+
+### qwen
+POST http://110.80.146.172:7732/openapi/71ebe2dc-06c9-4624-bcaf-577bc52c4ad4/v1/chat/completions
+Authorization: Bearer YOUR_API_KEY
+Content-Type: application/json
+
+{
+  "model": "qwen_2.5_14b",
+  "messages": [
+    {
+      "role": "system",
+      "content": "你是一个专业的助手。"
+    },
+    {
+      "role": "user",
+      "content": "你好，你是谁？"
+    }
+  ],
+  "stream": true,
+  "temperature": 0.7,
+  "max_tokens": 100
+}
+
+### qwq
+POST http://110.80.146.172:7732/openapi/535e1979-03b0-4036-8baa-ca1ac3c8bb02/v1/chat/completions
+Authorization: Bearer YOUR_API_KEY
+Content-Type: application/json
+
+{
+  "model": "qwq_32b",
+  "messages": [
+    {
+      "role": "system",
+      "content": "你是一个专业的助手。"
+    },
+    {
+      "role": "user",
+      "content": "你好，你是谁？"
+    }
+  ],
+  "temperature": 0.7,
+  "max_tokens": 100
+}
+
+### qwen 3
+POST http://110.80.146.172:7732/openapi/da99950a-ff92-4995-9cc0-a3c9bfb2b30d/v1/chat/completions
+Authorization: Bearer c19wXvPrFLvUo610IqMdgOOjt3uP8nO9wcpn3LSVTWA
+Content-Type: application/json
+
+{
+  "model": "qwen_v3_moe_235b_2507",
+  "messages": [
+    {
+      "role": "system",
+      "content": "你是一个专业的助手。"
+    },
+    {
+      "role": "user",
+      "content": "你好，你是谁？"
+    }
+  ],
+  "temperature": 0.7,
+  "max_tokens": 10000
+}
+
+
+### qwen 3
+POST http://localhost:9083/mcphost/api/v1/chat/completions
+Authorization: Bearer dev
+Content-Type: application/json
+
+{
+  "model": "dev_qwen3_sse",
+  "messages": [
+    {
+      "role": "system",
+      "content": "你是一个专业的助手。"
+    },
+    {
+      "role": "user",
+      "content": "你好，你是谁？"
+    }
+  ],
+  "temperature": 0.7,
+  "max_tokens": 10000
+}
+
+###
+POST http://localhost:9083/mcphost/api/v1/chat/completions
+Authorization: Bearer zhengyan
+Content-Type: application/json
+
+{
+  "model": "dev_qwen_sse",
+  "messages": [
+    {
+      "role": "user",
+      "content": "你好，你是谁？/no_think"
+    }
+  ],
+  "stream": false,
+  "temperature": 0.7,
+  "max_tokens": 10000
+}
+
+### qwen
+POST http://127.0.0.1:11434/v1/chat/completions
+Authorization: Bearer ollama
+Content-Type: application/json
+
+{
+  "model": "qwen3:8b",
+  "messages": [
+    {
+      "role": "system",
+      "content": "你是一个专业的助手。"
+    },
+    {
+      "role": "user",
+      "content": "你好，你是谁？"
+    }
+  ],
+  "stream": true,
+  "temperature": 0.7,
+  "max_tokens": 100
+}

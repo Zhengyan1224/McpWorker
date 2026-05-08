@@ -1,0 +1,113 @@
+{
+  "AllowedHosts": "*",
+  "Kestrel": {
+    "EndPoints": {
+      "Http": {
+        "Url": "http://*:9084"
+      }
+    }
+  },
+  "WebApi": {
+    "CentralRoutePrefix": "kbserver/api"
+  },
+  "McpServer": {
+    "RoutePrefix": "kbserver/mcp",
+    "Mode": "sse", // sse / streamablehttp(http)
+    "Stateless": false
+  },
+  "Swagger": {
+    "Enable": true,
+    "RoutePrefix": "kbserver/swagger",
+    "Title": "知识库服务接口",
+    "Version": "v1.0.0",
+    "Description": "用于知识库服务接口的调用说明。",
+    "XmlComments": [
+      "./profiles/Zhengyan.KBServer.xml"
+    ]
+  },
+  "StaticFiles": {
+    "StaticFilesRoot": "./wwwroot",
+    "RequestPath": "/kbserver/htmls",
+    "DefaultFiles": [
+      "index.html"
+    ],
+    "ContentTypeMappings": [
+      {
+        "FileExtension": ".mobi",
+        "ContentType": "application/octet-stream"
+      },
+      {
+        "FileExtension": ".epub",
+        "ContentType": "application/octet-stream"
+      },
+      {
+        "FileExtension": ".azw3",
+        "ContentType": "application/octet-stream"
+      }
+    ]
+  },
+  // "TextEmbedding": {
+  //   "Type": "Zhengyan.KBServer.Implements.LLamaSharpTextEmbedder",
+
+  //   "Parameters": [
+  //     {
+  //       "Type": "System.String",
+  //       "Value": "./resources/models/bge-m3-Q2_K.gguf"
+  //     }
+  //   ]
+  // },
+  "TextEmbedding": {
+    "Type": "Zhengyan.KBServer.Implements.LmStudioTextEmbedder",
+
+    "Parameters": [
+      {
+        "Type": "System.String",
+        "Value": "http://110.80.146.172:7732/openapi/373cd113-3840-4b83-99bd-b228847cfc7b/v1/embeddings"
+      },
+      {
+        "Type": "System.String",
+        "Value": "bge_m3"
+      },
+      {
+        "Type": "System.String",
+        "Value": "GhPGHgaK32UAp78zuJcK4jZOzrtopyVSS3ieuxOoM_s"
+      }
+    ]
+  },
+  "TextProcessor": {
+    "Type": "Zhengyan.KBServer.Implements.CustomTextProcessor",
+
+    "Parameters": [
+      {
+        "Type": "System.String",
+        "Value": "./resources/jieba"
+      },
+      {
+        "Type": "System.String",
+        "Value": "TextRank"
+      }
+    ]
+  },
+  "KnowledgeBase":{
+    "StorageBaseDir":"./datas/kbdbs",
+    "TextFeaturesMode":"None"  // 支持None/Summary/Tags
+  },
+  "Logger": {
+    "Level": "Debug", // 支持Verb/Debug/Info/Warn/Error/Fatal
+    "Outputs": [
+      {
+        "Type": "File", // 支持File（文件）/Console（控制台）两种类型
+        "Path": "logs/log.txt", // 输出路径
+        "Template": "{Timestamp:yyyy-MM-dd HH:mm-ss.fff }[{Level:u3}] {Message:lj}{NewLine}{Exception}", // 输出格式模板
+        "RollingInterval": "Day", // 支持Infinite（不按时间）/Year（按年）/Month（按月）/Day（按日）/Hour（按时）/Minute（按分）
+        "FileSizeLimitBytes": 0, //日志文件大小最大上限（Byte，0为不限制大小）
+        "Encoding": "UTF-8", // 日志文件编码
+        "RetainedFileCountLimit": 10 // 最大保存文件数,超过最大文件数会自动覆盖原有文件
+      },
+      {
+        "Type": "Console",
+        "Template": "{Timestamp:yyyy-MM-dd HH:mm-ss.fff }[{Level:u3}] {Message:lj}{NewLine}{Exception}"
+      }
+    ]
+  }
+}

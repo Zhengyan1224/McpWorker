@@ -1,0 +1,10 @@
+# Pinned dependency list for reproducible installs
+# As of 2026-04-15:
+# - httpx is pinned to the version installed in the local dev environment.
+# - fastmcp / PyYAML / uvicorn were not installed locally, so they are pinned
+#   to the current PyPI release versions verified at generation time.
+
+fastmcp==3.2.4
+httpx==0.28.1
+PyYAML==6.0.3
+uvicorn==0.44.0

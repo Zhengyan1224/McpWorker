@@ -1,0 +1,5 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Zhengyan.ChatUI.Desktop.Controls.MarkdownMessageView">
+    <StackPanel x:Name="RootPanel" Spacing="8"/>
+</UserControl>

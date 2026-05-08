@@ -1,0 +1,2061 @@
+[
+  {
+    "CacheKey": "小区.csv#1",
+    "SourceFile": "小区.csv",
+    "RowNumber": 1,
+    "Fields": {
+      "estate_name": "福新路 277 号福兴楼",
+      "community_name": "福新社区",
+      "street_name": "水部街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 福新路 277 号福兴楼 | community_name: 福新社区 | street_name: 水部街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#2",
+    "SourceFile": "小区.csv",
+    "RowNumber": 2,
+    "Fields": {
+      "estate_name": "祖庙新村 25 座",
+      "community_name": "阳光社区",
+      "street_name": "茶亭街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 祖庙新村 25 座 | community_name: 阳光社区 | street_name: 茶亭街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#3",
+    "SourceFile": "小区.csv",
+    "RowNumber": 3,
+    "Fields": {
+      "estate_name": "省公路局疗养院宿舍 (金鸡山路 25 号)",
+      "community_name": "琯尾社区",
+      "street_name": "岳峰镇",
+      "district_name": "晋安区",
+      "district": "350111"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 省公路局疗养院宿舍 (金鸡山路 25 号) | community_name: 琯尾社区 | street_name: 岳峰镇 | district_name: 晋安区 | district: 350111"
+  },
+  {
+    "CacheKey": "小区.csv#4",
+    "SourceFile": "小区.csv",
+    "RowNumber": 4,
+    "Fields": {
+      "estate_name": "地质大院宿舍 (塔头路 2 号)",
+      "community_name": "琯尾社区",
+      "street_name": "岳峰镇",
+      "district_name": "晋安区",
+      "district": "350111"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 地质大院宿舍 (塔头路 2 号) | community_name: 琯尾社区 | street_name: 岳峰镇 | district_name: 晋安区 | district: 350111"
+  },
+  {
+    "CacheKey": "小区.csv#5",
+    "SourceFile": "小区.csv",
+    "RowNumber": 5,
+    "Fields": {
+      "estate_name": "宏裕新村",
+      "community_name": "莲宅社区",
+      "street_name": "水部街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 宏裕新村 | community_name: 莲宅社区 | street_name: 水部街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#6",
+    "SourceFile": "小区.csv",
+    "RowNumber": 6,
+    "Fields": {
+      "estate_name": "英惠大厦",
+      "community_name": "新港社区",
+      "street_name": "新港街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 英惠大厦 | community_name: 新港社区 | street_name: 新港街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#7",
+    "SourceFile": "小区.csv",
+    "RowNumber": 7,
+    "Fields": {
+      "estate_name": "鼓山苑小区",
+      "community_name": "浦东社区",
+      "street_name": "鼓山镇",
+      "district_name": "晋安区",
+      "district": "350111"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 鼓山苑小区 | community_name: 浦东社区 | street_name: 鼓山镇 | district_name: 晋安区 | district: 350111"
+  },
+  {
+    "CacheKey": "小区.csv#8",
+    "SourceFile": "小区.csv",
+    "RowNumber": 8,
+    "Fields": {
+      "estate_name": "省财政厅宿舍（尚宾路 33 号）",
+      "community_name": "开元社区",
+      "street_name": "鼓东街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 省财政厅宿舍（尚宾路 33 号） | community_name: 开元社区 | street_name: 鼓东街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#9",
+    "SourceFile": "小区.csv",
+    "RowNumber": 9,
+    "Fields": {
+      "estate_name": "省财政厅宿舍（冶山路 43 号）",
+      "community_name": "屏山社区",
+      "street_name": "华大街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 省财政厅宿舍（冶山路 43 号） | community_name: 屏山社区 | street_name: 华大街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#10",
+    "SourceFile": "小区.csv",
+    "RowNumber": 10,
+    "Fields": {
+      "estate_name": "仓山区金骏小区",
+      "community_name": "横江渡社区",
+      "street_name": "金山街道",
+      "district_name": "仓山区",
+      "district": "350104"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 仓山区金骏小区 | community_name: 横江渡社区 | street_name: 金山街道 | district_name: 仓山区 | district: 350104"
+  },
+  {
+    "CacheKey": "小区.csv#11",
+    "SourceFile": "小区.csv",
+    "RowNumber": 11,
+    "Fields": {
+      "estate_name": "浦上小区",
+      "community_name": "金旭社区",
+      "street_name": "建新镇",
+      "district_name": "仓山区",
+      "district": "350104"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 浦上小区 | community_name: 金旭社区 | street_name: 建新镇 | district_name: 仓山区 | district: 350104"
+  },
+  {
+    "CacheKey": "小区.csv#12",
+    "SourceFile": "小区.csv",
+    "RowNumber": 12,
+    "Fields": {
+      "estate_name": "仓山区江南水都杰座",
+      "community_name": "江南社区",
+      "street_name": "上渡街道",
+      "district_name": "仓山区",
+      "district": "350104"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 仓山区江南水都杰座 | community_name: 江南社区 | street_name: 上渡街道 | district_name: 仓山区 | district: 350104"
+  },
+  {
+    "CacheKey": "小区.csv#13",
+    "SourceFile": "小区.csv",
+    "RowNumber": 13,
+    "Fields": {
+      "estate_name": "机电宿舍",
+      "community_name": "福德社区",
+      "street_name": "茶亭街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 机电宿舍 | community_name: 福德社区 | street_name: 茶亭街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#14",
+    "SourceFile": "小区.csv",
+    "RowNumber": 14,
+    "Fields": {
+      "estate_name": "省地质测绘院 (塔头路 1 号)",
+      "community_name": "康山社区",
+      "street_name": "岳峰镇",
+      "district_name": "晋安区",
+      "district": "350111"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 省地质测绘院 (塔头路 1 号) | community_name: 康山社区 | street_name: 岳峰镇 | district_name: 晋安区 | district: 350111"
+  },
+  {
+    "CacheKey": "小区.csv#15",
+    "SourceFile": "小区.csv",
+    "RowNumber": 15,
+    "Fields": {
+      "estate_name": "金城小区",
+      "community_name": "金城社区",
+      "street_name": "新店镇",
+      "district_name": "晋安区",
+      "district": "350111"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 金城小区 | community_name: 金城社区 | street_name: 新店镇 | district_name: 晋安区 | district: 350111"
+  },
+  {
+    "CacheKey": "小区.csv#16",
+    "SourceFile": "小区.csv",
+    "RowNumber": 16,
+    "Fields": {
+      "estate_name": "警官公寓",
+      "community_name": "汤边社区",
+      "street_name": "鼓东街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 警官公寓 | community_name: 汤边社区 | street_name: 鼓东街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#17",
+    "SourceFile": "小区.csv",
+    "RowNumber": 17,
+    "Fields": {
+      "estate_name": "省管理局宿舍",
+      "community_name": "屏山社区",
+      "street_name": "华大街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 省管理局宿舍 | community_name: 屏山社区 | street_name: 华大街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#18",
+    "SourceFile": "小区.csv",
+    "RowNumber": 18,
+    "Fields": {
+      "estate_name": "省公安厅警卫局宿舍 (塔头路 268 号)",
+      "community_name": "桃花山社区",
+      "street_name": "岳峰镇",
+      "district_name": "晋安区",
+      "district": "350111"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 省公安厅警卫局宿舍 (塔头路 268 号) | community_name: 桃花山社区 | street_name: 岳峰镇 | district_name: 晋安区 | district: 350111"
+  },
+  {
+    "CacheKey": "小区.csv#19",
+    "SourceFile": "小区.csv",
+    "RowNumber": 19,
+    "Fields": {
+      "estate_name": "裕华公寓",
+      "community_name": "河上社区",
+      "street_name": "上海街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 裕华公寓 | community_name: 河上社区 | street_name: 上海街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#20",
+    "SourceFile": "小区.csv",
+    "RowNumber": 20,
+    "Fields": {
+      "estate_name": "电业局小区",
+      "community_name": "十三桥社区",
+      "street_name": "新港街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 电业局小区 | community_name: 十三桥社区 | street_name: 新港街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#21",
+    "SourceFile": "小区.csv",
+    "RowNumber": 21,
+    "Fields": {
+      "estate_name": "仓山区泰禾红树林",
+      "community_name": "洪湾社区",
+      "street_name": "金山街道",
+      "district_name": "仓山区",
+      "district": "350104"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 仓山区泰禾红树林 | community_name: 洪湾社区 | street_name: 金山街道 | district_name: 仓山区 | district: 350104"
+  },
+  {
+    "CacheKey": "小区.csv#22",
+    "SourceFile": "小区.csv",
+    "RowNumber": 22,
+    "Fields": {
+      "estate_name": "华能宿舍五一小区",
+      "community_name": "利嘉城社区",
+      "street_name": "新港街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 华能宿舍五一小区 | community_name: 利嘉城社区 | street_name: 新港街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#23",
+    "SourceFile": "小区.csv",
+    "RowNumber": 23,
+    "Fields": {
+      "estate_name": "吉苑小区",
+      "community_name": "吉龙社区",
+      "street_name": "金山街道",
+      "district_name": "仓山区",
+      "district": "350104"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 吉苑小区 | community_name: 吉龙社区 | street_name: 金山街道 | district_name: 仓山区 | district: 350104"
+  },
+  {
+    "CacheKey": "小区.csv#24",
+    "SourceFile": "小区.csv",
+    "RowNumber": 24,
+    "Fields": {
+      "estate_name": "检察院宿舍 2 座，3 座",
+      "community_name": "湖塍社区",
+      "street_name": "茶园街道",
+      "district_name": "晋安区",
+      "district": "350111"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 检察院宿舍 2 座，3 座 | community_name: 湖塍社区 | street_name: 茶园街道 | district_name: 晋安区 | district: 350111"
+  },
+  {
+    "CacheKey": "小区.csv#25",
+    "SourceFile": "小区.csv",
+    "RowNumber": 25,
+    "Fields": {
+      "estate_name": "鼓东路省财政厅宿舍（开元路 23 号）",
+      "community_name": "开元社区",
+      "street_name": "鼓东街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 鼓东路省财政厅宿舍（开元路 23 号） | community_name: 开元社区 | street_name: 鼓东街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#26",
+    "SourceFile": "小区.csv",
+    "RowNumber": 26,
+    "Fields": {
+      "estate_name": "双浦头新村 5 座～7 座",
+      "community_name": "上海新苑社区",
+      "street_name": "上海街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 双浦头新村 5 座～7 座 | community_name: 上海新苑社区 | street_name: 上海街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#27",
+    "SourceFile": "小区.csv",
+    "RowNumber": 27,
+    "Fields": {
+      "estate_name": "武警宿舍",
+      "community_name": "达道社区",
+      "street_name": "洋中街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 武警宿舍 | community_name: 达道社区 | street_name: 洋中街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#28",
+    "SourceFile": "小区.csv",
+    "RowNumber": 28,
+    "Fields": {
+      "estate_name": "福建日报社宿舍",
+      "community_name": "屏东社区",
+      "street_name": "华大街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 福建日报社宿舍 | community_name: 屏东社区 | street_name: 华大街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#29",
+    "SourceFile": "小区.csv",
+    "RowNumber": 29,
+    "Fields": {
+      "estate_name": "海潮小区",
+      "community_name": "乐天泉社区",
+      "street_name": "水部街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 海潮小区 | community_name: 乐天泉社区 | street_name: 水部街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#30",
+    "SourceFile": "小区.csv",
+    "RowNumber": 30,
+    "Fields": {
+      "estate_name": "劳改局宿舍金皇公寓",
+      "community_name": "达明社区",
+      "street_name": "鼓西街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 劳改局宿舍金皇公寓 | community_name: 达明社区 | street_name: 鼓西街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#31",
+    "SourceFile": "小区.csv",
+    "RowNumber": 31,
+    "Fields": {
+      "estate_name": "人大宿舍（利嘉苑）",
+      "community_name": "利嘉城社区",
+      "street_name": "新港街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 人大宿舍（利嘉苑） | community_name: 利嘉城社区 | street_name: 新港街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#32",
+    "SourceFile": "小区.csv",
+    "RowNumber": 32,
+    "Fields": {
+      "estate_name": "卫前里新村",
+      "community_name": "庆城社区",
+      "street_name": "鼓东街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 卫前里新村 | community_name: 庆城社区 | street_name: 鼓东街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#33",
+    "SourceFile": "小区.csv",
+    "RowNumber": 33,
+    "Fields": {
+      "estate_name": "嘉园邨 15 座～16 座（市中级人民法院宿舍）",
+      "community_name": "西洋社区",
+      "street_name": "上海街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 嘉园邨 15 座～16 座（市中级人民法院宿舍） | community_name: 西洋社区 | street_name: 上海街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#34",
+    "SourceFile": "小区.csv",
+    "RowNumber": 34,
+    "Fields": {
+      "estate_name": "供电宿舍",
+      "community_name": "新港社区",
+      "street_name": "新港街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 供电宿舍 | community_name: 新港社区 | street_name: 新港街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#35",
+    "SourceFile": "小区.csv",
+    "RowNumber": 35,
+    "Fields": {
+      "estate_name": "龙庭花园",
+      "community_name": "乐天泉社区",
+      "street_name": "水部街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 龙庭花园 | community_name: 乐天泉社区 | street_name: 水部街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#36",
+    "SourceFile": "小区.csv",
+    "RowNumber": 36,
+    "Fields": {
+      "estate_name": "省委东大门",
+      "community_name": "屏山社区",
+      "street_name": "华大街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 省委东大门 | community_name: 屏山社区 | street_name: 华大街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#37",
+    "SourceFile": "小区.csv",
+    "RowNumber": 37,
+    "Fields": {
+      "estate_name": "君临天华",
+      "community_name": "天华社区",
+      "street_name": "后洲街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 君临天华 | community_name: 天华社区 | street_name: 后洲街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#38",
+    "SourceFile": "小区.csv",
+    "RowNumber": 38,
+    "Fields": {
+      "estate_name": "高桥大厦",
+      "community_name": "阳光社区",
+      "street_name": "茶亭街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 高桥大厦 | community_name: 阳光社区 | street_name: 茶亭街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#39",
+    "SourceFile": "小区.csv",
+    "RowNumber": 39,
+    "Fields": {
+      "estate_name": "台江区群升国际",
+      "community_name": "铺前社区",
+      "street_name": "洋中街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 台江区群升国际 | community_name: 铺前社区 | street_name: 洋中街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#40",
+    "SourceFile": "小区.csv",
+    "RowNumber": 40,
+    "Fields": {
+      "estate_name": "附一医院单位宿舍 7 座～8 座（上河里 3 号）",
+      "community_name": "河上社区",
+      "street_name": "上海街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 附一医院单位宿舍 7 座～8 座（上河里 3 号） | community_name: 河上社区 | street_name: 上海街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#41",
+    "SourceFile": "小区.csv",
+    "RowNumber": 41,
+    "Fields": {
+      "estate_name": "粮食局宿舍",
+      "community_name": "达明社区",
+      "street_name": "鼓西街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 粮食局宿舍 | community_name: 达明社区 | street_name: 鼓西街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#42",
+    "SourceFile": "小区.csv",
+    "RowNumber": 42,
+    "Fields": {
+      "estate_name": "凯旋商厦",
+      "community_name": "雁塔社区",
+      "street_name": "新港街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 凯旋商厦 | community_name: 雁塔社区 | street_name: 新港街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#43",
+    "SourceFile": "小区.csv",
+    "RowNumber": 43,
+    "Fields": {
+      "estate_name": "大营街 5 号小区",
+      "community_name": "汤边社区",
+      "street_name": "温泉街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 大营街 5 号小区 | community_name: 汤边社区 | street_name: 温泉街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#44",
+    "SourceFile": "小区.csv",
+    "RowNumber": 44,
+    "Fields": {
+      "estate_name": "八角楼巷 30 号大院",
+      "community_name": "庆城社区",
+      "street_name": "鼓东街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 八角楼巷 30 号大院 | community_name: 庆城社区 | street_name: 鼓东街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#45",
+    "SourceFile": "小区.csv",
+    "RowNumber": 45,
+    "Fields": {
+      "estate_name": "仓山区华润橡树湾",
+      "community_name": "浦溪社区",
+      "street_name": "金山街道",
+      "district_name": "仓山区",
+      "district": "350104"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 仓山区华润橡树湾 | community_name: 浦溪社区 | street_name: 金山街道 | district_name: 仓山区 | district: 350104"
+  },
+  {
+    "CacheKey": "小区.csv#46",
+    "SourceFile": "小区.csv",
+    "RowNumber": 46,
+    "Fields": {
+      "estate_name": "福州业余大学宿舍（市业大宿舍）",
+      "community_name": "汤门社区",
+      "street_name": "华大街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 福州业余大学宿舍（市业大宿舍） | community_name: 汤门社区 | street_name: 华大街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#47",
+    "SourceFile": "小区.csv",
+    "RowNumber": 47,
+    "Fields": {
+      "estate_name": "台江区中亭街利生苑",
+      "community_name": "中亭街社区",
+      "street_name": "后洲街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 台江区中亭街利生苑 | community_name: 中亭街社区 | street_name: 后洲街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#48",
+    "SourceFile": "小区.csv",
+    "RowNumber": 48,
+    "Fields": {
+      "estate_name": "千里台综合楼",
+      "community_name": "后洲社区",
+      "street_name": "后洲街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 千里台综合楼 | community_name: 后洲社区 | street_name: 后洲街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#49",
+    "SourceFile": "小区.csv",
+    "RowNumber": 49,
+    "Fields": {
+      "estate_name": "台江区同德园小区",
+      "community_name": "万侯社区",
+      "street_name": "苍霞街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 台江区同德园小区 | community_name: 万侯社区 | street_name: 苍霞街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#50",
+    "SourceFile": "小区.csv",
+    "RowNumber": 50,
+    "Fields": {
+      "estate_name": "长城花园",
+      "community_name": "前横社区",
+      "street_name": "鼓山镇",
+      "district_name": "晋安区",
+      "district": "350111"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 长城花园 | community_name: 前横社区 | street_name: 鼓山镇 | district_name: 晋安区 | district: 350111"
+  },
+  {
+    "CacheKey": "小区.csv#51",
+    "SourceFile": "小区.csv",
+    "RowNumber": 51,
+    "Fields": {
+      "estate_name": "元洪花园",
+      "community_name": "闽都社区",
+      "street_name": "水部街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 元洪花园 | community_name: 闽都社区 | street_name: 水部街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#52",
+    "SourceFile": "小区.csv",
+    "RowNumber": 52,
+    "Fields": {
+      "estate_name": "省立宿舍",
+      "community_name": "金汤社区",
+      "street_name": "温泉街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 省立宿舍 | community_name: 金汤社区 | street_name: 温泉街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#53",
+    "SourceFile": "小区.csv",
+    "RowNumber": 53,
+    "Fields": {
+      "estate_name": "塔头新村",
+      "community_name": "浦下社区",
+      "street_name": "岳峰镇",
+      "district_name": "晋安区",
+      "district": "350111"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 塔头新村 | community_name: 浦下社区 | street_name: 岳峰镇 | district_name: 晋安区 | district: 350111"
+  },
+  {
+    "CacheKey": "小区.csv#54",
+    "SourceFile": "小区.csv",
+    "RowNumber": 54,
+    "Fields": {
+      "estate_name": "公交宿舍 9 座～11 座",
+      "community_name": "交通社区",
+      "street_name": "上海街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 公交宿舍 9 座～11 座 | community_name: 交通社区 | street_name: 上海街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#55",
+    "SourceFile": "小区.csv",
+    "RowNumber": 55,
+    "Fields": {
+      "estate_name": "八角楼巷 11 号",
+      "community_name": "东大社区",
+      "street_name": "温泉街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 八角楼巷 11 号 | community_name: 东大社区 | street_name: 温泉街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#56",
+    "SourceFile": "小区.csv",
+    "RowNumber": 56,
+    "Fields": {
+      "estate_name": "民政厅宿舍",
+      "community_name": "庆城社区",
+      "street_name": "鼓东街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 民政厅宿舍 | community_name: 庆城社区 | street_name: 鼓东街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#57",
+    "SourceFile": "小区.csv",
+    "RowNumber": 57,
+    "Fields": {
+      "estate_name": "古城小区（新店小区）",
+      "community_name": "古城社区",
+      "street_name": "新店镇",
+      "district_name": "晋安区",
+      "district": "350111"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 古城小区（新店小区） | community_name: 古城社区 | street_name: 新店镇 | district_name: 晋安区 | district: 350111"
+  },
+  {
+    "CacheKey": "小区.csv#58",
+    "SourceFile": "小区.csv",
+    "RowNumber": 58,
+    "Fields": {
+      "estate_name": "台江区中亭街嘉同苑",
+      "community_name": "中亭街社区",
+      "street_name": "后洲街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 台江区中亭街嘉同苑 | community_name: 中亭街社区 | street_name: 后洲街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#59",
+    "SourceFile": "小区.csv",
+    "RowNumber": 59,
+    "Fields": {
+      "estate_name": "世欧王庄",
+      "community_name": "华美社区",
+      "street_name": "王庄街道",
+      "district_name": "晋安区",
+      "district": "350111"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 世欧王庄 | community_name: 华美社区 | street_name: 王庄街道 | district_name: 晋安区 | district: 350111"
+  },
+  {
+    "CacheKey": "小区.csv#60",
+    "SourceFile": "小区.csv",
+    "RowNumber": 60,
+    "Fields": {
+      "estate_name": "红墙巷 2 号 3、4 座",
+      "community_name": "树兜社区",
+      "street_name": "鼓东街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 红墙巷 2 号 3、4 座 | community_name: 树兜社区 | street_name: 鼓东街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#61",
+    "SourceFile": "小区.csv",
+    "RowNumber": 61,
+    "Fields": {
+      "estate_name": "台江区世茂外滩花园",
+      "community_name": "滨江社区",
+      "street_name": "瀛洲街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 台江区世茂外滩花园 | community_name: 滨江社区 | street_name: 瀛洲街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#62",
+    "SourceFile": "小区.csv",
+    "RowNumber": 62,
+    "Fields": {
+      "estate_name": "交通花园 5 座～8 座",
+      "community_name": "交通社区",
+      "street_name": "洋中街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 交通花园 5 座～8 座 | community_name: 交通社区 | street_name: 洋中街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#63",
+    "SourceFile": "小区.csv",
+    "RowNumber": 63,
+    "Fields": {
+      "estate_name": "祥安花园",
+      "community_name": "雁塔社区",
+      "street_name": "新港街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 祥安花园 | community_name: 雁塔社区 | street_name: 新港街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#64",
+    "SourceFile": "小区.csv",
+    "RowNumber": 64,
+    "Fields": {
+      "estate_name": "红墙巷 22 号建行宿舍",
+      "community_name": "观风亭社区",
+      "street_name": "鼓东街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 红墙巷 22 号建行宿舍 | community_name: 观风亭社区 | street_name: 鼓东街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#65",
+    "SourceFile": "小区.csv",
+    "RowNumber": 65,
+    "Fields": {
+      "estate_name": "温泉新村（地震局宿舍）",
+      "community_name": "龙峰社区",
+      "street_name": "温泉街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 温泉新村（地震局宿舍） | community_name: 龙峰社区 | street_name: 温泉街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#66",
+    "SourceFile": "小区.csv",
+    "RowNumber": 66,
+    "Fields": {
+      "estate_name": "福晟钱隆首府",
+      "community_name": "五里亭社区",
+      "street_name": "王庄街道",
+      "district_name": "晋安区",
+      "district": "350111"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 福晟钱隆首府 | community_name: 五里亭社区 | street_name: 王庄街道 | district_name: 晋安区 | district: 350111"
+  },
+  {
+    "CacheKey": "小区.csv#67",
+    "SourceFile": "小区.csv",
+    "RowNumber": 67,
+    "Fields": {
+      "estate_name": "福建省商业厅宿舍",
+      "community_name": "龙峰社区",
+      "street_name": "鼓东街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 福建省商业厅宿舍 | community_name: 龙峰社区 | street_name: 鼓东街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#68",
+    "SourceFile": "小区.csv",
+    "RowNumber": 68,
+    "Fields": {
+      "estate_name": "永安街新村",
+      "community_name": "金汤社区",
+      "street_name": "温泉街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 永安街新村 | community_name: 金汤社区 | street_name: 温泉街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#69",
+    "SourceFile": "小区.csv",
+    "RowNumber": 69,
+    "Fields": {
+      "estate_name": "省青年杂志社宿舍 (金鸡山路 23 号)",
+      "community_name": "琯尾社区",
+      "street_name": "岳峰镇",
+      "district_name": "晋安区",
+      "district": "350111"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 省青年杂志社宿舍 (金鸡山路 23 号) | community_name: 琯尾社区 | street_name: 岳峰镇 | district_name: 晋安区 | district: 350111"
+  },
+  {
+    "CacheKey": "小区.csv#70",
+    "SourceFile": "小区.csv",
+    "RowNumber": 70,
+    "Fields": {
+      "estate_name": "浦尾新村 13 座（广达路 143 号）",
+      "community_name": "洋头口社区",
+      "street_name": "茶亭街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 浦尾新村 13 座（广达路 143 号） | community_name: 洋头口社区 | street_name: 茶亭街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#71",
+    "SourceFile": "小区.csv",
+    "RowNumber": 71,
+    "Fields": {
+      "estate_name": "福新路 279 号机床厂宿舍",
+      "community_name": "福新社区",
+      "street_name": "水部街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 福新路 279 号机床厂宿舍 | community_name: 福新社区 | street_name: 水部街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#72",
+    "SourceFile": "小区.csv",
+    "RowNumber": 72,
+    "Fields": {
+      "estate_name": "融信大卫城",
+      "community_name": "百花社区",
+      "street_name": "金山街道",
+      "district_name": "仓山区",
+      "district": "350104"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 融信大卫城 | community_name: 百花社区 | street_name: 金山街道 | district_name: 仓山区 | district: 350104"
+  },
+  {
+    "CacheKey": "小区.csv#73",
+    "SourceFile": "小区.csv",
+    "RowNumber": 73,
+    "Fields": {
+      "estate_name": "东汤小区",
+      "community_name": "汤边社区",
+      "street_name": "温泉街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 东汤小区 | community_name: 汤边社区 | street_name: 温泉街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#74",
+    "SourceFile": "小区.csv",
+    "RowNumber": 74,
+    "Fields": {
+      "estate_name": "梦茵园 1 座～5 座",
+      "community_name": "交通社区",
+      "street_name": "上海街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 梦茵园 1 座～5 座 | community_name: 交通社区 | street_name: 上海街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#75",
+    "SourceFile": "小区.csv",
+    "RowNumber": 75,
+    "Fields": {
+      "estate_name": "达明新村",
+      "community_name": "达明社区",
+      "street_name": "鼓西街道",
+      "district_name": "鼓楼区",
+      "district": "350102"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 达明新村 | community_name: 达明社区 | street_name: 鼓西街道 | district_name: 鼓楼区 | district: 350102"
+  },
+  {
+    "CacheKey": "小区.csv#76",
+    "SourceFile": "小区.csv",
+    "RowNumber": 76,
+    "Fields": {
+      "estate_name": "红庆里 15B",
+      "community_name": "交通社区",
+      "street_name": "上海街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 红庆里 15B | community_name: 交通社区 | street_name: 上海街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#77",
+    "SourceFile": "小区.csv",
+    "RowNumber": 77,
+    "Fields": {
+      "estate_name": "遥逸居",
+      "community_name": "交通社区",
+      "street_name": "上海街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 遥逸居 | community_name: 交通社区 | street_name: 上海街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#78",
+    "SourceFile": "小区.csv",
+    "RowNumber": 78,
+    "Fields": {
+      "estate_name": "怡丰楼",
+      "community_name": "河上社区",
+      "street_name": "瀛洲街道",
+      "district_name": "台江区",
+      "district": "350103"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 怡丰楼 | community_name: 河上社区 | street_name: 瀛洲街道 | district_name: 台江区 | district: 350103"
+  },
+  {
+    "CacheKey": "小区.csv#79",
+    "SourceFile": "小区.csv",
+    "RowNumber": 79,
+    "Fields": {
+      "estate_name": "仓山区中天金海岸",
+      "community_name": "中天社区",
+      "street_name": "金山街道",
+      "district_name": "仓山区",
+      "district": "350104"
+    },
+    "SearchText": "source_file: 小区.csv | estate_name: 仓山区中天金海岸 | community_name: 中天社区 | street_name: 金山街道 | district_name: 仓山区 | district: 350104"
+  },
+  {
+    "CacheKey": "问题指标表.csv#1",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 1,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "严重易涝积水点数量（个）",
+      "indicator_code": "N-SWP"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 严重易涝积水点数量（个） | indicator_code: N-SWP"
+  },
+  {
+    "CacheKey": "问题指标表.csv#2",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 2,
+    "Fields": {
+      "first_dimension": "住房",
+      "dimension_type": "1",
+      "indicator_name": "存在结构安全隐患的住宅占比（%）",
+      "indicator_code": "P-PSSH"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 住房 | dimension_type: 1 | indicator_name: 存在结构安全隐患的住宅占比（%） | indicator_code: P-PSSH"
+  },
+  {
+    "CacheKey": "问题指标表.csv#3",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 3,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "房屋市政工程安全生产事故数（起）",
+      "indicator_code": "N-CA"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 房屋市政工程安全生产事故数（起） | indicator_code: N-CA"
+  },
+  {
+    "CacheKey": "问题指标表.csv#4",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 4,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "年度保障性住房占比（%）",
+      "indicator_code": "P-AAHR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 年度保障性住房占比（%） | indicator_code: P-AAHR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#5",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 5,
+    "Fields": {
+      "first_dimension": "小区（社区）",
+      "dimension_type": "2",
+      "indicator_name": "未达标配建婴幼儿照护服务设施的小区数量（个）",
+      "indicator_code": "N-C-CCF"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 小区（社区） | dimension_type: 2 | indicator_name: 未达标配建婴幼儿照护服务设施的小区数量（个） | indicator_code: N-C-CCF"
+  },
+  {
+    "CacheKey": "问题指标表.csv#6",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 6,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "在建房屋市政工程围挡合格率（%）",
+      "indicator_code": "P-CSFPR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 在建房屋市政工程围挡合格率（%） | indicator_code: P-CSFPR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#7",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 7,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "在建房屋市政工地沿街塔吊建档巡查覆盖率（%）",
+      "indicator_code": "P-TCFIR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 在建房屋市政工地沿街塔吊建档巡查覆盖率（%） | indicator_code: P-TCFIR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#8",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 8,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "市政管网管线智能化监测管理率（%）",
+      "indicator_code": "P-MPIMR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 市政管网管线智能化监测管理率（%） | indicator_code: P-MPIMR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#9",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 9,
+    "Fields": {
+      "first_dimension": "街区",
+      "dimension_type": "3",
+      "indicator_name": "中学服务半径覆盖率（%）",
+      "indicator_code": "P-MSSRC"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 街区 | dimension_type: 3 | indicator_name: 中学服务半径覆盖率（%） | indicator_code: P-MSSRC"
+  },
+  {
+    "CacheKey": "问题指标表.csv#10",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 10,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "历史文化资源遭受破坏的负面事件数量（起）",
+      "indicator_code": "N-HRDE"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 历史文化资源遭受破坏的负面事件数量（起） | indicator_code: N-HRDE"
+  },
+  {
+    "CacheKey": "问题指标表.csv#11",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 11,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "擅自拆除历史文化街区内建筑物、构筑物的数量（栋）",
+      "indicator_code": "N-UDH"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 擅自拆除历史文化街区内建筑物、构筑物的数量（栋） | indicator_code: N-UDH"
+  },
+  {
+    "CacheKey": "问题指标表.csv#12",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 12,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "城市排水防涝应急抢险能力（万立方米/小时）",
+      "indicator_code": "P-UDFEC"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 城市排水防涝应急抢险能力（万立方米/小时） | indicator_code: P-UDFEC"
+  },
+  {
+    "CacheKey": "问题指标表.csv#13",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 13,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "平急两用公共基础设施数量（个）",
+      "indicator_code": "N-DUPI"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 平急两用公共基础设施数量（个） | indicator_code: N-DUPI"
+  },
+  {
+    "CacheKey": "问题指标表.csv#14",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 14,
+    "Fields": {
+      "first_dimension": "小区（社区）",
+      "dimension_type": "2",
+      "indicator_name": "未达标配建养老服务设施的小区数量（个）",
+      "indicator_code": "N-C-ECF"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 小区（社区） | dimension_type: 2 | indicator_name: 未达标配建养老服务设施的小区数量（个） | indicator_code: N-C-ECF"
+  },
+  {
+    "CacheKey": "问题指标表.csv#15",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 15,
+    "Fields": {
+      "first_dimension": "小区（社区）",
+      "dimension_type": "2",
+      "indicator_name": "停车泊位缺口数（个）",
+      "indicator_code": "N-PSG"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 小区（社区） | dimension_type: 2 | indicator_name: 停车泊位缺口数（个） | indicator_code: N-PSG"
+  },
+  {
+    "CacheKey": "问题指标表.csv#16",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 16,
+    "Fields": {
+      "first_dimension": "小区（社区）",
+      "dimension_type": "2",
+      "indicator_name": "未达标配建公共活动场地的小区数量（个）",
+      "indicator_code": "N-C-PAS"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 小区（社区） | dimension_type: 2 | indicator_name: 未达标配建公共活动场地的小区数量（个） | indicator_code: N-C-PAS"
+  },
+  {
+    "CacheKey": "问题指标表.csv#17",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 17,
+    "Fields": {
+      "first_dimension": "小区（社区）",
+      "dimension_type": "2",
+      "indicator_name": "未实施物业管理的小区数量（个）",
+      "indicator_code": "N-C-PM"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 小区（社区） | dimension_type: 2 | indicator_name: 未实施物业管理的小区数量（个） | indicator_code: N-C-PM"
+  },
+  {
+    "CacheKey": "问题指标表.csv#18",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 18,
+    "Fields": {
+      "first_dimension": "小区（社区）",
+      "dimension_type": "2",
+      "indicator_name": "地下配电设施不符合防涝建设标准的小区数量（个）及占比（%）",
+      "indicator_code": "N-UPNFS"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 小区（社区） | dimension_type: 2 | indicator_name: 地下配电设施不符合防涝建设标准的小区数量（个）及占比（%） | indicator_code: N-UPNFS"
+  },
+  {
+    "CacheKey": "问题指标表.csv#19",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 19,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "城市地下管网普查归档率（%）",
+      "indicator_code": "P-UPAR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 城市地下管网普查归档率（%） | indicator_code: P-UPAR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#20",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 20,
+    "Fields": {
+      "first_dimension": "街区",
+      "dimension_type": "3",
+      "indicator_name": "公园绿化活动场地服务半径覆盖率（%）",
+      "indicator_code": "P-PSRC"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 街区 | dimension_type: 3 | indicator_name: 公园绿化活动场地服务半径覆盖率（%） | indicator_code: P-PSRC"
+  },
+  {
+    "CacheKey": "问题指标表.csv#21",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 21,
+    "Fields": {
+      "first_dimension": "街区",
+      "dimension_type": "3",
+      "indicator_name": "存在乱停乱放车辆问题的道路数量（条）",
+      "indicator_code": "N-DPR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 街区 | dimension_type: 3 | indicator_name: 存在乱停乱放车辆问题的道路数量（条） | indicator_code: N-DPR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#22",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 22,
+    "Fields": {
+      "first_dimension": "街区",
+      "dimension_type": "3",
+      "indicator_name": "需要更新改造的老旧商业街区数量（个）",
+      "indicator_code": "N-OCSR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 街区 | dimension_type: 3 | indicator_name: 需要更新改造的老旧商业街区数量（个） | indicator_code: N-OCSR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#23",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 23,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "历史文化街区、历史建筑挂牌建档率（%）",
+      "indicator_code": "P-HDBPR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 历史文化街区、历史建筑挂牌建档率（%） | indicator_code: P-HDBPR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#24",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 24,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "应急供水保障率（%）",
+      "indicator_code": "P-EWSR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 应急供水保障率（%） | indicator_code: P-EWSR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#25",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 25,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "建筑施工危险性较大的分部分项工程安全监测覆盖率（%）",
+      "indicator_code": "P-DCPMR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 建筑施工危险性较大的分部分项工程安全监测覆盖率（%） | indicator_code: P-DCPMR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#26",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 26,
+    "Fields": {
+      "first_dimension": "住房",
+      "dimension_type": "1",
+      "indicator_name": "既有建筑幕墙安全隐患的住宅占比（%）",
+      "indicator_code": "P-CWHRR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 住房 | dimension_type: 1 | indicator_name: 既有建筑幕墙安全隐患的住宅占比（%） | indicator_code: P-CWHRR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#27",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 27,
+    "Fields": {
+      "first_dimension": "住房",
+      "dimension_type": "1",
+      "indicator_name": "既有建筑幕墙存在重大安全隐患住宅的工程整治占比（%）",
+      "indicator_code": "P-MCWHRR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 住房 | dimension_type: 1 | indicator_name: 既有建筑幕墙存在重大安全隐患住宅的工程整治占比（%） | indicator_code: P-MCWHRR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#28",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 28,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "既有道路无障碍改造达标率（%）",
+      "indicator_code": "P-ERARR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 既有道路无障碍改造达标率（%） | indicator_code: P-ERARR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#29",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 29,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "既有居住社区无障碍改造达标率（%）",
+      "indicator_code": "P-ARRR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 既有居住社区无障碍改造达标率（%） | indicator_code: P-ARRR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#30",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 30,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "既有公共建筑无障碍改造达标率（%）",
+      "indicator_code": "P-EPARR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 既有公共建筑无障碍改造达标率（%） | indicator_code: P-EPARR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#31",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 31,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "公园绿化活动场地、广场无障碍设施设置率（%）",
+      "indicator_code": "P-PAFR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 公园绿化活动场地、广场无障碍设施设置率（%） | indicator_code: P-PAFR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#32",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 32,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "D级、E级或不合格级城市桥梁数量（座）",
+      "indicator_code": "N-DUB"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: D级、E级或不合格级城市桥梁数量（座） | indicator_code: N-DUB"
+  },
+  {
+    "CacheKey": "问题指标表.csv#33",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 33,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "当年各类保护对象增加数量（个）",
+      "indicator_code": "N-APOI"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 当年各类保护对象增加数量（个） | indicator_code: N-APOI"
+  },
+  {
+    "CacheKey": "问题指标表.csv#34",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 34,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "存在结构安全隐患的公共建筑占比（%）",
+      "indicator_code": "P-SSPR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 存在结构安全隐患的公共建筑占比（%） | indicator_code: P-SSPR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#35",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 35,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "存在一般安全隐患且50年以上老旧自建房（公共建筑类）整治占比（%）",
+      "indicator_code": "P-OSBPRR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 存在一般安全隐患且50年以上老旧自建房（公共建筑类）整治占比（%） | indicator_code: P-OSBPRR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#36",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 36,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "既有建筑幕墙安全隐患的公共建筑占比（%）",
+      "indicator_code": "P-CWPRR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 既有建筑幕墙安全隐患的公共建筑占比（%） | indicator_code: P-CWPRR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#37",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 37,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "既有建筑幕墙存在重大安全隐患公共建筑的工程整治占比（%）",
+      "indicator_code": "P-MCWPRR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 既有建筑幕墙存在重大安全隐患公共建筑的工程整治占比（%） | indicator_code: P-MCWPRR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#38",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 38,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "城市生活污水集中收集率（%）",
+      "indicator_code": "P-USCR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 城市生活污水集中收集率（%） | indicator_code: P-USCR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#39",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 39,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "安全距离不达标的加油加气加氢站数量（个）",
+      "indicator_code": "N-UDFS"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 安全距离不达标的加油加气加氢站数量（个） | indicator_code: N-UDFS"
+  },
+  {
+    "CacheKey": "问题指标表.csv#40",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 40,
+    "Fields": {
+      "first_dimension": "住房",
+      "dimension_type": "1",
+      "indicator_name": "需要进行适老化改造的住宅数量（栋）",
+      "indicator_code": "N-AFRB"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 住房 | dimension_type: 1 | indicator_name: 需要进行适老化改造的住宅数量（栋） | indicator_code: N-AFRB"
+  },
+  {
+    "CacheKey": "问题指标表.csv#41",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 41,
+    "Fields": {
+      "first_dimension": "住房",
+      "dimension_type": "1",
+      "indicator_name": "入户水质不达标的住宅数量（栋）",
+      "indicator_code": "N-NCTWH"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 住房 | dimension_type: 1 | indicator_name: 入户水质不达标的住宅数量（栋） | indicator_code: N-NCTWH"
+  },
+  {
+    "CacheKey": "问题指标表.csv#42",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 42,
+    "Fields": {
+      "first_dimension": "住房",
+      "dimension_type": "1",
+      "indicator_name": "需要进行数字化改造的住宅数量（栋）",
+      "indicator_code": "N-DRH"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 住房 | dimension_type: 1 | indicator_name: 需要进行数字化改造的住宅数量（栋） | indicator_code: N-DRH"
+  },
+  {
+    "CacheKey": "问题指标表.csv#43",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 43,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "城市运行管理服务平台覆盖率（%）",
+      "indicator_code": "P-UMPC"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 城市运行管理服务平台覆盖率（%） | indicator_code: P-UMPC"
+  },
+  {
+    "CacheKey": "问题指标表.csv#44",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 44,
+    "Fields": {
+      "first_dimension": "小区（社区）",
+      "dimension_type": "2",
+      "indicator_name": "小学学位缺口数（个）",
+      "indicator_code": "N-PSSG"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 小区（社区） | dimension_type: 2 | indicator_name: 小学学位缺口数（个） | indicator_code: N-PSSG"
+  },
+  {
+    "CacheKey": "问题指标表.csv#45",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 45,
+    "Fields": {
+      "first_dimension": "小区（社区）",
+      "dimension_type": "2",
+      "indicator_name": "新能源汽车充电桩缺口数（个）",
+      "indicator_code": "N-EVCPG"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 小区（社区） | dimension_type: 2 | indicator_name: 新能源汽车充电桩缺口数（个） | indicator_code: N-EVCPG"
+  },
+  {
+    "CacheKey": "问题指标表.csv#46",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 46,
+    "Fields": {
+      "first_dimension": "小区（社区）",
+      "dimension_type": "2",
+      "indicator_name": "不达标的步行道长度（千米）",
+      "indicator_code": "L-P-SW"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 小区（社区） | dimension_type: 2 | indicator_name: 不达标的步行道长度（千米） | indicator_code: L-P-SW"
+  },
+  {
+    "CacheKey": "问题指标表.csv#47",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 47,
+    "Fields": {
+      "first_dimension": "住房",
+      "dimension_type": "1",
+      "indicator_name": "需要进行节能改造的住宅数量（栋）",
+      "indicator_code": "N-ESRH"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 住房 | dimension_type: 1 | indicator_name: 需要进行节能改造的住宅数量（栋） | indicator_code: N-ESRH"
+  },
+  {
+    "CacheKey": "问题指标表.csv#48",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 48,
+    "Fields": {
+      "first_dimension": "住房",
+      "dimension_type": "1",
+      "indicator_name": "非成套住宅数量（套）",
+      "indicator_code": "N-NSCHU"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 住房 | dimension_type: 1 | indicator_name: 非成套住宅数量（套） | indicator_code: N-NSCHU"
+  },
+  {
+    "CacheKey": "问题指标表.csv#49",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 49,
+    "Fields": {
+      "first_dimension": "小区（社区）",
+      "dimension_type": "2",
+      "indicator_name": "未配建电动自行车充电设施的小区数量（个）",
+      "indicator_code": "N-NEVCF"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 小区（社区） | dimension_type: 2 | indicator_name: 未配建电动自行车充电设施的小区数量（个） | indicator_code: N-NEVCF"
+  },
+  {
+    "CacheKey": "问题指标表.csv#50",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 50,
+    "Fields": {
+      "first_dimension": "住房",
+      "dimension_type": "1",
+      "indicator_name": "存在楼道安全隐患的住宅数量（栋）",
+      "indicator_code": "N-SSHU2"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 住房 | dimension_type: 1 | indicator_name: 存在楼道安全隐患的住宅数量（栋） | indicator_code: N-SSHU2"
+  },
+  {
+    "CacheKey": "问题指标表.csv#51",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 51,
+    "Fields": {
+      "first_dimension": "住房",
+      "dimension_type": "1",
+      "indicator_name": "存在燃气安全隐患的住宅数量（栋）",
+      "indicator_code": "N-GSHU"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 住房 | dimension_type: 1 | indicator_name: 存在燃气安全隐患的住宅数量（栋） | indicator_code: N-GSHU"
+  },
+  {
+    "CacheKey": "问题指标表.csv#52",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 52,
+    "Fields": {
+      "first_dimension": "小区（社区）",
+      "dimension_type": "2",
+      "indicator_name": "未达标配建幼儿园的小区数量（个）",
+      "indicator_code": "N-IK"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 小区（社区） | dimension_type: 2 | indicator_name: 未达标配建幼儿园的小区数量（个） | indicator_code: N-IK"
+  },
+  {
+    "CacheKey": "问题指标表.csv#53",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 53,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "人均公共文化设施面积（平方米/人）",
+      "indicator_code": "P-PCPCA"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 人均公共文化设施面积（平方米/人） | indicator_code: P-PCPCA"
+  },
+  {
+    "CacheKey": "问题指标表.csv#54",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 54,
+    "Fields": {
+      "first_dimension": "小区（社区）",
+      "dimension_type": "2",
+      "indicator_name": "未实施生活垃圾分类的小区数量（个）",
+      "indicator_code": "N-NWSC"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 小区（社区） | dimension_type: 2 | indicator_name: 未实施生活垃圾分类的小区数量（个） | indicator_code: N-NWSC"
+  },
+  {
+    "CacheKey": "问题指标表.csv#55",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 55,
+    "Fields": {
+      "first_dimension": "街区",
+      "dimension_type": "3",
+      "indicator_name": "需要更新改造的老旧厂区数量（个）",
+      "indicator_code": "N-OIPR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 街区 | dimension_type: 3 | indicator_name: 需要更新改造的老旧厂区数量（个） | indicator_code: N-OIPR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#56",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 56,
+    "Fields": {
+      "first_dimension": "街区",
+      "dimension_type": "3",
+      "indicator_name": "需要更新改造的老旧街区数量（个）",
+      "indicator_code": "N-OHDR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 街区 | dimension_type: 3 | indicator_name: 需要更新改造的老旧街区数量（个） | indicator_code: N-OHDR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#57",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 57,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "城市消防站服务半径覆盖率（%）",
+      "indicator_code": "P-FSSRC"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 城市消防站服务半径覆盖率（%） | indicator_code: P-FSSRC"
+  },
+  {
+    "CacheKey": "问题指标表.csv#58",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 58,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "人均避难场所有效避难面积（平方米/人）",
+      "indicator_code": "P-PCSA"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 人均避难场所有效避难面积（平方米/人） | indicator_code: P-PCSA"
+  },
+  {
+    "CacheKey": "问题指标表.csv#59",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 59,
+    "Fields": {
+      "first_dimension": "住房",
+      "dimension_type": "1",
+      "indicator_name": "存在围护安全隐患的住宅数量（栋）",
+      "indicator_code": "N-ESHU"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 住房 | dimension_type: 1 | indicator_name: 存在围护安全隐患的住宅数量（栋） | indicator_code: N-ESHU"
+  },
+  {
+    "CacheKey": "问题指标表.csv#60",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 60,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "城市道路网密度（公里/平方公里）",
+      "indicator_code": "P-URND"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 城市道路网密度（公里/平方公里） | indicator_code: P-URND"
+  },
+  {
+    "CacheKey": "问题指标表.csv#61",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 61,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "城市高峰期机动车平均速度（公里/小时）",
+      "indicator_code": "P-PHAVS"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 城市高峰期机动车平均速度（公里/小时） | indicator_code: P-PHAVS"
+  },
+  {
+    "CacheKey": "问题指标表.csv#62",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 62,
+    "Fields": {
+      "first_dimension": "小区（社区）",
+      "dimension_type": "2",
+      "indicator_name": "需要进行智慧化改造的小区数量（个）",
+      "indicator_code": "N-SRC"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 小区（社区） | dimension_type: 2 | indicator_name: 需要进行智慧化改造的小区数量（个） | indicator_code: N-SRC"
+  },
+  {
+    "CacheKey": "问题指标表.csv#63",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 63,
+    "Fields": {
+      "first_dimension": "街区",
+      "dimension_type": "3",
+      "indicator_name": "未达标配建的多功能运动场地数量（个）",
+      "indicator_code": "N-IMSV"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 街区 | dimension_type: 3 | indicator_name: 未达标配建的多功能运动场地数量（个） | indicator_code: N-IMSV"
+  },
+  {
+    "CacheKey": "问题指标表.csv#64",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 64,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "绿道服务半径覆盖率（%）",
+      "indicator_code": "P-GSRC"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 绿道服务半径覆盖率（%） | indicator_code: P-GSRC"
+  },
+  {
+    "CacheKey": "问题指标表.csv#65",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 65,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "未达标配建的妇幼保健机构数量（个）",
+      "indicator_code": "N-IMCH"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 未达标配建的妇幼保健机构数量（个） | indicator_code: N-IMCH"
+  },
+  {
+    "CacheKey": "问题指标表.csv#66",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 66,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "轨道站点周边覆盖通勤比例（%）",
+      "indicator_code": "P-RTSCC"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 轨道站点周边覆盖通勤比例（%） | indicator_code: P-RTSCC"
+  },
+  {
+    "CacheKey": "问题指标表.csv#67",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 67,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "在城市信息模型平台（CIM）汇聚和应用BIM技术的项目数量（个）",
+      "indicator_code": "N-CIMBIM"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 在城市信息模型平台（CIM）汇聚和应用BIM技术的项目数量（个） | indicator_code: N-CIMBIM"
+  },
+  {
+    "CacheKey": "问题指标表.csv#68",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 68,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "地震重点危险区50年以上老旧公共建筑的加固改造数量（栋）及占比（%）",
+      "indicator_code": "N-EOOPR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 地震重点危险区50年以上老旧公共建筑的加固改造数量（栋）及占比（%） | indicator_code: N-EOOPR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#69",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 69,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "城市可渗透地面面积比例（%）",
+      "indicator_code": "P-PSAR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 城市可渗透地面面积比例（%） | indicator_code: P-PSAR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#70",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 70,
+    "Fields": {
+      "first_dimension": "街区",
+      "dimension_type": "3",
+      "indicator_name": "未达标配建的文化活动中心数量（个）",
+      "indicator_code": "N-ICC"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 街区 | dimension_type: 3 | indicator_name: 未达标配建的文化活动中心数量（个） | indicator_code: N-ICC"
+  },
+  {
+    "CacheKey": "问题指标表.csv#71",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 71,
+    "Fields": {
+      "first_dimension": "住房",
+      "dimension_type": "1",
+      "indicator_name": "存在一般安全隐患且50年以上老旧自建房（住宅类）整治占比（%）",
+      "indicator_code": "P-OSBRRR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 住房 | dimension_type: 1 | indicator_name: 存在一般安全隐患且50年以上老旧自建房（住宅类）整治占比（%） | indicator_code: P-OSBRRR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#72",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 72,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "城中村改造完成率（%）",
+      "indicator_code": "P-UVRR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 城中村改造完成率（%） | indicator_code: P-UVRR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#73",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 73,
+    "Fields": {
+      "first_dimension": "小区（社区）",
+      "dimension_type": "2",
+      "indicator_name": "严重易涝积水小区数量（个）及占比（%）",
+      "indicator_code": "N-SWC"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 小区（社区） | dimension_type: 2 | indicator_name: 严重易涝积水小区数量（个）及占比（%） | indicator_code: N-SWC"
+  },
+  {
+    "CacheKey": "问题指标表.csv#74",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 74,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "人均体育场地面积（平方米/人）",
+      "indicator_code": "P-PCSA2"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 人均体育场地面积（平方米/人） | indicator_code: P-PCSA2"
+  },
+  {
+    "CacheKey": "问题指标表.csv#75",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 75,
+    "Fields": {
+      "first_dimension": "住房",
+      "dimension_type": "1",
+      "indicator_name": "存在管线管道破损的住宅数量（栋）",
+      "indicator_code": "N-PDH"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 住房 | dimension_type: 1 | indicator_name: 存在管线管道破损的住宅数量（栋） | indicator_code: N-PDH"
+  },
+  {
+    "CacheKey": "问题指标表.csv#76",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 76,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "城市黑臭水体数量（个）",
+      "indicator_code": "N-BOWB"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 城市黑臭水体数量（个） | indicator_code: N-BOWB"
+  },
+  {
+    "CacheKey": "问题指标表.csv#77",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 77,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "新建建筑中绿色建筑占比（%）",
+      "indicator_code": "P-GBRN"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 新建建筑中绿色建筑占比（%） | indicator_code: P-GBRN"
+  },
+  {
+    "CacheKey": "问题指标表.csv#78",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 78,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "高层建筑智能化火灾监测预警覆盖率（%）",
+      "indicator_code": "P-HRFMC"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 高层建筑智能化火灾监测预警覆盖率（%） | indicator_code: P-HRFMC"
+  },
+  {
+    "CacheKey": "问题指标表.csv#79",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 79,
+    "Fields": {
+      "first_dimension": "住房",
+      "dimension_type": "1",
+      "indicator_name": "地震重点危险区50年以上老旧住宅的加固改造数量（栋）及占比（%）",
+      "indicator_code": "N-EOHR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 住房 | dimension_type: 1 | indicator_name: 地震重点危险区50年以上老旧住宅的加固改造数量（栋）及占比（%） | indicator_code: N-EOHR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#80",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 80,
+    "Fields": {
+      "first_dimension": "街区",
+      "dimension_type": "3",
+      "indicator_name": "城市需要提升改造的生活垃圾转运站数量（座）",
+      "indicator_code": "N-WTSU"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 街区 | dimension_type: 3 | indicator_name: 城市需要提升改造的生活垃圾转运站数量（座） | indicator_code: N-WTSU"
+  },
+  {
+    "CacheKey": "问题指标表.csv#81",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 81,
+    "Fields": {
+      "first_dimension": "街区",
+      "dimension_type": "3",
+      "indicator_name": "城市A级以下（即B、C级）生活垃圾焚烧处理厂数量（座）",
+      "indicator_code": "N-LGWIP"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 街区 | dimension_type: 3 | indicator_name: 城市A级以下（即B、C级）生活垃圾焚烧处理厂数量（座） | indicator_code: N-LGWIP"
+  },
+  {
+    "CacheKey": "问题指标表.csv#82",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 82,
+    "Fields": {
+      "first_dimension": "街区",
+      "dimension_type": "3",
+      "indicator_name": "使用管道燃气的餐饮场所占比（%）",
+      "indicator_code": "P-PGCR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 街区 | dimension_type: 3 | indicator_name: 使用管道燃气的餐饮场所占比（%） | indicator_code: P-PGCR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#83",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 83,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "老旧燃气管网改造完成率（%）",
+      "indicator_code": "P-OGPR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 老旧燃气管网改造完成率（%） | indicator_code: P-OGPR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#84",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 84,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "历史建筑空置率（%）",
+      "indicator_code": "P-HBVR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 历史建筑空置率（%） | indicator_code: P-HBVR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#85",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 85,
+    "Fields": {
+      "first_dimension": "城区",
+      "dimension_type": "4",
+      "indicator_name": "城市信息模型（CIM）基础平台建设三维数据覆盖率（%）",
+      "indicator_code": "P-CIM3DR"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 城区 | dimension_type: 4 | indicator_name: 城市信息模型（CIM）基础平台建设三维数据覆盖率（%） | indicator_code: P-CIM3DR"
+  },
+  {
+    "CacheKey": "问题指标表.csv#86",
+    "SourceFile": "问题指标表.csv",
+    "RowNumber": 86,
+    "Fields": {
+      "first_dimension": "住房",
+      "dimension_type": "1",
+      "indicator_name": "存在结构安全隐患的住宅数量（栋）",
+      "indicator_code": "N-SSHU"
+    },
+    "SearchText": "source_file: 问题指标表.csv | first_dimension: 住房 | dimension_type: 1 | indicator_name: 存在结构安全隐患的住宅数量（栋） | indicator_code: N-SSHU"
+  }
+]

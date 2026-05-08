@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>McpHost Config Console</title>
+    <style>
+        :root {
+            --bg: #efe8db;
+            --panel: rgba(255, 255, 255, 0.86);
+            --panel-strong: rgba(255, 255, 255, 0.96);
+            --ink: #1d2731;
+            --ink-soft: #5d6a77;
+            --line: rgba(29, 39, 49, 0.12);
+            --brand: #b65022;
+            --brand-deep: #8c3817;
+            --teal: #176b6b;
+            --gold: #af7f16;
+            --danger: #bc2d2d;
+            --shadow: 0 16px 48px rgba(30, 38, 46, 0.12);
+            --radius-xl: 26px;
+            --radius-lg: 18px;
+            --radius-md: 12px;
+            --font-body: "Segoe UI Variable Text", "Trebuchet MS", "Microsoft YaHei", sans-serif;
+            --font-head: "Georgia", "STZhongsong", "Times New Roman", serif;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: var(--font-body);
+            color: var(--ink);
+            background:
+                radial-gradient(circle at top left, rgba(182, 80, 34, 0.12), transparent 28%),
+                radial-gradient(circle at top right, rgba(23, 107, 107, 0.12), transparent 24%),
+                linear-gradient(180deg, #f7f2e9 0%, #ece3d4 100%);
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(29, 39, 49, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(29, 39, 49, 0.04) 1px, transparent 1px);
+            background-size: 28px 28px;
+            mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.45), transparent 85%);
+        }
+
+        .page { width: min(1400px, calc(100vw - 32px)); margin: 22px auto 40px; position: relative; }
+        .hero { display: grid; grid-template-columns: 1.35fr 0.95fr; gap: 18px; margin-bottom: 20px; }
+        .hero-card, .status-card, .workspace, .drawer, .modal-card { background: var(--panel); border: 1px solid rgba(255,255,255,.8); box-shadow: var(--shadow); backdrop-filter: blur(14px); }
+        .hero-card { padding: 28px; border-radius: var(--radius-xl); position: relative; overflow: hidden; }
+        .hero-card::after { content: ""; position: absolute; right: -80px; top: -80px; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, rgba(182,80,34,.18), transparent 66%); }
+        .eyebrow { display: inline-flex; gap: 10px; align-items: center; padding: 8px 12px; border-radius: 999px; background: rgba(182,80,34,.12); color: var(--brand-deep); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+        .hero h1 { margin: 18px 0 12px; font-family: var(--font-head); font-size: clamp(30px, 4vw, 54px); line-height: 1.02; }
+        .hero p { margin: 0; color: var(--ink-soft); max-width: 720px; line-height: 1.7; font-size: 15px; }
+        .hero-actions, .toolbar-right, .tabs, .card-actions, .pills, .radio-row, .checkbox-list { display: flex; flex-wrap: wrap; gap: 10px; }
+        .hero-actions { margin-top: 24px; }
+        .status-card { padding: 22px; border-radius: var(--radius-xl); display: grid; gap: 14px; align-content: start; }
+        .status-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+        .metric { background: rgba(255,255,255,.74); border-radius: var(--radius-lg); padding: 16px; border: 1px solid rgba(29,39,49,.08); }
+        .metric-label { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
+        .metric-value { margin-top: 10px; font-family: var(--font-head); font-size: 32px; font-weight: 700; }
+        .endpoint-box { border-radius: var(--radius-lg); padding: 14px 16px; background: linear-gradient(135deg, rgba(23,107,107,.1), rgba(182,80,34,.06)); border: 1px solid rgba(29,39,49,.08); }
+        .endpoint-box code { display: block; margin-top: 8px; font-size: 13px; overflow-wrap: anywhere; color: var(--ink); }
+        .workspace { border-radius: 28px; padding: 18px; }
+        .toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 16px; }
+        .tab { border: 0; border-radius: 999px; padding: 12px 18px; font-weight: 700; font-size: 14px; cursor: pointer; color: var(--ink-soft); background: rgba(255,255,255,.6); }
+        .tab.active { color: white; background: linear-gradient(135deg, var(--brand), #cf7b33); box-shadow: 0 10px 24px rgba(182,80,34,.28); }
+        .search { width: min(280px, 100%); padding: 12px 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.82); color: var(--ink); outline: none; }
+        .button, .button-ghost, .button-danger, .button-secondary { border: 0; cursor: pointer; font-weight: 700; border-radius: 14px; padding: 12px 16px; font-size: 14px; }
+        .button { color: white; background: linear-gradient(135deg, var(--brand), #cf7b33); box-shadow: 0 12px 24px rgba(182,80,34,.22); }
+        .button-secondary { color: white; background: linear-gradient(135deg, var(--teal), #248888); box-shadow: 0 12px 24px rgba(23,107,107,.18); }
+        .button-danger { color: white; background: linear-gradient(135deg, var(--danger), #d85b5b); box-shadow: 0 12px 24px rgba(188,45,45,.18); }
+        .button-ghost { color: var(--ink); background: rgba(255,255,255,.72); border: 1px solid var(--line); }
+        .section-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; align-items: flex-end; padding: 6px 8px 0; margin-bottom: 12px; }
+        .section-title { margin: 0; font-family: var(--font-head); font-size: 34px; line-height: 1; }
+        .section-desc { margin: 8px 0 0; color: var(--ink-soft); font-size: 14px; }
+        .section-panel { display: none; }
+        .section-panel.active { display: block; }
+        .board { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 14px; padding: 8px; }
+        .card { position: relative; display: grid; gap: 12px; padding: 18px; border-radius: 22px; background: var(--panel-strong); border: 1px solid rgba(29,39,49,.08); box-shadow: 0 12px 30px rgba(29,39,49,.08); overflow: hidden; }
+        .card::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 6px; background: linear-gradient(180deg, var(--brand), rgba(23,107,107,.9)); }
+        .card-top { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
+        .card h3 { margin: 0; font-size: 20px; line-height: 1.2; }
+        .card code { display: inline-block; margin-top: 6px; font-size: 12px; color: var(--ink-soft); }
+        .pill { display: inline-flex; align-items: center; gap: 6px; padding: 7px 10px; border-radius: 999px; background: rgba(29,39,49,.06); color: var(--ink-soft); font-size: 12px; font-weight: 700; }
+        .pill.brand { background: rgba(182,80,34,.1); color: var(--brand-deep); }
+        .pill.teal { background: rgba(23,107,107,.12); color: var(--teal); }
+        .pill.gold { background: rgba(175,127,22,.12); color: #8d6510; }
+        .meta { display: grid; gap: 10px; }
+        .meta-row { display: grid; grid-template-columns: 104px 1fr; gap: 8px; align-items: start; font-size: 13px; }
+        .meta-row span:first-child { color: var(--ink-soft); font-weight: 700; letter-spacing: .04em; text-transform: uppercase; font-size: 11px; }
+        .meta-row code, .meta-row pre { margin: 0; font-size: 12px; line-height: 1.55; color: var(--ink); background: rgba(29,39,49,.04); border-radius: 10px; padding: 8px 10px; white-space: pre-wrap; overflow-wrap: anywhere; }
+        .card-actions { padding-top: 8px; border-top: 1px solid rgba(29,39,49,.08); }
+        .mini { border: 0; border-radius: 999px; padding: 9px 12px; font-size: 12px; font-weight: 800; cursor: pointer; background: rgba(29,39,49,.06); color: var(--ink); }
+        .mini.warn { background: rgba(175,127,22,.14); color: #8d6510; }
+        .mini.teal { background: rgba(23,107,107,.12); color: var(--teal); }
+        .mini.danger { background: rgba(188,45,45,.12); color: var(--danger); }
+        .empty { margin: 8px; padding: 34px 28px; border-radius: 22px; border: 1px dashed rgba(29,39,49,.18); background: rgba(255,255,255,.45); text-align: center; color: var(--ink-soft); }
+        .flash-stack { position: sticky; top: 16px; z-index: 40; display: grid; gap: 10px; margin-bottom: 16px; }
+        .flash { padding: 14px 16px; border-radius: 16px; color: white; box-shadow: 0 18px 28px rgba(29,39,49,.18); }
+        .flash.success { background: linear-gradient(135deg, #176b6b, #2d9f9f); }
+        .flash.error { background: linear-gradient(135deg, #a92d2d, #d45a5a); }
+        .flash.info { background: linear-gradient(135deg, #354b66, #55759f); }
+        .drawer-backdrop, .modal-backdrop { position: fixed; inset: 0; background: rgba(21,28,34,.24); backdrop-filter: blur(3px); display: none; z-index: 60; }
+        .drawer-backdrop.show, .modal-backdrop.show { display: block; }
+        .drawer { position: fixed; top: 18px; right: 18px; bottom: 18px; width: min(620px, calc(100vw - 36px)); border-radius: 28px; padding: 22px 22px 18px; overflow: auto; transform: translateX(110%); transition: transform .22s ease; z-index: 70; }
+        .drawer.show { transform: translateX(0); }
+        .drawer-top { display: flex; justify-content: space-between; gap: 12px; align-items: start; margin-bottom: 18px; }
+        .drawer h2 { margin: 0; font-family: var(--font-head); font-size: 34px; }
+        .drawer p { margin: 6px 0 0; color: var(--ink-soft); }
+        .close-button { border: 0; background: rgba(29,39,49,.06); border-radius: 12px; width: 42px; height: 42px; font-size: 24px; line-height: 1; cursor: pointer; color: var(--ink); }
+        .form-grid { display: grid; gap: 14px; }
+        .field-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+        .field { display: grid; gap: 8px; }
+        .field label, .transport-label, .fieldset-title { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
+        .field input, .field select, .field textarea { width: 100%; border: 1px solid rgba(29,39,49,.14); border-radius: 14px; padding: 12px 14px; font: inherit; color: var(--ink); background: rgba(255,255,255,.88); outline: none; }
+        .field textarea { min-height: 118px; resize: vertical; }
+        .helper { color: var(--ink-soft); font-size: 12px; line-height: 1.6; }
+        .fieldset { padding: 16px; border-radius: 18px; border: 1px solid rgba(29,39,49,.08); background: rgba(255,255,255,.56); display: grid; gap: 14px; }
+        .chip { display: inline-flex; gap: 8px; align-items: center; padding: 10px 12px; border-radius: 999px; background: rgba(29,39,49,.06); font-size: 13px; font-weight: 700; }
+        .chip input { accent-color: var(--brand); }
+        .form-actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 20px; }
+        .inline-note { margin: 0; color: var(--ink-soft); font-size: 12px; }
+        .modal-card { position: fixed; inset: 50% auto auto 50%; transform: translate(-50%, -50%) scale(.96); width: min(760px, calc(100vw - 32px)); max-height: calc(100vh - 32px); overflow: auto; border-radius: 28px; padding: 24px; z-index: 80; opacity: 0; pointer-events: none; transition: transform .18s ease, opacity .18s ease; }
+        .modal-card.show { transform: translate(-50%, -50%) scale(1); opacity: 1; pointer-events: auto; }
+        .tools-grid { display: grid; gap: 12px; margin-top: 16px; }
+        .tool-card { border-radius: 18px; border: 1px solid rgba(29,39,49,.08); background: rgba(255,255,255,.78); padding: 16px; display: grid; gap: 10px; }
+        .tool-card h4 { margin: 0 0 8px; font-size: 18px; }
+        .tool-card pre { margin: 12px 0 0; padding: 12px; border-radius: 12px; background: rgba(29,39,49,.06); font-size: 12px; overflow: auto; white-space: pre-wrap; }
+        .tool-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tool-tester { margin-top: 18px; padding: 18px; border-radius: 20px; border: 1px solid rgba(29,39,49,.08); background: rgba(255,255,255,.72); display: grid; gap: 14px; }
+        .tool-tester-head { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+        .tool-tester-title { margin: 0; font-size: 22px; font-family: var(--font-head); }
+        .tester-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+        .chat-test-shell { display: grid; gap: 14px; }
+        .chat-test-head { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+        .chat-test-title { margin: 0; font-size: 22px; font-family: var(--font-head); }
+        .chat-session { min-height: 320px; max-height: 52vh; overflow: auto; border: 1px solid rgba(29,39,49,.1); border-radius: 18px; padding: 14px; background: rgba(255,255,255,.72); display: grid; gap: 12px; }
+.chat-msg { display: grid; gap: 6px; }
+.chat-msg.role-user { justify-items: end; }
+.chat-msg.role-assistant { justify-items: start; }
+.chat-role { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
+.chat-bubble { max-width: min(760px, 92%); border-radius: 18px; padding: 12px 14px; white-space: pre-wrap; word-break: break-word; line-height: 1.6; font-size: 14px; }
+.chat-msg.role-user .chat-bubble { background: rgba(182,80,34,.12); border: 1px solid rgba(182,80,34,.18); }
+.chat-msg.role-assistant .chat-bubble { background: rgba(23,107,107,.10); border: 1px solid rgba(23,107,107,.16); }
+.chat-tool-results { max-width: min(760px, 92%); margin-top: 4px; border-radius: 16px; border: 1px solid rgba(175,127,22,.18); background: rgba(175,127,22,.08); padding: 12px 14px; display: grid; gap: 10px; }
+.chat-tool-title { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #8d6510; }
+.chat-tool-item { border-radius: 12px; background: rgba(255,255,255,.72); padding: 10px 12px; display: grid; gap: 8px; }
+.chat-tool-name { font-weight: 800; color: var(--ink); }
+.chat-tool-item pre { margin: 0; white-space: pre-wrap; word-break: break-word; font-size: 12px; line-height: 1.55; background: rgba(29,39,49,.04); border-radius: 10px; padding: 10px; }
+.chat-compose { display: grid; gap: 10px; }
+.chat-api-key { display: grid; gap: 8px; }
+.chat-api-key input { width: 100%; border: 1px solid rgba(29,39,49,.14); border-radius: 14px; padding: 12px 14px; font: inherit; color: var(--ink); background: rgba(255,255,255,.88); }
+.chat-compose textarea { width: 100%; min-height: 120px; border: 1px solid rgba(29,39,49,.14); border-radius: 14px; padding: 12px 14px; font: inherit; color: var(--ink); background: rgba(255,255,255,.88); resize: vertical; }
+.chat-compose-actions { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+        .param-guide { display: grid; gap: 10px; }
+        .param-table { width: 100%; border-collapse: collapse; font-size: 12px; background: rgba(255,255,255,.7); border-radius: 14px; overflow: hidden; }
+        .param-table th, .param-table td { padding: 10px 12px; border-bottom: 1px solid rgba(29,39,49,.08); text-align: left; vertical-align: top; }
+        .param-table th { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); background: rgba(29,39,49,.04); }
+        .param-table tr:last-child td { border-bottom: 0; }
+        .tester-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 14px; }
+        .tester-panel { display: grid; gap: 10px; }
+        .tester-label { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
+        .tester-textarea, .tester-pre { width: 100%; min-height: 180px; border: 1px solid rgba(29,39,49,.14); border-radius: 14px; padding: 12px 14px; font: inherit; color: var(--ink); background: rgba(255,255,255,.88); overflow: auto; white-space: pre-wrap; word-break: break-word; }
+        .tester-textarea { resize: vertical; }
+        .tester-pre { margin: 0; background: rgba(29,39,49,.04); }
+        .footer-note { margin: 20px 8px 0; color: var(--ink-soft); font-size: 12px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+
+        @media (max-width: 1080px) { .hero, .field-row, .status-grid, .tester-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 720px) {
+            .page { width: min(100vw - 18px, 100%); margin-top: 10px; }
+            .hero-card, .status-card, .workspace, .drawer, .modal-card { border-radius: 22px; }
+            .toolbar { align-items: stretch; }
+            .toolbar-right, .search { width: 100%; }
+            .board { grid-template-columns: 1fr; }
+            .form-actions { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="flash-stack" id="flashStack"></div>
+
+        <section class="hero">
+            <div class="hero-card">
+                <div class="eyebrow">McpHost Console</div>
+                <h1>配置管理前端</h1>
+                <p>直接通过当前部署路径下的配置 API 管理 ChatClient、Agent 和 McpClient。不依赖登录态，也不需要前端构建工具。</p>
+                <div class="hero-actions">
+                    <button class="button" id="refreshAllButton" type="button">刷新全部</button>
+                    <button class="button-secondary" id="reloadCurrentButton" type="button">刷新当前分组</button>
+                    <button class="button-ghost" id="clearFlashButton" type="button">清空消息</button>
+                </div>
+            </div>
+
+            <aside class="status-card">
+                <div class="status-grid">
+                    <div class="metric"><div class="metric-label">Chat Clients</div><div class="metric-value" id="chatClientCount">0</div></div>
+                    <div class="metric"><div class="metric-label">Agents</div><div class="metric-value" id="agentCount">0</div></div>
+                    <div class="metric"><div class="metric-label">MCP Clients</div><div class="metric-value" id="mcpClientCount">0</div></div>
+                    <div class="metric"><div class="metric-label">Live Timestamp</div><div class="metric-value" id="lastRefreshTime">--</div></div>
+                </div>
+                <div class="endpoint-box"><div class="metric-label">API Base</div><code id="apiBaseText"></code></div>
+                <div class="endpoint-box"><div class="metric-label">Static Entry</div><code id="staticEntryText"></code></div>
+            </aside>
+        </section>
+
+        <section class="workspace">
+            <div class="toolbar">
+                <div class="tabs">
+                    <button class="tab active" data-section="chat">Chat Clients</button>
+                    <button class="tab" data-section="agent">Agents</button>
+                    <button class="tab" data-section="mcp">MCP Clients</button>
+                </div>
+                <div class="toolbar-right">
+                    <input class="search" id="searchInput" type="search" placeholder="搜索 ID、名称或描述" />
+                    <button class="button" id="createButton" type="button">新增配置</button>
+                </div>
+            </div>
+
+            <div class="section-panel active" data-panel="chat">
+                <div class="section-head"><div><h2 class="section-title">Chat Clients</h2><p class="section-desc">维护模型访问端点、API Key、ModelId 以及 Sampling 标记。</p></div></div>
+                <div class="board" id="chatBoard"></div>
+            </div>
+
+            <div class="section-panel" data-panel="agent">
+                <div class="section-head"><div><h2 class="section-title">Agents</h2><p class="section-desc">维护智能体绑定关系、系统提示词和 API Key 过期策略。</p></div></div>
+                <div class="board" id="agentBoard"></div>
+            </div>
+
+            <div class="section-panel" data-panel="mcp">
+                <div class="section-head"><div><h2 class="section-title">MCP Clients</h2><p class="section-desc">管理 stdio / sse / streamable http 连接配置，并提供 stop / restart / tools 快捷操作。</p></div></div>
+                <div class="board" id="mcpBoard"></div>
+            </div>
+
+            <div class="footer-note">
+                <span>更新操作默认按同 ID 原位修改。若需要改 ID，请新建后删除旧项。</span>
+                <span>复杂字段统一使用 JSON 文本输入，例如数组、字典、请求头和环境变量。</span>
+            </div>
+        </section>
+    </div>
+
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+    <aside class="drawer" id="drawer">
+        <div class="drawer-top">
+            <div>
+                <h2 id="drawerTitle">新增配置</h2>
+                <p id="drawerDesc">表单会直接调用 McpHost 的配置接口。</p>
+            </div>
+            <button class="close-button" id="closeDrawerButton" type="button">&times;</button>
+        </div>
+
+        <div id="chatFormPanel">
+            <form class="form-grid" id="chatForm">
+                <div class="field-row">
+                    <div class="field"><label for="chat-id">ID</label><input id="chat-id" name="ID" required /></div>
+                    <div class="field"><label for="chat-model">ModelId</label><input id="chat-model" name="ModelId" required /></div>
+                </div>
+                <div class="field"><label for="chat-endpoint">Endpoint</label><input id="chat-endpoint" name="Endpoint" required /></div>
+                <div class="field-row">
+                    <div class="field"><label for="chat-key">ApiKey</label><input id="chat-key" name="ApiKey" type="password" /></div>
+                    <div class="field">
+                        <label for="chat-api-mode">ApiMode</label>
+                        <select id="chat-api-mode" name="ApiMode">
+                            <option value="chat">chat</option>
+                            <option value="responses">responses</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="field-row">
+                    <div class="field">
+                        <label class="transport-label">AsSampling</label>
+                        <label class="chip"><input id="chat-sampling" name="AsSampling" type="checkbox" /> Sampling only</label>
+                    </div>
+                    <div class="field">
+                        <span class="helper">`chat` 使用上游 `/chat/completions`，`responses` 使用上游 `/responses`。Agent 路径会复用托管客户端并支持本地 MCP 工具调用。</span>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <p class="inline-note">Editing keeps the same ID and replaces the runtime ChatClient instance in place.</p>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                        <button class="button-ghost" id="cancelChatFormButton" type="button">取消</button>
+                        <button class="button" type="submit">保存 ChatClient</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="agentFormPanel" style="display:none;">
+            <form class="form-grid" id="agentForm">
+                <div class="field-row">
+                    <div class="field"><label for="agent-id">ID</label><input id="agent-id" name="ID" required /></div>
+                    <div class="field"><label for="agent-chat-client">ChatClientID</label><select id="agent-chat-client" name="ChatClientID" required></select></div>
+                </div>
+                <div class="fieldset">
+                    <div class="fieldset-title">McpClientIDs</div>
+                    <div class="checkbox-list" id="agentMcpClientList"></div>
+                    <div class="helper">Multi-select is supported. Leave empty if the agent should not bind any MCP client.</div>
+                </div>
+                <div class="field"><label for="agent-system-prompt">SystemPrompt</label><textarea id="agent-system-prompt" name="SystemPrompt"></textarea></div>
+                <div class="field">
+                    <label for="agent-api-expirations">ApiKeyExpirations</label>
+                    <textarea id="agent-api-expirations" name="ApiKeyExpirations" placeholder='{"demo-key":"2026-12-31 23:59:59"}'></textarea>
+                    <div class="helper">Use a JSON object. The key is the API key and the value is its expiration time.</div>
+                </div>
+                <div class="form-actions">
+                    <p class="inline-note">Updating an agent replaces the in-memory config for the same ID without restarting the service.</p>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                        <button class="button-ghost" id="cancelAgentFormButton" type="button">取消</button>
+                        <button class="button" type="submit">保存 Agent</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="mcpFormPanel" style="display:none;">
+            <form class="form-grid" id="mcpForm">
+                <div class="field-row">
+                    <div class="field"><label for="mcp-id">ID</label><input id="mcp-id" name="ID" required /></div>
+                    <div class="field"><label for="mcp-name">Name</label><input id="mcp-name" name="Name" required /></div>
+                </div>
+                <div class="field-row">
+                    <div class="field"><label for="mcp-description">Description</label><input id="mcp-description" name="Description" /></div>
+                    <div class="field"><label for="mcp-sampling-chat-client">SamplingChatClientID</label><select id="mcp-sampling-chat-client" name="SamplingChatClientID"></select></div>
+                </div>
+                <div class="field-row">
+                    <div class="field"><label class="transport-label">Enabled</label><label class="chip"><input id="mcp-enabled" name="Enabled" type="checkbox" checked /> Enable on save</label></div>
+                    <div class="field">
+                        <label class="transport-label">Transport Mode</label>
+                        <div class="radio-row">
+                            <label class="chip"><input type="radio" name="mcpTransport" value="stdio" checked /> stdio</label>
+                            <label class="chip"><input type="radio" name="mcpTransport" value="sse" /> sse</label>
+                            <label class="chip"><input type="radio" name="mcpTransport" value="streamable" /> streamable http</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fieldset" id="stdioFields">
+                    <div class="fieldset-title">StdioConfig</div>
+                    <div class="field-row">
+                        <div class="field"><label for="stdio-command">Command</label><input id="stdio-command" name="Command" /></div>
+                        <div class="field"><label for="stdio-working-directory">WorkingDirectory</label><input id="stdio-working-directory" name="WorkingDirectory" /></div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field"><label for="stdio-shutdown-timeout">ShutdownTimeout</label><input id="stdio-shutdown-timeout" name="ShutdownTimeout" type="number" step="0.1" value="5" /></div>
+                        <div class="field"><label for="stdio-arguments">Arguments</label><textarea id="stdio-arguments" name="Arguments" placeholder='["--port","8080"]'></textarea></div>
+                    </div>
+                    <div class="field"><label for="stdio-env">EnvironmentVariables</label><textarea id="stdio-env" name="EnvironmentVariables" placeholder='{"ASPNETCORE_ENVIRONMENT":"Development"}'></textarea></div>
+                </div>
+
+                <div class="fieldset" id="sseFields" style="display:none;">
+                    <div class="fieldset-title">SseConfig</div>
+                    <div class="field-row">
+                        <div class="field"><label for="sse-endpoint">Endpoint</label><input id="sse-endpoint" name="Endpoint" /></div>
+                        <div class="field"><label for="sse-timeout">ConnectionTimeout</label><input id="sse-timeout" name="ConnectionTimeout" type="number" step="0.1" value="30" /></div>
+                    </div>
+                    <div class="field"><label for="sse-headers">AdditionalHeaders</label><textarea id="sse-headers" name="AdditionalHeaders" placeholder='{"Authorization":"Bearer ..."}'></textarea></div>
+                </div>
+
+                <div class="fieldset" id="streamableFields" style="display:none;">
+                    <div class="fieldset-title">StreamableHttpConfig</div>
+                    <div class="field-row">
+                        <div class="field"><label for="streamable-endpoint">Endpoint</label><input id="streamable-endpoint" name="Endpoint" /></div>
+                        <div class="field"><label for="streamable-timeout">ConnectionTimeout</label><input id="streamable-timeout" name="ConnectionTimeout" type="number" step="0.1" value="30" /></div>
+                    </div>
+                    <div class="field"><label for="streamable-headers">AdditionalHeaders</label><textarea id="streamable-headers" name="AdditionalHeaders" placeholder='{"Authorization":"Bearer ..."}'></textarea></div>
+                </div>
+
+                <div class="form-actions">
+                    <p class="inline-note">Updating an MCP client rebuilds the connection and refreshes the tool cache automatically.</p>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                        <button class="button-ghost" id="cancelMcpFormButton" type="button">取消</button>
+                        <button class="button" type="submit">保存 MCP Client</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </aside>
+
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-card" id="toolsModal">
+        <div class="drawer-top">
+            <div>
+                <h2 id="toolsModalTitle">MCP Tools</h2>
+                <p id="toolsModalDesc">Inspect the tools currently exposed by this MCP client.</p>
+            </div>
+            <button class="close-button" id="closeToolsModalButton" type="button">&times;</button>
+        </div>
+        <div class="tools-grid" id="toolsGrid"></div>
+        <section class="tool-tester">
+            <div class="tool-tester-head">
+                <div>
+                    <h3 class="tool-tester-title" id="toolTesterTitle">Tool Tester</h3>
+                    <p class="helper" id="toolTesterDesc">Select a tool above, adjust the JSON arguments, then run a live test through McpHost.</p>
+                </div>
+                <div class="tester-actions">
+                    <button class="button-ghost" id="copyToolResultButton" type="button">Copy Result</button>
+                    <button class="button-secondary" id="invokeToolButton" type="button">Invoke Tool</button>
+                </div>
+            </div>
+            <div class="param-guide">
+                <div class="tester-label">Parameter Guide</div>
+                <div id="toolParamGuide" class="helper">Select a tool to inspect its parameters.</div>
+            </div>
+            <div class="tester-grid">
+                <div class="tester-panel">
+                    <div class="tester-label">Arguments JSON</div>
+                    <textarea class="tester-textarea" id="toolArgsInput">{}</textarea>
+                </div>
+                <div class="tester-panel">
+                    <div class="tester-label">Result</div>
+                    <pre class="tester-pre" id="toolResultOutput">Select a tool to begin.</pre>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="modal-card" id="chatTestModal">
+        <div class="drawer-top">
+            <div>
+                <h2 id="chatTestModalTitle">Chat Tester</h2>
+                <p id="chatTestModalDesc">Send test messages through a ChatClient or an Agent using the OpenAI-compatible chat completion API.</p>
+            </div>
+            <button class="close-button" id="closeChatTestModalButton" type="button">&times;</button>
+        </div>
+        <section class="chat-test-shell">
+            <div class="chat-test-head">
+                <div>
+                    <h3 class="chat-test-title" id="chatTestTargetTitle">No target selected</h3>
+                    <p class="helper" id="chatTestTargetDesc">Choose Test on a ChatClient or Agent card.</p>
+                </div>
+            </div>
+            <div class="fieldset">
+                <div class="fieldset-title">API Mode</div>
+                <div class="radio-row" id="chatTestApiModeSelector">
+                    <label class="chip"><input type="radio" name="chatTestApiMode" value="chat" checked /> chat/completions</label>
+                    <label class="chip"><input type="radio" name="chatTestApiMode" value="responses" /> responses</label>
+                </div>
+                <div class="helper" id="chatTestApiModeHint">Use the Chat Completions-compatible request format.</div>
+            </div>
+            <div class="fieldset">
+                <div class="fieldset-title">Request Preview</div>
+                <div class="tester-grid">
+                    <div class="tester-panel">
+                        <div class="tester-label">Backend URL</div>
+                        <pre class="tester-pre" id="chatTestResolvedUrl">Select a ChatClient or Agent to preview the target URL.</pre>
+                    </div>
+                    <div class="tester-panel">
+                        <div class="tester-label">Request JSON</div>
+                        <pre class="tester-pre" id="chatTestPayloadPreview">Type a message to preview the request body.</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-session" id="chatTestSession">
+                <div class="empty">No messages yet.</div>
+            </div>
+            <div class="chat-compose">
+                <div class="chat-api-key" id="chatTestApiKeyBlock" style="display:none;">
+                    <div class="tester-label">API Key</div>
+                    <input id="chatTestApiKey" type="password" placeholder="Bearer token for agent testing" />
+                </div>
+                <div class="tester-label">Message</div>
+                <textarea id="chatTestInput" placeholder="Type a test prompt..."></textarea>
+                <div class="chat-compose-actions">
+                    <div class="helper" id="chatTestStatus">Ready.</div>
+                    <div class="tester-actions">
+                        <button class="button-ghost" id="clearChatTestButton" type="button">Clear History</button>
+                        <button class="button-secondary" id="sendChatTestButton" type="button">Send Message</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const API_BASE = "../api";
+        const STATIC_ENTRY = "./index.html";
+
+        const state = {
+            activeSection: "chat",
+            search: "",
+            chatClients: [],
+            agents: [],
+            mcpClients: [],
+            drawerMode: "create",
+            editingItem: null,
+            currentToolClientId: "",
+            currentMcpTools: [],
+            selectedToolIndex: -1,
+            chatTestTargetType: "",
+            chatTestTargetId: "",
+            chatTestHistory: [],
+            chatTestApiMode: "chat"
+        };
+
+        const flashStack = document.getElementById("flashStack");
+        const apiBaseText = document.getElementById("apiBaseText");
+        const staticEntryText = document.getElementById("staticEntryText");
+        const chatClientCount = document.getElementById("chatClientCount");
+        const agentCount = document.getElementById("agentCount");
+        const mcpClientCount = document.getElementById("mcpClientCount");
+        const lastRefreshTime = document.getElementById("lastRefreshTime");
+        const searchInput = document.getElementById("searchInput");
+        const drawer = document.getElementById("drawer");
+        const drawerBackdrop = document.getElementById("drawerBackdrop");
+        const drawerTitle = document.getElementById("drawerTitle");
+        const drawerDesc = document.getElementById("drawerDesc");
+        const modalBackdrop = document.getElementById("modalBackdrop");
+        const toolsModal = document.getElementById("toolsModal");
+        const toolsGrid = document.getElementById("toolsGrid");
+        const toolsModalTitle = document.getElementById("toolsModalTitle");
+        const toolTesterTitle = document.getElementById("toolTesterTitle");
+        const toolTesterDesc = document.getElementById("toolTesterDesc");
+        const toolParamGuide = document.getElementById("toolParamGuide");
+        const toolArgsInput = document.getElementById("toolArgsInput");
+        const toolResultOutput = document.getElementById("toolResultOutput");
+        const invokeToolButton = document.getElementById("invokeToolButton");
+        const copyToolResultButton = document.getElementById("copyToolResultButton");
+        const chatTestModal = document.getElementById("chatTestModal");
+        const chatTestModalTitle = document.getElementById("chatTestModalTitle");
+        const chatTestModalDesc = document.getElementById("chatTestModalDesc");
+        const chatTestTargetTitle = document.getElementById("chatTestTargetTitle");
+        const chatTestTargetDesc = document.getElementById("chatTestTargetDesc");
+        const chatTestApiModeHint = document.getElementById("chatTestApiModeHint");
+        const chatTestResolvedUrl = document.getElementById("chatTestResolvedUrl");
+        const chatTestPayloadPreview = document.getElementById("chatTestPayloadPreview");
+        const chatTestSession = document.getElementById("chatTestSession");
+        const chatTestApiKeyBlock = document.getElementById("chatTestApiKeyBlock");
+        const chatTestApiKey = document.getElementById("chatTestApiKey");
+        const chatTestInput = document.getElementById("chatTestInput");
+        const chatTestStatus = document.getElementById("chatTestStatus");
+        const sendChatTestButton = document.getElementById("sendChatTestButton");
+        const clearChatTestButton = document.getElementById("clearChatTestButton");
+        const closeChatTestModalButton = document.getElementById("closeChatTestModalButton");
+
+        const chatBoard = document.getElementById("chatBoard");
+        const agentBoard = document.getElementById("agentBoard");
+        const mcpBoard = document.getElementById("mcpBoard");
+
+        const chatFormPanel = document.getElementById("chatFormPanel");
+        const agentFormPanel = document.getElementById("agentFormPanel");
+        const mcpFormPanel = document.getElementById("mcpFormPanel");
+
+        const chatForm = document.getElementById("chatForm");
+        const agentForm = document.getElementById("agentForm");
+        const mcpForm = document.getElementById("mcpForm");
+
+        const agentChatClientSelect = document.getElementById("agent-chat-client");
+        const agentMcpClientList = document.getElementById("agentMcpClientList");
+        const mcpSamplingChatClientSelect = document.getElementById("mcp-sampling-chat-client");
+
+        apiBaseText.textContent = API_BASE;
+        staticEntryText.textContent = STATIC_ENTRY;
+
+        document.querySelectorAll(".tab").forEach(button => {
+            button.addEventListener("click", () => setActiveSection(button.dataset.section));
+        });
+
+        document.getElementById("refreshAllButton").addEventListener("click", () => loadAll(true));
+        document.getElementById("reloadCurrentButton").addEventListener("click", () => refreshCurrentSection());
+        document.getElementById("clearFlashButton").addEventListener("click", () => flashStack.innerHTML = "");
+        document.getElementById("createButton").addEventListener("click", () => openDrawer(state.activeSection));
+        document.getElementById("closeDrawerButton").addEventListener("click", closeDrawer);
+        document.getElementById("closeToolsModalButton").addEventListener("click", closeToolsModal);
+        invokeToolButton.addEventListener("click", invokeSelectedTool);
+        copyToolResultButton.addEventListener("click", copyToolResult);
+        closeChatTestModalButton.addEventListener("click", closeChatTestModal);
+        sendChatTestButton.addEventListener("click", sendChatTestMessage);
+        clearChatTestButton.addEventListener("click", clearChatTestHistory);
+        document.querySelectorAll("input[name='chatTestApiMode']").forEach(input => {
+            input.addEventListener("change", event => setChatTestApiMode(event.target.value));
+        });
+        chatTestInput.addEventListener("input", refreshChatTestRequestPreview);
+        document.getElementById("cancelChatFormButton").addEventListener("click", closeDrawer);
+        document.getElementById("cancelAgentFormButton").addEventListener("click", closeDrawer);
+        document.getElementById("cancelMcpFormButton").addEventListener("click", closeDrawer);
+        drawerBackdrop.addEventListener("click", closeDrawer);
+        modalBackdrop.addEventListener("click", closeToolsModal);
+
+        searchInput.addEventListener("input", event => {
+            state.search = event.target.value.trim().toLowerCase();
+            renderAllBoards();
+        });
+
+        document.querySelectorAll("input[name='mcpTransport']").forEach(input => {
+            input.addEventListener("change", syncTransportFields);
+        });
+
+        chatForm.addEventListener("submit", async event => {
+            event.preventDefault();
+            const payload = {
+                ID: chatForm.querySelector("[name='ID']").value.trim(),
+                Endpoint: chatForm.querySelector("[name='Endpoint']").value.trim(),
+                ApiKey: chatForm.querySelector("[name='ApiKey']").value,
+                ModelId: chatForm.querySelector("[name='ModelId']").value.trim(),
+                ApiMode: chatForm.querySelector("[name='ApiMode']").value,
+                AsSampling: chatForm.querySelector("[name='AsSampling']").checked
+            };
+
+            await submitEntity("chat", payload, payload.ID, `${API_BASE}/config/chatclient/${state.drawerMode === "edit" ? "update" : "add"}`, state.drawerMode === "edit" ? "PUT" : "POST");
+        });
+
+        agentForm.addEventListener("submit", async event => {
+            event.preventDefault();
+            const payload = {
+                ID: agentForm.querySelector("[name='ID']").value.trim(),
+                ChatClientID: agentForm.querySelector("[name='ChatClientID']").value,
+                McpClientIDs: getCheckedValues(agentMcpClientList),
+                SystemPrompt: agentForm.querySelector("[name='SystemPrompt']").value || null,
+                ApiKeyExpirations: parseJsonField(agentForm.querySelector("[name='ApiKeyExpirations']").value, {}, "ApiKeyExpirations")
+            };
+
+            await submitEntity("agent", payload, payload.ID, `${API_BASE}/config/agent/${state.drawerMode === "edit" ? "update" : "add"}`, state.drawerMode === "edit" ? "PUT" : "POST");
+        });
+
+        mcpForm.addEventListener("submit", async event => {
+            event.preventDefault();
+            const transport = getSelectedTransport();
+            const payload = {
+                ID: mcpForm.querySelector("[name='ID']").value.trim(),
+                Name: mcpForm.querySelector("[name='Name']").value.trim(),
+                Enabled: mcpForm.querySelector("[name='Enabled']").checked,
+                Description: mcpForm.querySelector("[name='Description']").value || null,
+                SamplingChatClientID: mcpForm.querySelector("[name='SamplingChatClientID']").value || null,
+                StdioConfig: null,
+                SseConfig: null,
+                StreamableHttpConfig: null
+            };
+
+            if (transport === "stdio") {
+                payload.StdioConfig = {
+                    Command: document.getElementById("stdio-command").value.trim(),
+                    Arguments: parseJsonField(document.getElementById("stdio-arguments").value, [], "Arguments"),
+                    EnvironmentVariables: parseJsonField(document.getElementById("stdio-env").value, {}, "EnvironmentVariables"),
+                    ShutdownTimeout: parseNumberField(document.getElementById("stdio-shutdown-timeout").value, 5),
+                    WorkingDirectory: document.getElementById("stdio-working-directory").value || null
+                };
+            }
+
+            if (transport === "sse") {
+                payload.SseConfig = {
+                    Endpoint: document.getElementById("sse-endpoint").value.trim(),
+                    AdditionalHeaders: parseJsonField(document.getElementById("sse-headers").value, {}, "AdditionalHeaders"),
+                    ConnectionTimeout: parseNumberField(document.getElementById("sse-timeout").value, 30)
+                };
+            }
+
+            if (transport === "streamable") {
+                payload.StreamableHttpConfig = {
+                    Endpoint: document.getElementById("streamable-endpoint").value.trim(),
+                    AdditionalHeaders: parseJsonField(document.getElementById("streamable-headers").value, {}, "AdditionalHeaders"),
+                    ConnectionTimeout: parseNumberField(document.getElementById("streamable-timeout").value, 30)
+                };
+            }
+
+            await submitEntity("mcp", payload, payload.ID, `${API_BASE}/config/mcpclient/${state.drawerMode === "edit" ? "update" : "add"}`, state.drawerMode === "edit" ? "PUT" : "POST");
+        });
+
+        async function loadAll(showToast = false) {
+            try {
+                const [chatClients, agents, mcpClients] = await Promise.all([
+                    fetchJson(`${API_BASE}/config/chatclient/list`),
+                    fetchJson(`${API_BASE}/config/agent/list`),
+                    fetchJson(`${API_BASE}/config/mcpclient/list`)
+                ]);
+
+                state.chatClients = sortById((chatClients || []).map(normalizeChatClient));
+                state.agents = sortById((agents || []).map(normalizeAgent));
+                state.mcpClients = sortById((mcpClients || []).map(normalizeMcpClient));
+
+                updateHeaderStats();
+                renderAllBoards();
+                refreshFormOptions();
+
+                if (showToast) {
+                    showFlash("Configuration refreshed.", "success");
+                }
+            } catch (error) {
+                showFlash(error.message || "Failed to load configuration.", "error", 7000);
+            }
+        }
+
+        async function refreshCurrentSection() {
+            if (state.activeSection === "chat") {
+                state.chatClients = sortById((await fetchJson(`${API_BASE}/config/chatclient/list`) || []).map(normalizeChatClient));
+            } else if (state.activeSection === "agent") {
+                state.agents = sortById((await fetchJson(`${API_BASE}/config/agent/list`) || []).map(normalizeAgent));
+            } else {
+                state.mcpClients = sortById((await fetchJson(`${API_BASE}/config/mcpclient/list`) || []).map(normalizeMcpClient));
+            }
+
+            updateHeaderStats();
+            renderAllBoards();
+            refreshFormOptions();
+            showFlash("Current section refreshed.", "info");
+        }
+
+        function updateHeaderStats() {
+            chatClientCount.textContent = state.chatClients.length;
+            agentCount.textContent = state.agents.length;
+            mcpClientCount.textContent = state.mcpClients.length;
+        }
+
+        function updateLiveTimestamp() {
+            lastRefreshTime.textContent = new Date().toLocaleTimeString("zh-CN", { hour12: false });
+        }
+
+        function setActiveSection(section) {
+            state.activeSection = section;
+            document.querySelectorAll(".tab").forEach(button => button.classList.toggle("active", button.dataset.section === section));
+            document.querySelectorAll(".section-panel").forEach(panel => panel.classList.toggle("active", panel.dataset.panel === section));
+            renderAllBoards();
+        }
+
+        function renderAllBoards() {
+            renderChatClients();
+            renderAgents();
+            renderMcpClients();
+        }
+
+        function renderChatClients() {
+            const items = filterItems(state.chatClients, item => `${item.ID} ${item.Endpoint} ${item.ModelId} ${item.ApiMode || ""}`);
+            chatBoard.innerHTML = items.length ? items.map(renderChatCard).join("") : renderEmpty("暂无 ChatClient 配置。");
+            chatBoard.querySelectorAll("[data-action='edit-chat']").forEach(button => {
+                button.addEventListener("click", () => openDrawer("chat", findById(state.chatClients, button.dataset.id)));
+            });
+            chatBoard.querySelectorAll("[data-action='test-chat']").forEach(button => {
+                button.addEventListener("click", () => openChatTestModal("chat", findById(state.chatClients, button.dataset.id)));
+            });
+            chatBoard.querySelectorAll("[data-action='delete-chat']").forEach(button => {
+                button.addEventListener("click", () => deleteEntity("chat", button.dataset.id, `${API_BASE}/config/chatclient/delete?id=${encodeURIComponent(button.dataset.id)}`));
+            });
+        }
+
+        function renderAgents() {
+            const items = filterItems(state.agents, item => `${item.ID} ${item.ChatClientID} ${item.SystemPrompt || ""}`);
+            agentBoard.innerHTML = items.length ? items.map(renderAgentCard).join("") : renderEmpty("暂无 Agent 配置。");
+            agentBoard.querySelectorAll("[data-action='edit-agent']").forEach(button => {
+                button.addEventListener("click", () => openDrawer("agent", findById(state.agents, button.dataset.id)));
+            });
+            agentBoard.querySelectorAll("[data-action='test-agent']").forEach(button => {
+                button.addEventListener("click", () => openChatTestModal("agent", findById(state.agents, button.dataset.id)));
+            });
+            agentBoard.querySelectorAll("[data-action='delete-agent']").forEach(button => {
+                button.addEventListener("click", () => deleteEntity("agent", button.dataset.id, `${API_BASE}/config/agent/delete?id=${encodeURIComponent(button.dataset.id)}`));
+            });
+        }
+
+        function renderMcpClients() {
+            const items = filterItems(state.mcpClients, item => `${item.ID} ${item.Name} ${item.Description || ""}`);
+            mcpBoard.innerHTML = items.length ? items.map(renderMcpCard).join("") : renderEmpty("暂无 MCP Client 配置。");
+            mcpBoard.querySelectorAll("[data-action='edit-mcp']").forEach(button => {
+                button.addEventListener("click", () => openDrawer("mcp", findById(state.mcpClients, button.dataset.id)));
+            });
+            mcpBoard.querySelectorAll("[data-action='delete-mcp']").forEach(button => {
+                button.addEventListener("click", () => deleteEntity("mcp", button.dataset.id, `${API_BASE}/config/mcpclient/delete?id=${encodeURIComponent(button.dataset.id)}`));
+            });
+            mcpBoard.querySelectorAll("[data-action='restart-mcp']").forEach(button => {
+                button.addEventListener("click", async () => invokeSimpleAction(`${API_BASE}/config/mcpclient/restart?id=${encodeURIComponent(button.dataset.id)}`, "POST", `MCP Client ${button.dataset.id} 已重启。`));
+            });
+            mcpBoard.querySelectorAll("[data-action='stop-mcp']").forEach(button => {
+                button.addEventListener("click", async () => invokeSimpleAction(`${API_BASE}/config/mcpclient/stop?id=${encodeURIComponent(button.dataset.id)}`, "POST", `MCP Client ${button.dataset.id} 已停止。`));
+            });
+            mcpBoard.querySelectorAll("[data-action='tools-mcp']").forEach(button => {
+                button.addEventListener("click", async () => openToolsModal(button.dataset.id));
+            });
+        }
+
+        function renderChatCard(item) {
+            return `
+                <article class="card">
+                    <div class="card-top">
+                        <div><h3>${escapeHtml(item.ModelId || item.ID)}</h3><code>${escapeHtml(item.ID)}</code></div>
+                        <div class="pills"><span class="pill ${item.AsSampling ? "gold" : "teal"}">${item.AsSampling ? "Sampling" : "Chat"}</span></div>
+                    </div>
+                    <div class="meta">
+                        <div class="meta-row"><span>Endpoint</span><code>${escapeHtml(item.Endpoint)}</code></div>
+                        <div class="meta-row"><span>ApiKey</span><code>${item.ApiKey ? "已配置" : "未配置"}</code></div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="mini teal" data-action="edit-chat" data-id="${escapeAttr(item.ID)}">编辑</button>
+                        <button class="mini danger" data-action="delete-chat" data-id="${escapeAttr(item.ID)}">删除</button>
+                    </div>
+                </article>`;
+        }
+
+        function renderAgentCard(item) {
+            const mcpBadges = (item.McpClientIDs || []).map(id => `<span class="pill brand">${escapeHtml(id)}</span>`).join("");
+            const expirationPreview = item.ApiKeyExpirations && Object.keys(item.ApiKeyExpirations).length ? JSON.stringify(item.ApiKeyExpirations, null, 2) : "无";
+            return `
+                <article class="card">
+                    <div class="card-top">
+                        <div><h3>${escapeHtml(item.ID)}</h3><code>${escapeHtml(item.ChatClientID)}</code></div>
+                        <div class="pills"><span class="pill teal">${(item.McpClientIDs || []).length} MCP</span></div>
+                    </div>
+                    <div class="meta">
+                        <div class="meta-row"><span>Prompt</span><pre>${escapeHtml(item.SystemPrompt || "未设置")}</pre></div>
+                        <div class="meta-row"><span>API Keys</span><pre>${escapeHtml(expirationPreview)}</pre></div>
+                        <div class="meta-row"><span>MCP IDs</span><div class="pills">${mcpBadges || '<span class="pill">无</span>'}</div></div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="mini teal" data-action="edit-agent" data-id="${escapeAttr(item.ID)}">编辑</button>
+                        <button class="mini danger" data-action="delete-agent" data-id="${escapeAttr(item.ID)}">删除</button>
+                    </div>
+                </article>`;
+        }
+
+        function renderMcpCard(item) {
+            return `
+                <article class="card">
+                    <div class="card-top">
+                        <div><h3>${escapeHtml(item.Name || item.ID)}</h3><code>${escapeHtml(item.ID)}</code></div>
+                        <div class="pills">
+                            <span class="pill ${item.Enabled ? "teal" : "gold"}">${item.Enabled ? "Enabled" : "Disabled"}</span>
+                            <span class="pill brand">${escapeHtml(getTransportLabel(item))}</span>
+                        </div>
+                    </div>
+                    <div class="meta">
+                        <div class="meta-row"><span>Description</span><pre>${escapeHtml(item.Description || "未设置")}</pre></div>
+                        <div class="meta-row"><span>Sampling</span><code>${escapeHtml(item.SamplingChatClientID || "未绑定")}</code></div>
+                        ${getTransportDetails(item)}
+                    </div>
+                    <div class="card-actions">
+                        <button class="mini teal" data-action="edit-mcp" data-id="${escapeAttr(item.ID)}">编辑</button>
+                        <button class="mini" data-action="tools-mcp" data-id="${escapeAttr(item.ID)}">Tools</button>
+                        <button class="mini warn" data-action="restart-mcp" data-id="${escapeAttr(item.ID)}">Restart</button>
+                        <button class="mini" data-action="stop-mcp" data-id="${escapeAttr(item.ID)}">Stop</button>
+                        <button class="mini danger" data-action="delete-mcp" data-id="${escapeAttr(item.ID)}">删除</button>
+                    </div>
+                </article>`;
+        }
+
+        function getTransportLabel(item) {
+            if (item.StdioConfig) return "stdio";
+            if (item.SseConfig) return "sse";
+            if (item.StreamableHttpConfig) return "streamable http";
+            return "unknown";
+        }
+
+        function getTransportDetails(item) {
+            if (item.StdioConfig) {
+                return `
+                    <div class="meta-row"><span>Command</span><code>${escapeHtml(item.StdioConfig.Command || "")}</code></div>
+                    <div class="meta-row"><span>Arguments</span><pre>${escapeHtml(JSON.stringify(item.StdioConfig.Arguments || [], null, 2))}</pre></div>`;
+            }
+            if (item.SseConfig) {
+                return `
+                    <div class="meta-row"><span>Endpoint</span><code>${escapeHtml(item.SseConfig.Endpoint || "")}</code></div>
+                    <div class="meta-row"><span>Headers</span><pre>${escapeHtml(JSON.stringify(item.SseConfig.AdditionalHeaders || {}, null, 2))}</pre></div>`;
+            }
+            if (item.StreamableHttpConfig) {
+                return `
+                    <div class="meta-row"><span>Endpoint</span><code>${escapeHtml(item.StreamableHttpConfig.Endpoint || "")}</code></div>
+                    <div class="meta-row"><span>Headers</span><pre>${escapeHtml(JSON.stringify(item.StreamableHttpConfig.AdditionalHeaders || {}, null, 2))}</pre></div>`;
+            }
+            return `<div class="meta-row"><span>Transport</span><code>未配置</code></div>`;
+        }
+
+        function openDrawer(kind, item = null) {
+            state.drawerMode = item ? "edit" : "create";
+            state.editingItem = item;
+            drawer.dataset.kind = kind;
+            chatFormPanel.style.display = kind === "chat" ? "block" : "none";
+            agentFormPanel.style.display = kind === "agent" ? "block" : "none";
+            mcpFormPanel.style.display = kind === "mcp" ? "block" : "none";
+
+            refreshFormOptions();
+            resetForms();
+
+            drawerTitle.textContent = item ? `编辑 ${kind.toUpperCase()}` : `新增 ${kind.toUpperCase()}`;
+            drawerDesc.textContent = kind === "mcp" ? "修改传输方式、连接参数和启用状态。" : "修改并保存当前配置。";
+
+            if (kind === "chat" && item) populateChatForm(item);
+            if (kind === "agent" && item) populateAgentForm(item);
+            if (kind === "mcp" && item) populateMcpForm(item);
+
+            drawer.classList.add("show");
+            drawerBackdrop.classList.add("show");
+        }
+
+        function closeDrawer() {
+            drawer.classList.remove("show");
+            drawerBackdrop.classList.remove("show");
+        }
+
+        async function openToolsModal(id) {
+            try {
+                const tools = await fetchJson(`${API_BASE}/config/mcpclient/tools?id=${encodeURIComponent(id)}`);
+                toolsModalTitle.textContent = `${id} · Tools`;
+                toolsGrid.innerHTML = tools.length ? tools.map(tool => `
+                    <div class="tool-card">
+                        <h4>${escapeHtml(tool.Name || tool.name || "Unnamed Tool")}</h4>
+                        <div class="helper">${escapeHtml(tool.Description || tool.description || "No description")}</div>
+                        <pre>${escapeHtml(JSON.stringify(tool, null, 2))}</pre>
+                    </div>`).join("") : `<div class="empty">当前 MCP Client 没有返回任何工具。</div>`;
+                toolsModal.classList.add("show");
+                modalBackdrop.classList.add("show");
+            } catch (error) {
+                showFlash(error.message || "Failed to load tool list.", "error");
+            }
+        }
+
+        function closeToolsModal() {
+            toolsModal.classList.remove("show");
+            modalBackdrop.classList.remove("show");
+        }
+
+        function resetForms() {
+            chatForm.reset();
+            agentForm.reset();
+            mcpForm.reset();
+            document.getElementById("chat-id").readOnly = false;
+            document.getElementById("agent-id").readOnly = false;
+            document.getElementById("mcp-id").readOnly = false;
+            document.getElementById("mcp-enabled").checked = true;
+            setTransport("stdio");
+        }
+
+        function refreshFormOptions() {
+            const chatOptions = state.chatClients.map(item => `<option value="${escapeAttr(item.ID)}">${escapeHtml(item.ID)}</option>`).join("");
+            agentChatClientSelect.innerHTML = `<option value="">请选择 ChatClient</option>${chatOptions}`;
+            agentMcpClientList.innerHTML = state.mcpClients.map(item => `
+                <label class="chip"><input type="checkbox" value="${escapeAttr(item.ID)}" />${escapeHtml(item.ID)}</label>`).join("") || `<span class="helper">当前还没有 MCP Client。</span>`;
+            mcpSamplingChatClientSelect.innerHTML = `<option value="">不绑定</option>${chatOptions}`;
+        }
+
+        function populateChatForm(item) {
+            document.getElementById("chat-id").value = item.ID || "";
+            document.getElementById("chat-id").readOnly = true;
+            document.getElementById("chat-endpoint").value = item.Endpoint || "";
+            document.getElementById("chat-key").value = item.ApiKey || "";
+            document.getElementById("chat-model").value = item.ModelId || "";
+            document.getElementById("chat-api-mode").value = normalizeChatApiMode(item.ApiMode);
+            document.getElementById("chat-sampling").checked = !!item.AsSampling;
+        }
+
+        function populateAgentForm(item) {
+            document.getElementById("agent-id").value = item.ID || "";
+            document.getElementById("agent-id").readOnly = true;
+            agentChatClientSelect.value = item.ChatClientID || "";
+            document.getElementById("agent-system-prompt").value = item.SystemPrompt || "";
+            document.getElementById("agent-api-expirations").value = JSON.stringify(item.ApiKeyExpirations || {}, null, 2);
+            getCheckboxInputs(agentMcpClientList).forEach(input => {
+                input.checked = (item.McpClientIDs || []).includes(input.value);
+            });
+        }
+
+        function populateMcpForm(item) {
+            document.getElementById("mcp-id").value = item.ID || "";
+            document.getElementById("mcp-id").readOnly = true;
+            document.getElementById("mcp-name").value = item.Name || "";
+            document.getElementById("mcp-description").value = item.Description || "";
+            document.getElementById("mcp-enabled").checked = !!item.Enabled;
+            mcpSamplingChatClientSelect.value = item.SamplingChatClientID || "";
+
+            if (item.StdioConfig) {
+                setTransport("stdio");
+                document.getElementById("stdio-command").value = item.StdioConfig.Command || "";
+                document.getElementById("stdio-working-directory").value = item.StdioConfig.WorkingDirectory || "";
+                document.getElementById("stdio-shutdown-timeout").value = item.StdioConfig.ShutdownTimeout ?? 5;
+                document.getElementById("stdio-arguments").value = JSON.stringify(item.StdioConfig.Arguments || [], null, 2);
+                document.getElementById("stdio-env").value = JSON.stringify(item.StdioConfig.EnvironmentVariables || {}, null, 2);
+            } else if (item.SseConfig) {
+                setTransport("sse");
+                document.getElementById("sse-endpoint").value = item.SseConfig.Endpoint || "";
+                document.getElementById("sse-timeout").value = item.SseConfig.ConnectionTimeout ?? 30;
+                document.getElementById("sse-headers").value = JSON.stringify(item.SseConfig.AdditionalHeaders || {}, null, 2);
+            } else if (item.StreamableHttpConfig) {
+                setTransport("streamable");
+                document.getElementById("streamable-endpoint").value = item.StreamableHttpConfig.Endpoint || "";
+                document.getElementById("streamable-timeout").value = item.StreamableHttpConfig.ConnectionTimeout ?? 30;
+                document.getElementById("streamable-headers").value = JSON.stringify(item.StreamableHttpConfig.AdditionalHeaders || {}, null, 2);
+            }
+        }
+
+        async function submitEntity(kind, payload, id, url, method) {
+            try {
+                await fetchJson(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+                closeDrawer();
+                await loadAll();
+                showFlash(`${kind.toUpperCase()} ${id} saved.`, "success");
+            } catch (error) {
+                showFlash(error.message || "Save failed.", "error", 8000);
+            }
+        }
+
+        async function deleteEntity(kind, id, url) {
+            if (!window.confirm(`Delete ${id}?`)) return;
+            try {
+                await fetchJson(url, { method: "DELETE" });
+                await loadAll();
+                showFlash(`${kind.toUpperCase()} ${id} deleted.`, "success");
+            } catch (error) {
+                showFlash(error.message || "Delete failed.", "error", 8000);
+            }
+        }
+
+        async function invokeSimpleAction(url, method, successMessage) {
+            try {
+                await fetchJson(url, { method });
+                await loadAll();
+                showFlash(successMessage, "success");
+            } catch (error) {
+                showFlash(error.message || "Operation failed.", "error", 8000);
+            }
+        }
+
+        async function fetchJson(url, options = {}) {
+            const response = await fetch(url, options);
+            const contentType = response.headers.get("content-type") || "";
+            const body = contentType.includes("application/json") ? await response.json() : await response.text();
+            if (!response.ok) throw new Error(typeof body === "string" ? body : JSON.stringify(body));
+            return body;
+        }
+
+        function parseJsonField(rawValue, fallback, label) {
+            const text = rawValue.trim();
+            if (!text) return fallback;
+            try { return JSON.parse(text); } catch { throw new Error(`${label} is not valid JSON.`); }
+        }
+
+        function parseNumberField(rawValue, fallback) {
+            const value = Number(rawValue);
+            return Number.isFinite(value) ? value : fallback;
+        }
+
+        function getSelectedTransport() {
+            return document.querySelector("input[name='mcpTransport']:checked")?.value || "stdio";
+        }
+
+        function setTransport(transport) {
+            document.querySelectorAll("input[name='mcpTransport']").forEach(input => input.checked = input.value === transport);
+            syncTransportFields();
+        }
+
+        function syncTransportFields() {
+            const transport = getSelectedTransport();
+            document.getElementById("stdioFields").style.display = transport === "stdio" ? "grid" : "none";
+            document.getElementById("sseFields").style.display = transport === "sse" ? "grid" : "none";
+            document.getElementById("streamableFields").style.display = transport === "streamable" ? "grid" : "none";
+        }
+
+        function getCheckboxInputs(container) { return [...container.querySelectorAll("input[type='checkbox']")]; }
+        function getCheckedValues(container) { return getCheckboxInputs(container).filter(input => input.checked).map(input => input.value); }
+        function filterItems(items, selector) { return state.search ? items.filter(item => selector(item).toLowerCase().includes(state.search)) : items; }
+        function sortById(items) { return [...items].sort((a, b) => (a.ID || "").localeCompare(b.ID || "", "zh-CN")); }
+        function findById(items, id) { return items.find(item => item.ID === id); }
+        function renderEmpty(text) { return `<div class="empty">${escapeHtml(text)}</div>`; }
+
+        function normalizeChatClient(item) {
+            return {
+                ID: item?.ID ?? item?.id ?? "",
+                Endpoint: item?.Endpoint ?? item?.endpoint ?? "",
+                ApiKey: item?.ApiKey ?? item?.apiKey ?? "",
+                ModelId: item?.ModelId ?? item?.modelId ?? "",
+                ApiMode: normalizeChatApiMode(item?.ApiMode ?? item?.apiMode),
+                AsSampling: item?.AsSampling ?? item?.asSampling ?? false
+            };
+        }
+
+        function normalizeChatApiMode(apiMode) {
+            return apiMode === "responses" ? "responses" : "chat";
+        }
+
+        function normalizeAgent(item) {
+            return {
+                ID: item?.ID ?? item?.id ?? "",
+                ChatClientID: item?.ChatClientID ?? item?.chatClientID ?? "",
+                McpClientIDs: item?.McpClientIDs ?? item?.mcpClientIDs ?? [],
+                SystemPrompt: item?.SystemPrompt ?? item?.systemPrompt ?? "",
+                ApiKeyExpirations: item?.ApiKeyExpirations ?? item?.apiKeyExpirations ?? {}
+            };
+        }
+
+        function normalizeMcpClient(item) {
+            return {
+                ID: item?.ID ?? item?.id ?? "",
+                Name: item?.Name ?? item?.name ?? "",
+                Enabled: item?.Enabled ?? item?.enabled ?? false,
+                Description: item?.Description ?? item?.description ?? "",
+                SamplingChatClientID: item?.SamplingChatClientID ?? item?.samplingChatClientID ?? "",
+                StdioConfig: normalizeStdioConfig(item?.StdioConfig ?? item?.stdioConfig),
+                SseConfig: normalizeHttpConfig(item?.SseConfig ?? item?.sseConfig),
+                StreamableHttpConfig: normalizeHttpConfig(item?.StreamableHttpConfig ?? item?.streamableHttpConfig)
+            };
+        }
+
+        function normalizeStdioConfig(item) {
+            if (!item) return null;
+            return {
+                Command: item.Command ?? item.command ?? "",
+                Arguments: item.Arguments ?? item.arguments ?? [],
+                EnvironmentVariables: item.EnvironmentVariables ?? item.environmentVariables ?? {},
+                ShutdownTimeout: item.ShutdownTimeout ?? item.shutdownTimeout ?? 5,
+                WorkingDirectory: item.WorkingDirectory ?? item.workingDirectory ?? ""
+            };
+        }
+
+        function normalizeHttpConfig(item) {
+            if (!item) return null;
+            return {
+                Endpoint: item.Endpoint ?? item.endpoint ?? "",
+                AdditionalHeaders: item.AdditionalHeaders ?? item.additionalHeaders ?? {},
+                ConnectionTimeout: item.ConnectionTimeout ?? item.connectionTimeout ?? 30
+            };
+        }
+
+        function renderChatCard(item) {
+            const apiMode = normalizeChatApiMode(item.ApiMode);
+            return `
+                <article class="card">
+                    <div class="card-top">
+                        <div><h3>${escapeHtml(item.ModelId || item.ID)}</h3><code>${escapeHtml(item.ID)}</code></div>
+                        <div class="pills">
+                            <span class="pill brand">${escapeHtml(apiMode)}</span>
+                            <span class="pill ${item.AsSampling ? "gold" : "teal"}">${item.AsSampling ? "Sampling" : "Managed"}</span>
+                        </div>
+                    </div>
+                    <div class="meta">
+                        <div class="meta-row"><span>Endpoint</span><code>${escapeHtml(item.Endpoint)}</code></div>
+                        <div class="meta-row"><span>ApiKey</span><code>${item.ApiKey ? "Configured" : "Empty"}</code></div>
+                        <div class="meta-row"><span>ApiMode</span><code>${escapeHtml(apiMode)}</code></div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="mini teal" data-action="edit-chat" data-id="${escapeAttr(item.ID)}">Edit</button>
+                        ${item.AsSampling ? "" : `<button class="mini" data-action="test-chat" data-id="${escapeAttr(item.ID)}">Test</button>`}
+                        <button class="mini danger" data-action="delete-chat" data-id="${escapeAttr(item.ID)}">Delete</button>
+                    </div>
+                </article>`;
+        }
+
+        function renderAgentCard(item) {
+            const mcpBadges = (item.McpClientIDs || []).map(id => `<span class="pill brand">${escapeHtml(id)}</span>`).join("");
+            const expirationPreview = item.ApiKeyExpirations && Object.keys(item.ApiKeyExpirations).length ? JSON.stringify(item.ApiKeyExpirations, null, 2) : "None";
+            return `
+                <article class="card">
+                    <div class="card-top">
+                        <div><h3>${escapeHtml(item.ID)}</h3><code>${escapeHtml(item.ChatClientID)}</code></div>
+                        <div class="pills"><span class="pill teal">${(item.McpClientIDs || []).length} MCP</span></div>
+                    </div>
+                    <div class="meta">
+                        <div class="meta-row"><span>Prompt</span><pre>${escapeHtml(item.SystemPrompt || "Empty")}</pre></div>
+                        <div class="meta-row"><span>API Keys</span><pre>${escapeHtml(expirationPreview)}</pre></div>
+                        <div class="meta-row"><span>MCP IDs</span><div class="pills">${mcpBadges || '<span class="pill">None</span>'}</div></div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="mini teal" data-action="edit-agent" data-id="${escapeAttr(item.ID)}">Edit</button>
+                        <button class="mini" data-action="test-agent" data-id="${escapeAttr(item.ID)}">Test</button>
+                        <button class="mini danger" data-action="delete-agent" data-id="${escapeAttr(item.ID)}">Delete</button>
+                    </div>
+                </article>`;
+        }
+
+        function openChatTestModal(targetType, item) {
+            if (!item) {
+                return;
+            }
+
+            state.chatTestTargetType = targetType;
+            state.chatTestTargetId = item.ID;
+            state.chatTestHistory = [];
+            chatTestModalTitle.textContent = targetType === "chat" ? "ChatClient Tester" : "Agent Tester";
+            chatTestModalDesc.textContent = targetType === "chat"
+                ? "Send test messages directly through the selected ChatClient."
+                : "Send test messages through the selected Agent using the standard OpenAI-compatible endpoint.";
+            chatTestTargetTitle.textContent = `${targetType === "chat" ? "ChatClient" : "Agent"} · ${item.ID}`;
+            chatTestTargetDesc.textContent = targetType === "chat"
+                ? `${item.ModelId || ""} ${item.Endpoint ? `@ ${item.Endpoint}` : ""}`.trim()
+                : `${item.ChatClientID || ""} ${item.McpClientIDs?.length ? `· ${item.McpClientIDs.length} MCP` : ""}`.trim();
+            chatTestApiKeyBlock.style.display = targetType === "agent" ? "grid" : "none";
+            chatTestApiKey.value = "";
+            chatTestInput.value = "";
+            chatTestStatus.textContent = "Ready.";
+            renderChatTestHistory();
+            chatTestModal.classList.add("show");
+            modalBackdrop.classList.add("show");
+        }
+
+        function closeChatTestModal() {
+            state.chatTestTargetType = "";
+            state.chatTestTargetId = "";
+            state.chatTestHistory = [];
+            chatTestApiKey.value = "";
+            chatTestModal.classList.remove("show");
+            if (!toolsModal.classList.contains("show")) {
+                modalBackdrop.classList.remove("show");
+            }
+        }
+
+        function clearChatTestHistory() {
+            state.chatTestHistory = [];
+            chatTestStatus.textContent = "History cleared.";
+            renderChatTestHistory();
+            refreshChatTestRequestPreview();
+        }
+
+        function renderChatTestHistory() {
+            if (!state.chatTestHistory.length) {
+                chatTestSession.innerHTML = `<div class="empty">No messages yet.</div>`;
+                return;
+            }
+
+            chatTestSession.innerHTML = state.chatTestHistory.map(message => `
+                <div class="chat-msg role-${escapeAttr(message.role)}">
+                    <div class="chat-role">${escapeHtml(message.role)}</div>
+                    ${message.role === "assistant" && typeof message.reasoningContent === "string" && message.reasoningContent.trim()
+                        ? `<div class="chat-bubble">${escapeHtml(message.reasoningContent.trim())}</div>`
+                        : ""}
+                    <div class="chat-bubble">${escapeHtml(message.content)}</div>
+                    ${message.role === "assistant" && Array.isArray(message.toolCallResults) && message.toolCallResults.length
+                        ? renderToolCallResults(message.toolCallResults)
+                        : ""}
+                </div>
+            `).join("");
+            chatTestSession.scrollTop = chatTestSession.scrollHeight;
+        }
+
+        async function sendChatTestMessage() {
+            const text = chatTestInput.value.trim();
+            if (!state.chatTestTargetType || !state.chatTestTargetId) {
+                showFlash("No test target selected.", "error");
+                return;
+            }
+
+            if (!text) {
+                showFlash("Message cannot be empty.", "error");
+                return;
+            }
+
+            state.chatTestHistory.push({ role: "user", content: text });
+            chatTestInput.value = "";
+            chatTestStatus.textContent = "Sending...";
+            renderChatTestHistory();
+
+            const payload = {
+                model: state.chatTestTargetType === "agent" ? state.chatTestTargetId : "",
+                messages: state.chatTestHistory.map(message => ({
+                    role: message.role,
+                    content: message.content
+                })),
+                stream: false,
+                max_completion_tokens: 2048,
+                temperature: 0.7,
+                top_p: 0.9
+            };
+
+            const url = state.chatTestTargetType === "agent"
+                ? `${API_BASE}/v1/chat/completions`
+                : `${API_BASE}/config/chatclient/chat/completions?id=${encodeURIComponent(state.chatTestTargetId)}`;
+
+            const headers = { "Content-Type": "application/json" };
+            if (state.chatTestTargetType === "agent" && chatTestApiKey.value.trim()) {
+                headers.Authorization = `Bearer ${chatTestApiKey.value.trim()}`;
+            }
+
+            try {
+                const response = await fetchJson(url, {
+                    method: "POST",
+                    headers,
+                    body: JSON.stringify(payload)
+                });
+
+                const assistantMessage = extractAssistantText(response);
+                const toolCallResults = extractToolCallResults(response);
+                state.chatTestHistory.push({
+                    role: "assistant",
+                    content: assistantMessage || "[Empty response]",
+                    toolCallResults
+                });
+                chatTestStatus.textContent = "Completed.";
+                renderChatTestHistory();
+            } catch (error) {
+                state.chatTestHistory.push({ role: "assistant", content: `Error: ${error.message || "Request failed."}` });
+                chatTestStatus.textContent = "Failed.";
+                renderChatTestHistory();
+                showFlash(error.message || "Chat test failed.", "error");
+            }
+        }
+
+        function extractAssistantText(response) {
+            const message = response?.choices?.[0]?.message;
+            if (!message) {
+                return "";
+            }
+
+            const parts = [];
+            if (typeof message.reasoning_content === "string" && message.reasoning_content.trim()) {
+                parts.push(message.reasoning_content.trim());
+            }
+
+            const content = message.content;
+            if (typeof content === "string") {
+                parts.push(content);
+            } else if (Array.isArray(content)) {
+                content.forEach(part => {
+                    if (typeof part?.text === "string" && part.text) {
+                        parts.push(part.text);
+                    }
+                });
+            } else if (content && typeof content === "object") {
+                if (typeof content.text === "string" && content.text) {
+                    parts.push(content.text);
+                } else {
+                    parts.push(JSON.stringify(content, null, 2));
+                }
+            }
+
+            return parts.filter(Boolean).join("\n\n");
+        }
+
+        function extractToolCallResults(response) {
+            if (state.chatTestTargetType !== "agent") {
+                return [];
+            }
+
+            const toolCallResults = response?.choices?.[0]?.message?.additional_properties?.tool_call_results;
+            return Array.isArray(toolCallResults) ? toolCallResults : [];
+        }
+
+        function renderToolCallResults(toolCallResults) {
+            return `
+                <div class="chat-tool-results">
+                    <div class="chat-tool-title">Tool Call Results</div>
+                    ${toolCallResults.map(toolCall => `
+                        <div class="chat-tool-item">
+                            <div class="chat-tool-name">${escapeHtml(toolCall?.tool_name || "Unnamed Tool")}</div>
+                            <pre>${escapeHtml(JSON.stringify(toolCall, null, 2))}</pre>
+                        </div>
+                    `).join("")}
+                </div>
+            `;
+        }
+
+        function setChatTestApiMode(mode) {
+            state.chatTestApiMode = mode === "responses" ? "responses" : "chat";
+            syncChatTestApiModeInputs();
+            syncChatTestTargetPresentation();
+        }
+
+        function syncChatTestApiModeInputs() {
+            document.querySelectorAll("input[name='chatTestApiMode']").forEach(input => {
+                input.checked = input.value === state.chatTestApiMode;
+            });
+        }
+
+        function syncChatTestTargetPresentation(item) {
+            const target = item
+                || (state.chatTestTargetType === "chat"
+                    ? findById(state.chatClients, state.chatTestTargetId)
+                    : findById(state.agents, state.chatTestTargetId));
+
+            const usingResponses = state.chatTestApiMode === "responses";
+            const apiLabel = usingResponses ? "Responses API" : "Chat Completions API";
+            const actionLabel = usingResponses ? "responses" : "chat/completions";
+
+            chatTestModalTitle.textContent = state.chatTestTargetType === "chat" ? "ChatClient Tester" : "Agent Tester";
+            chatTestModalDesc.textContent = state.chatTestTargetType === "chat"
+                ? `Send test messages directly through the selected ChatClient using ${apiLabel}.`
+                : `Send test messages through the selected Agent using ${apiLabel}.`;
+            chatTestApiModeHint.textContent = usingResponses
+                ? "Use the /v1/responses-compatible request format."
+                : "Use the Chat Completions-compatible request format.";
+            sendChatTestButton.textContent = `Send via ${actionLabel}`;
+
+            if (!target) {
+                chatTestTargetDesc.textContent = `Current mode: ${actionLabel}`;
+                refreshChatTestRequestPreview();
+                return;
+            }
+
+            chatTestTargetDesc.textContent = state.chatTestTargetType === "chat"
+                ? `${target.ModelId || ""} ${target.Endpoint ? `@ ${target.Endpoint}` : ""} | ${actionLabel}`.trim()
+                : `${target.ChatClientID || ""} ${target.McpClientIDs?.length ? `| ${target.McpClientIDs.length} MCP` : ""} | ${actionLabel}`.trim();
+            refreshChatTestRequestPreview();
+        }
+
+        function getPendingChatTestHistory() {
+            const messages = state.chatTestHistory.map(message => buildChatTestHistoryMessage(message));
+            const draft = chatTestInput.value.trim();
+            if (draft) {
+                messages.push({
+                    role: "user",
+                    content: draft
+                });
+            }
+            return messages;
+        }
+
+        function buildChatTestHistoryMessage(message) {
+            const payload = {
+                role: message.role,
+                content: message.content
+            };
+
+            if (state.chatTestApiMode === "chat"
+                && message.role === "assistant"
+                && typeof message.reasoningContent === "string"
+                && message.reasoningContent.trim()) {
+                payload.reasoning_content = message.reasoningContent.trim();
+            }
+
+            return payload;
+        }
+
+        function buildChatTestPayload(includeDraft = false) {
+            const messages = includeDraft
+                ? getPendingChatTestHistory()
+                : state.chatTestHistory.map(message => buildChatTestHistoryMessage(message));
+
+            if (state.chatTestApiMode === "responses") {
+                return {
+                    model: state.chatTestTargetType === "agent" ? state.chatTestTargetId : "",
+                    input: messages,
+                    stream: false,
+                    max_output_tokens: 2048,
+                    temperature: 0.7,
+                    top_p: 0.9
+                };
+            }
+
+            return {
+                model: state.chatTestTargetType === "agent" ? state.chatTestTargetId : "",
+                messages,
+                stream: false,
+                max_completion_tokens: 2048,
+                temperature: 0.7,
+                top_p: 0.9
+            };
+        }
+
+        function buildChatTestUrl() {
+            if (state.chatTestApiMode === "responses") {
+                return state.chatTestTargetType === "agent"
+                    ? `${API_BASE}/v1/responses`
+                    : `${API_BASE}/config/chatclient/responses?id=${encodeURIComponent(state.chatTestTargetId)}`;
+            }
+
+            return state.chatTestTargetType === "agent"
+                ? `${API_BASE}/v1/chat/completions`
+                : `${API_BASE}/config/chatclient/chat/completions?id=${encodeURIComponent(state.chatTestTargetId)}`;
+        }
+
+        function getResolvedChatTestUrl(url) {
+            if (!url) {
+                return "";
+            }
+
+            try {
+                return new URL(url, window.location.href).href;
+            } catch {
+                return url;
+            }
+        }
+
+        function refreshChatTestRequestPreview() {
+            if (!state.chatTestTargetType || !state.chatTestTargetId) {
+                chatTestResolvedUrl.textContent = "Select a ChatClient or Agent to preview the target URL.";
+                chatTestPayloadPreview.textContent = "Type a message to preview the request body.";
+                return;
+            }
+
+            const url = buildChatTestUrl();
+            const payload = buildChatTestPayload(true);
+            chatTestResolvedUrl.textContent = getResolvedChatTestUrl(url);
+            chatTestPayloadPreview.textContent = JSON.stringify(payload, null, 2);
+        }
+
+        function appendStructuredText(parts, content) {
+            if (typeof content === "string") {
+                parts.push(content);
+                return;
+            }
+
+            if (Array.isArray(content)) {
+                content.forEach(part => appendStructuredText(parts, part));
+                return;
+            }
+
+            if (!content || typeof content !== "object") {
+                return;
+            }
+
+            if (typeof content.text === "string" && content.text) {
+                parts.push(content.text);
+                return;
+            }
+
+            if (typeof content.content === "string" && content.content) {
+                parts.push(content.content);
+                return;
+            }
+
+            if (Array.isArray(content.content)) {
+                content.content.forEach(part => appendStructuredText(parts, part));
+                return;
+            }
+
+            parts.push(JSON.stringify(content, null, 2));
+        }
+
+        function extractChatAssistantText(response) {
+            return extractChatAssistantMessage(response).displayText;
+        }
+
+        function extractChatAssistantMessage(response) {
+            const message = response?.choices?.[0]?.message;
+            if (!message) {
+                return { content: "", reasoningContent: "", displayText: "" };
+            }
+
+            const contentParts = [];
+            const reasoningContent = typeof message.reasoning_content === "string"
+                ? message.reasoning_content.trim()
+                : "";
+
+            appendStructuredText(contentParts, message.content);
+            const content = contentParts.filter(Boolean).join("\n\n");
+            return {
+                content,
+                reasoningContent,
+                displayText: [reasoningContent, content].filter(Boolean).join("\n\n")
+            };
+        }
+
+        function extractResponsesAssistantText(response) {
+            return extractResponsesAssistantMessage(response).displayText;
+        }
+
+        function extractResponsesAssistantMessage(response) {
+            const contentParts = [];
+            const reasoningParts = [];
+
+            const outputItems = Array.isArray(response?.output) ? response.output : [];
+            outputItems.forEach(item => {
+                if (item?.type === "reasoning") {
+                    if (Array.isArray(item.summary)) {
+                        item.summary.forEach(summaryItem => appendStructuredText(reasoningParts, summaryItem));
+                    }
+                    if (Array.isArray(item.content)) {
+                        item.content.forEach(contentItem => appendStructuredText(reasoningParts, contentItem));
+                    }
+                    return;
+                }
+
+                if (item?.type !== "message" || item?.role !== "assistant") {
+                    return;
+                }
+
+                if (typeof item?.additional_properties?.reasoning_content === "string" && item.additional_properties.reasoning_content.trim()) {
+                    reasoningParts.push(item.additional_properties.reasoning_content.trim());
+                }
+
+                const contentItems = Array.isArray(item?.content) ? item.content : [];
+                contentItems.forEach(contentItem => appendStructuredText(contentParts, contentItem));
+            });
+
+            if (!contentParts.length && typeof response?.output_text === "string" && response.output_text.trim()) {
+                contentParts.push(response.output_text.trim());
+            }
+
+            const reasoningContent = reasoningParts.filter(Boolean).join("\n\n");
+            const content = contentParts.filter(Boolean).join("\n\n");
+            return {
+                content,
+                reasoningContent,
+                displayText: [reasoningContent, content].filter(Boolean).join("\n\n")
+            };
+        }
+
+        function openChatTestModal(targetType, item) {
+            if (!item) {
+                return;
+            }
+
+            state.chatTestTargetType = targetType;
+            state.chatTestTargetId = item.ID;
+            state.chatTestHistory = [];
+            state.chatTestApiMode = targetType === "chat" ? normalizeChatApiMode(item.ApiMode) : "chat";
+            syncChatTestApiModeInputs();
+            chatTestTargetTitle.textContent = `${targetType === "chat" ? "ChatClient" : "Agent"} - ${item.ID}`;
+            chatTestApiKeyBlock.style.display = targetType === "agent" ? "grid" : "none";
+            chatTestApiKey.value = "";
+            chatTestInput.value = "";
+            chatTestStatus.textContent = "Ready.";
+            syncChatTestTargetPresentation(item);
+            renderChatTestHistory();
+            refreshChatTestRequestPreview();
+            chatTestModal.classList.add("show");
+            modalBackdrop.classList.add("show");
+        }
+
+        function closeChatTestModal() {
+            state.chatTestTargetType = "";
+            state.chatTestTargetId = "";
+            state.chatTestHistory = [];
+            state.chatTestApiMode = "chat";
+            chatTestApiKey.value = "";
+            syncChatTestApiModeInputs();
+            refreshChatTestRequestPreview();
+            chatTestModal.classList.remove("show");
+            if (!toolsModal.classList.contains("show")) {
+                modalBackdrop.classList.remove("show");
+            }
+        }
+
+        async function sendChatTestMessage() {
+            const text = chatTestInput.value.trim();
+            if (!state.chatTestTargetType || !state.chatTestTargetId) {
+                showFlash("No test target selected.", "error");
+                return;
+            }
+
+            if (!text) {
+                showFlash("Message cannot be empty.", "error");
+                return;
+            }
+
+            state.chatTestHistory.push({ role: "user", content: text });
+            chatTestInput.value = "";
+            chatTestStatus.textContent = "Sending...";
+            renderChatTestHistory();
+            refreshChatTestRequestPreview();
+
+            const payload = buildChatTestPayload();
+            const url = buildChatTestUrl();
+
+            const headers = { "Content-Type": "application/json" };
+            if (state.chatTestTargetType === "agent" && chatTestApiKey.value.trim()) {
+                headers.Authorization = `Bearer ${chatTestApiKey.value.trim()}`;
+            }
+
+            try {
+                const response = await fetchJson(url, {
+                    method: "POST",
+                    headers,
+                    body: JSON.stringify(payload)
+                });
+
+                const assistantMessage = extractAssistantMessage(response, state.chatTestApiMode);
+                const toolCallResults = extractToolCallResults(response, state.chatTestApiMode);
+                state.chatTestHistory.push({
+                    role: "assistant",
+                    content: assistantMessage.content || "[Empty response]",
+                    reasoningContent: assistantMessage.reasoningContent,
+                    toolCallResults
+                });
+                chatTestStatus.textContent = "Completed.";
+                renderChatTestHistory();
+                refreshChatTestRequestPreview();
+            } catch (error) {
+                state.chatTestHistory.push({ role: "assistant", content: `Error: ${error.message || "Request failed."}` });
+                chatTestStatus.textContent = "Failed.";
+                renderChatTestHistory();
+                refreshChatTestRequestPreview();
+                showFlash(error.message || "Chat test failed.", "error");
+            }
+        }
+
+        function extractAssistantText(response, apiMode = state.chatTestApiMode) {
+            return extractAssistantMessage(response, apiMode).displayText;
+        }
+
+        function extractAssistantMessage(response, apiMode = state.chatTestApiMode) {
+            return apiMode === "responses"
+                ? extractResponsesAssistantMessage(response)
+                : extractChatAssistantMessage(response);
+        }
+
+        function extractToolCallResults(response, apiMode = state.chatTestApiMode) {
+            if (state.chatTestTargetType !== "agent") {
+                return [];
+            }
+
+            if (apiMode !== "responses") {
+                const chatToolCallResults = response?.choices?.[0]?.message?.additional_properties?.tool_call_results;
+                return Array.isArray(chatToolCallResults) ? chatToolCallResults : [];
+            }
+
+            const outputItems = Array.isArray(response?.output) ? response.output : [];
+            for (const item of outputItems) {
+                const toolCallResults = item?.additional_properties?.tool_call_results;
+                if (Array.isArray(toolCallResults) && toolCallResults.length) {
+                    return toolCallResults;
+                }
+            }
+
+            return [];
+        }
+
+        function normalizeMcpTool(item) {
+            const protocolTool = item?.ProtocolTool ?? item?.protocolTool ?? item ?? {};
+            return {
+                Name: item?.Name ?? item?.name ?? protocolTool?.Name ?? protocolTool?.name ?? "",
+                Description: item?.Description ?? item?.description ?? protocolTool?.Description ?? protocolTool?.description ?? "",
+                JsonSchema: item?.JsonSchema ?? item?.jsonSchema ?? protocolTool?.InputSchema ?? protocolTool?.inputSchema ?? {},
+                ProtocolTool: protocolTool,
+                Raw: item
+            };
+        }
+
+        function buildToolArgumentTemplate(schema) {
+            if (!schema || typeof schema !== "object") {
+                return {};
+            }
+
+            const properties = schema.properties || schema.Properties || {};
+            const template = {};
+            Object.entries(properties).forEach(([key, value]) => {
+                const prop = value || {};
+                const type = prop.type || prop.Type || "string";
+                if (Array.isArray(type)) {
+                    template[key] = "";
+                    return;
+                }
+
+                switch (type) {
+                    case "number":
+                    case "integer":
+                        template[key] = 0;
+                        break;
+                    case "boolean":
+                        template[key] = false;
+                        break;
+                    case "array":
+                        template[key] = [];
+                        break;
+                    case "object":
+                        template[key] = {};
+                        break;
+                    default:
+                        template[key] = "";
+                        break;
+                }
+            });
+            return template;
+        }
+
+        function buildToolParameterRows(schema) {
+            if (!schema || typeof schema !== "object") {
+                return [];
+            }
+
+            const properties = schema.properties || schema.Properties || {};
+            const requiredList = new Set(schema.required || schema.Required || []);
+
+            return Object.entries(properties).map(([key, value]) => {
+                const prop = value || {};
+                const rawType = prop.type || prop.Type || "string";
+                const type = Array.isArray(rawType) ? rawType.join(" | ") : rawType;
+                const description = prop.description || prop.Description || "";
+                return {
+                    name: key,
+                    type,
+                    required: requiredList.has(key),
+                    description
+                };
+            });
+        }
+
+        function renderToolParameterGuide(tool) {
+            const rows = buildToolParameterRows(tool.JsonSchema);
+            if (!rows.length) {
+                return "No parameter metadata available for this tool.";
+            }
+
+            return `
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Required</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${rows.map(row => `
+                            <tr>
+                                <td><code>${escapeHtml(row.name)}</code></td>
+                                <td>${escapeHtml(row.type || "string")}</td>
+                                <td>${row.required ? "Yes" : "No"}</td>
+                                <td>${escapeHtml(row.description || "-")}</td>
+                            </tr>
+                        `).join("")}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        async function openToolsModal(id) {
+            try {
+                const tools = (await fetchJson(`${API_BASE}/config/mcpclient/tools?id=${encodeURIComponent(id)}`)).map(normalizeMcpTool);
+                state.currentToolClientId = id;
+                state.currentMcpTools = tools;
+                state.selectedToolIndex = -1;
+
+                toolsModalTitle.textContent = `${id} · Tools`;
+                toolsGrid.innerHTML = tools.length ? tools.map((tool, index) => `
+                    <div class="tool-card">
+                        <h4>${escapeHtml(tool.Name || "Unnamed Tool")}</h4>
+                        <div class="helper">${escapeHtml(tool.Description || "No description")}</div>
+                        <div class="tool-actions">
+                            <button class="mini teal" type="button" data-action="select-tool" data-index="${index}">Use In Tester</button>
+                        </div>
+                        <pre>${escapeHtml(JSON.stringify(tool.ProtocolTool ?? tool.Raw, null, 2))}</pre>
+                    </div>`).join("") : `<div class="empty">No tools returned by this MCP client.</div>`;
+
+                toolTesterTitle.textContent = "Tool Tester";
+                toolTesterDesc.textContent = "Select a tool above, adjust the JSON arguments, then run a live test through McpHost.";
+                toolParamGuide.innerHTML = "Select a tool to inspect its parameters.";
+                toolArgsInput.value = "{}";
+                toolResultOutput.textContent = tools.length ? "Select a tool to begin." : "No tools available for testing.";
+
+                toolsGrid.querySelectorAll("[data-action='select-tool']").forEach(button => {
+                    button.addEventListener("click", () => selectToolForTest(Number(button.dataset.index)));
+                });
+
+                toolsModal.classList.add("show");
+                modalBackdrop.classList.add("show");
+            } catch (error) {
+                showFlash(error.message || "Failed to load tool list.", "error");
+            }
+        }
+
+        function closeToolsModal() {
+            state.currentToolClientId = "";
+            state.currentMcpTools = [];
+            state.selectedToolIndex = -1;
+            toolsModal.classList.remove("show");
+            if (!chatTestModal.classList.contains("show")) {
+                modalBackdrop.classList.remove("show");
+            }
+        }
+
+        function selectToolForTest(index) {
+            const tool = state.currentMcpTools[index];
+            if (!tool) {
+                return;
+            }
+
+            state.selectedToolIndex = index;
+            toolTesterTitle.textContent = tool.Name || "Tool Tester";
+            toolTesterDesc.textContent = tool.Description || "Invoke this tool with JSON arguments.";
+            toolParamGuide.innerHTML = renderToolParameterGuide(tool);
+            toolArgsInput.value = JSON.stringify(buildToolArgumentTemplate(tool.JsonSchema), null, 2);
+            toolResultOutput.textContent = "Ready to invoke.";
+        }
+
+        async function invokeSelectedTool() {
+            if (!state.currentToolClientId) {
+                showFlash("No MCP client selected.", "error");
+                return;
+            }
+
+            if (state.selectedToolIndex < 0 || !state.currentMcpTools[state.selectedToolIndex]) {
+                showFlash("Select a tool first.", "error");
+                return;
+            }
+
+            let args;
+            try {
+                args = parseJsonField(toolArgsInput.value, {}, "Arguments");
+            } catch (error) {
+                showFlash(error.message || "Arguments JSON is invalid.", "error");
+                return;
+            }
+
+            if (args === null || typeof args !== "object" || Array.isArray(args)) {
+                showFlash("Arguments must be a JSON object.", "error");
+                return;
+            }
+
+            const tool = state.currentMcpTools[state.selectedToolIndex];
+            toolResultOutput.textContent = "Invoking...";
+
+            try {
+                const result = await fetchJson(
+                    `${API_BASE}/config/mcpclient/calltool?id=${encodeURIComponent(state.currentToolClientId)}&toolName=${encodeURIComponent(tool.Name)}`,
+                    {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(args)
+                    }
+                );
+
+                toolResultOutput.textContent = typeof result === "string" ? result : JSON.stringify(result, null, 2);
+                showFlash(`Tool ${tool.Name} invoked successfully.`, "success");
+            } catch (error) {
+                toolResultOutput.textContent = error.message || "Tool invocation failed.";
+                showFlash(error.message || "Tool invocation failed.", "error");
+            }
+        }
+
+        async function copyToolResult() {
+            const text = toolResultOutput.textContent || "";
+            if (!text.trim()) {
+                showFlash("No tool result to copy.", "error");
+                return;
+            }
+
+            try {
+                await navigator.clipboard.writeText(text);
+                showFlash("Tool result copied.", "success");
+            } catch (error) {
+                showFlash(error.message || "Failed to copy result.", "error");
+            }
+        }
+
+        function showFlash(message, type = "info", timeout = 3600) {
+            const node = document.createElement("div");
+            node.className = `flash ${type}`;
+            node.textContent = message;
+            flashStack.prepend(node);
+            if (timeout > 0) window.setTimeout(() => node.remove(), timeout);
+        }
+
+        function escapeHtml(value) {
+            return String(value ?? "")
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#39;");
+        }
+
+        function escapeAttr(value) { return escapeHtml(value); }
+
+        updateLiveTimestamp();
+        window.setInterval(updateLiveTimestamp, 1000);
+        loadAll();
+    </script>
+</body>
+</html>

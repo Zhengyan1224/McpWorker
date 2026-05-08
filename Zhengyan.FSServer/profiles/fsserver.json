@@ -1,0 +1,71 @@
+{
+  "AllowedHosts": "*",
+  "Kestrel": {
+    "EndPoints": {
+      "Http": {
+        "Url": "http://*:9085"
+      }
+    }
+  },
+  "WebApi": {
+    "CentralRoutePrefix": "fsserver/api"
+  },
+  "McpServer": {
+    "RoutePrefix": "fsserver/mcp",
+    "Mode": "sse", // sse / streamablehttp(http)
+    "Stateless": false
+  },
+  "Swagger": {
+    "Enable": true,
+    "RoutePrefix": "fsserver/swagger",
+    "Title": "文件存储服务接口",
+    "Version": "v1.0.0",
+    "Description": "用于文件存储服务接口的调用说明。",
+    "XmlComments": [
+      "./profiles/Zhengyan.FSServer.xml"
+    ]
+  },
+  "StaticFiles": {
+    "StaticFilesRoot": "./datas/files",
+    "RequestPath": "/fsserver/files",
+    "DefaultFiles": [
+      "index.html"
+    ],
+    "ContentTypeMappings": [
+      {
+        "FileExtension": ".mobi",
+        "ContentType": "application/octet-stream"
+      },
+      {
+        "FileExtension": ".epub",
+        "ContentType": "application/octet-stream"
+      },
+      {
+        "FileExtension": ".azw3",
+        "ContentType": "application/octet-stream"
+      }
+    ]
+  },
+  
+  "Storage":{
+    "StorageBaseDir":"./datas/files"
+  },
+  "Logger": {
+    "Level": "Debug", // 支持Verb/Debug/Info/Warn/Error/Fatal
+    "Outputs": [
+      {
+        "Type": "File", // 支持File（文件）/Console（控制台）两种类型
+        "Path": "logs/log.txt", // 输出路径
+        "Template": "{Timestamp:yyyy-MM-dd HH:mm-ss.fff }[{Level:u3}] {Message:lj}{NewLine}{Exception}", // 输出格式模板
+        "RollingInterval": "Day", // 支持Infinite（不按时间）/Year（按年）/Month（按月）/Day（按日）/Hour（按时）/Minute（按分）
+        "FileSizeLimitBytes": 0, //日志文件大小最大上限（Byte，0为不限制大小）
+        "Encoding": "UTF-8", // 日志文件编码
+        "RetainedFileCountLimit": 10 // 最大保存文件数,超过最大文件数会自动覆盖原有文件
+      },
+      {
+        "Type": "Console",
+        "Template": "{Timestamp:yyyy-MM-dd HH:mm-ss.fff }[{Level:u3}] {Message:lj}{NewLine}{Exception}"
+      }
+    ]
+  }
+}

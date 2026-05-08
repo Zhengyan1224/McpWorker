@@ -1,0 +1,217 @@
+[
+  {
+    "Id": "876a35315b4244049f175c049f7a30a8",
+    "Scope": "user_profile",
+    "Content": "用户正在咨询如何学习深度学习，表明其对AI/深度学习领域有明确的学习意向，后续可针对性提供路线规划与资源推荐。",
+    "Summary": "",
+    "Tags": [
+      "deep_learning",
+      "interest",
+      "learning"
+    ],
+    "Metadata": {},
+    "Importance": 0.7,
+    "CreatedAtUtc": "2026-04-22T04:51:34.0563755Z",
+    "UpdatedAtUtc": "2026-04-22T04:51:34.0563755Z",
+    "LastAccessedAtUtc": "2026-04-30T07:09:30.3561433Z",
+    "AccessCount": 35
+  },
+  {
+    "Id": "e7553341c55e4dbb8ad5e61469196cc3",
+    "Scope": "user_profile",
+    "Content": "用户对学习深度学习感兴趣，正在寻求系统学习路径。",
+    "Summary": "",
+    "Tags": [
+      "deep_learning",
+      "interest",
+      "learning"
+    ],
+    "Metadata": {},
+    "Importance": 0.6,
+    "CreatedAtUtc": "2026-04-22T05:37:53.5780473Z",
+    "UpdatedAtUtc": "2026-04-22T05:37:53.5780473Z",
+    "LastAccessedAtUtc": "2026-04-30T07:09:30.3561433Z",
+    "AccessCount": 57
+  },
+  {
+    "Id": "0dc6a251b11a4ab8af4eaa9004214254",
+    "Scope": "user_profile",
+    "Content": "用户正在学习深度学习，希望获取系统学习路径与资源建议。",
+    "Summary": "",
+    "Tags": [
+      "deep_learning",
+      "interest",
+      "learning_path"
+    ],
+    "Metadata": {},
+    "Importance": 0.7,
+    "CreatedAtUtc": "2026-04-22T05:40:29.7857144Z",
+    "UpdatedAtUtc": "2026-04-22T05:40:29.7857144Z",
+    "LastAccessedAtUtc": "2026-04-30T07:09:30.3561433Z",
+    "AccessCount": 58
+  },
+  {
+    "Id": "74082c38052a48319c02b56bc9d40bd6",
+    "Scope": "default",
+    "Content": "用户想要学习深度学习，并询问了学习方法。",
+    "Summary": "",
+    "Tags": [
+      "deep_learning",
+      "learning"
+    ],
+    "Metadata": {},
+    "Importance": 0.6,
+    "CreatedAtUtc": "2026-04-22T05:44:55.6623471Z",
+    "UpdatedAtUtc": "2026-04-22T05:44:55.6623471Z",
+    "LastAccessedAtUtc": "2026-04-30T05:00:32.9349937Z",
+    "AccessCount": 19
+  },
+  {
+    "Id": "90f9da5c77564e629594bd67a89be3c6",
+    "Scope": "user_profile",
+    "Content": "User\u0027s name is Zheng Yan (郑炎). He is male, born on December 24, 1988, at 13:00. He is my master.",
+    "Summary": "User profile: Zheng Yan, born 1988-12-24 13:00",
+    "Tags": [
+      "personal_info",
+      "user_profile"
+    ],
+    "Metadata": {},
+    "Importance": 0.8,
+    "CreatedAtUtc": "2026-04-22T06:18:36.4436317Z",
+    "UpdatedAtUtc": "2026-04-22T06:18:36.4436317Z",
+    "LastAccessedAtUtc": "2026-04-30T06:06:57.5999698Z",
+    "AccessCount": 19
+  },
+  {
+    "Id": "36428bcc84c74b6ba2439df9ceedef36",
+    "Scope": "default",
+    "Content": "用户（郑炎）的女儿叫郑芷涵，女性，出生于2021年9月7日9点。",
+    "Summary": "女儿郑芷涵信息",
+    "Tags": [
+      "daughter",
+      "family",
+      "personal_info"
+    ],
+    "Metadata": {},
+    "Importance": 0.5,
+    "CreatedAtUtc": "2026-04-22T06:19:44.9124978Z",
+    "UpdatedAtUtc": "2026-04-22T06:19:44.9124978Z",
+    "LastAccessedAtUtc": "2026-04-22T09:11:06.752267Z",
+    "AccessCount": 10
+  },
+  {
+    "Id": "aab9f3b2a68c491f9b599b5859c1b9e5",
+    "Scope": "user_info",
+    "Content": "该图片记录的是一个 2021 年 9 月 7 日 9 点出生的女孩的信息",
+    "Summary": "女孩出生信息记录",
+    "Tags": [
+      "birth_info",
+      "girl"
+    ],
+    "Metadata": {
+      "source": "image"
+    },
+    "Importance": 0.7,
+    "CreatedAtUtc": "2026-04-22T07:08:06.6264683Z",
+    "UpdatedAtUtc": "2026-04-22T07:08:06.6264683Z",
+    "LastAccessedAtUtc": "2026-04-30T06:08:41.4880384Z",
+    "AccessCount": 6
+  },
+  {
+    "Id": "8f55fa16babb480da01ca55012eff26f",
+    "Scope": "default",
+    "Content": "男 1988 年 12 月 24 日 13 点出生",
+    "Summary": "记录人物出生日期信息",
+    "Tags": [
+      "profile"
+    ],
+    "Metadata": {},
+    "Importance": 0.6,
+    "CreatedAtUtc": "2026-04-22T07:33:21.4833242Z",
+    "UpdatedAtUtc": "2026-04-22T07:33:21.4833242Z",
+    "LastAccessedAtUtc": "2026-04-30T06:08:41.4880384Z",
+    "AccessCount": 19
+  },
+  {
+    "Id": "9fa7ad0f832e4d4db90fcfa003c69493",
+    "Scope": "user_profile",
+    "Content": "男 1988 年 12 月 24 日 13 点出生",
+    "Summary": "用户提供的出生日期信息",
+    "Tags": [
+      "profile"
+    ],
+    "Metadata": {
+      "source": "image"
+    },
+    "Importance": 0.8,
+    "CreatedAtUtc": "2026-04-22T08:37:18.0286504Z",
+    "UpdatedAtUtc": "2026-04-22T08:37:18.0286504Z",
+    "LastAccessedAtUtc": "2026-04-30T07:09:30.3561433Z",
+    "AccessCount": 32
+  },
+  {
+    "Id": "9a0db576863a4b44bb5e8939f2afb8f0",
+    "Scope": "default",
+    "Content": "男，1988年12月24日13点出生",
+    "Summary": "用户提供的出生信息",
+    "Tags": [
+      "profile"
+    ],
+    "Metadata": {
+      "source": "user_input"
+    },
+    "Importance": 0.6,
+    "CreatedAtUtc": "2026-04-22T08:37:50.2791036Z",
+    "UpdatedAtUtc": "2026-04-22T08:37:50.2791036Z",
+    "LastAccessedAtUtc": "2026-04-30T07:09:30.3561433Z",
+    "AccessCount": 35
+  },
+  {
+    "Id": "f3830ac40cbc47d995fd1e6b5ae1f8e0",
+    "Scope": "default",
+    "Content": "有一位女性，出生于 2021 年 9 月 7 日 9 点",
+    "Summary": "女性出生时间记录",
+    "Tags": [
+      "profile"
+    ],
+    "Metadata": {
+      "source": "user_input",
+      "type": "birth_info"
+    },
+    "Importance": 0.5,
+    "CreatedAtUtc": "2026-04-22T10:59:25.4986032Z",
+    "UpdatedAtUtc": "2026-04-22T10:59:25.4986032Z",
+    "LastAccessedAtUtc": "2026-04-30T06:08:41.4880384Z",
+    "AccessCount": 3
+  },
+  {
+    "Id": "204bce076abc4490b4f9a0dea6c2c595",
+    "Scope": "default",
+    "Content": "一个女孩于 2021 年 9 月 7 日 9 点出生",
+    "Summary": "",
+    "Tags": [
+      "出生信息"
+    ],
+    "Metadata": {},
+    "Importance": 0.5,
+    "CreatedAtUtc": "2026-04-30T06:07:48.3588642Z",
+    "UpdatedAtUtc": "2026-04-30T06:07:48.3588642Z",
+    "LastAccessedAtUtc": "2026-04-30T06:08:41.4880384Z",
+    "AccessCount": 1
+  },
+  {
+    "Id": "4e3e60a8372748fc8ebb9b7bc60fb4a4",
+    "Scope": "default",
+    "Content": "该个体为男性，出生于 1988 年 12 月 24 日 13 点",
+    "Summary": "记录性别与出生信息",
+    "Tags": [
+      "birth_info"
+    ],
+    "Metadata": {},
+    "Importance": 0.6,
+    "CreatedAtUtc": "2026-04-30T06:11:20.5357079Z",
+    "UpdatedAtUtc": "2026-04-30T06:11:20.5357079Z",
+    "LastAccessedAtUtc": "2026-04-30T07:09:11.1586028Z",
+    "AccessCount": 6
+  }
+]

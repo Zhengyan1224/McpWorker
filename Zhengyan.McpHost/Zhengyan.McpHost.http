@@ -1,0 +1,105 @@
+@McpHostAddress = http://127.0.0.1:5000
+@ApiKey = your_api_key
+@Model = No models available
+@VisionModel = gpt-4-turbo
+
+###
+# 1) 纯文本协议（兼容旧格式）
+POST {{McpHostAddress}}/v1/chat/completions
+Authorization: Bearer {{ApiKey}}
+Content-Type: application/json
+
+{
+  "model": "{{Model}}",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a helpful assistant."
+    },
+    {
+      "role": "user",
+      "content": "Hello!"
+    }
+  ],
+  "max_tokens": 300
+}
+
+###
+# 2) 多模态协议（text + image_url）
+POST {{McpHostAddress}}/v1/chat/completions
+Authorization: Bearer {{ApiKey}}
+Content-Type: application/json
+
+{
+  "model": "{{VisionModel}}",
+  "messages": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "What's in this image?"
+        },
+        {
+          "type": "image_url",
+          "image_url": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg"
+          }
+        }
+      ]
+    }
+  ],
+  "max_tokens": 300
+}
+
+###
+# 3) 流式协议（SSE）
+POST {{McpHostAddress}}/v1/chat/completions
+Authorization: Bearer {{ApiKey}}
+Content-Type: application/json
+
+{
+  "model": "{{Model}}",
+  "stream": true,
+  "messages": [
+    {
+      "role": "user",
+      "content": "请分三步解释什么是MCP"
+    }
+  ],
+  "max_tokens": 300
+}
+
+###
+# 4) Responses API 锛堥潪娴佸紡锛?
+POST {{McpHostAddress}}/v1/responses
+Authorization: Bearer {{ApiKey}}
+Content-Type: application/json
+
+{
+  "model": "{{Model}}",
+  "instructions": "You are a helpful assistant.",
+  "input": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "input_text",
+          "text": "请用三句话介绍 MCP。"
+        }
+      ]
+    }
+  ]
+}
+
+###
+# 5) Responses API 锛圫SE锛?
+POST {{McpHostAddress}}/v1/responses
+Authorization: Bearer {{ApiKey}}
+Content-Type: application/json
+
+{
+  "model": "{{Model}}",
+  "stream": true,
+  "input": "请逐步解释这个 Host 如何把 Responses API 映射到现有 Agent 运行时。"
+}

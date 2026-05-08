@@ -1,0 +1,23 @@
+{
+  "model": "gpt-4-turbo",
+  "stream": true,
+  "messages": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "请流式描述这张图片，并给出3条关键信息。"
+        },
+        {
+          "type": "image_url",
+          "image_url": {
+            "url": "data:image/jpeg;base64,<base64_data_here>"
+          }
+        }
+      ]
+    }
+  ],
+  "max_tokens": 300
+}
+

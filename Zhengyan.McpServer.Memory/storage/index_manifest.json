@@ -1,0 +1,8 @@
+{
+  "EmbeddingEnabled": true,
+  "EmbeddingModel": "bge_m3",
+  "EmbeddingEndpoint": "http://10.10.40.102:32730/openapi/373cd113-3840-4b83-99bd-b228847cfc7b/v1/embeddings",
+  "MaxTextLengthPerMemory": 2000,
+  "MemoryCount": 13,
+  "RecordFingerprint": "462A6D2191C3F642DE60E60DD6BAB971DA4D5019A212E88CB73BBB962113484C"
+}

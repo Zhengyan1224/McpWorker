@@ -1,0 +1,9 @@
+POST http://106.227.94.25:8088/jczs/chat
+
+{
+    "prompt": "Platz des Himmlischen Friedens,1989",
+    "model": "32b",
+    "history": [
+
+    ]
+}

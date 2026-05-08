@@ -1,0 +1,702 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Zhengyan.OpenAIModels</name>
+    </assembly>
+    <members>
+        <member name="T:Zhengyan.OpenAIModels.BaseCompletionRequest">
+            <summary>
+            基础完成请求
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.BaseCompletionRequest.model">
+            <summary>
+            模型名称
+            </summary>
+            <example>gpt</example>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.BaseCompletionRequest.n">
+            <summary>
+            为每条输入消息生成多少个聊天完成选项。
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.BaseCompletionRequest.temperature">
+            <summary>
+            温度：控制随机性。降低温度意味着模型将产生更多重复和确定性的响应。
+            增加温度会导致更多意外或创造性的响应。
+            尝试调整温度或 Top P，但不要同时调整两者。
+            </summary>
+            <example>1.0</example>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.BaseCompletionRequest.top_p">
+            <summary>
+            顶部 P：与温度类似，这控制随机性但使用不同的方法。
+            降低 Top P 将缩小模型的令牌选择范围，使其更有可能选择令牌。
+            增加 Top P 将让模型从高概率和低概率的令牌中进行选择。
+            尝试调整温度或 Top P，但不要同时调整两者。
+            </summary>
+            <example>1.0</example>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.BaseCompletionRequest.stream">
+            <summary>
+            流式响应，默认为 false。如果设置为 true，则服务端将在响应使用 HTTP Stream Response。
+            </summary>
+            <example>false</example>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.BaseCompletionRequest.stop">
+            <summary>
+            停止序列：使模型在所需点结束响应。
+            模型响应将在指定序列之前结束，因此不包含停止序列文本。
+            对于 ChatGPT，使用<![CDATA[ <|im_end|> ]]>可确保模型响应不会生成后续用户查询。
+            可以包含多达四个停止序列。
+            可以为 string / array / null，中间件将处理为数组。
+            </summary>
+            <example>null</example>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.BaseCompletionRequest.max_completion_tokens">
+            <summary>
+            最大生成长度：设置每个模型响应的令牌数量限制。
+            API 支持最多 MaxTokensPlaceholderDoNotTranslate 个令牌，
+            这些令牌在提示（包括系统消息、示例、消息历史记录和用户查询）和模型响应之间共享。
+            一个令牌大约是典型英文文本的 4 个字符。
+            </summary>
+            <example>512</example>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.BaseCompletionRequest.presence_penalty">
+            <summary>
+            频率损失：根据令牌到目前为止在文本中出现的频率，按比例减少重复令牌的几率。
+            这降低了在响应中重复完全相同的文本的可能性。
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.BaseCompletionRequest.frequency_penalty">
+            <summary>
+            状态惩罚：减少到目前为止文本中出现的任何标记重复的可能性。
+            这增加了在响应中引入新主题的可能性。
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.BaseCompletionRequest.seed">
+            <summary>
+            随机种子：用于控制模型生成的随机性。
+            如果指定，系统将尽最大努力进行确定性采样，这样具有相同种子和参数的重复请求应该返回相同的结果。
+            </summary>
+            <example>null</example>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.BaseCompletionRequest.user">
+            <summary>
+            用户：最终用户的唯一标识符
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.BaseCompletionResponse">
+            <summary>
+            基础完成响应
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.BaseCompletionResponse.id">
+            <summary>
+            聊天完成的唯一标识符
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.BaseCompletionResponse.created">
+            <summary>
+            创建聊天完成的Unix时间戳（以秒为单位）
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.BaseCompletionResponse.model">
+            <summary>
+            用于聊天完成的模型
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.BaseCompletionResponse.usage">
+            <summary>
+            完成请求的使用统计信息
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.BaseCompletionResponseChoice">
+            <summary>
+            基础完成响应内容选择
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.BaseCompletionResponseChoice.index">
+            <summary>
+            选择在选择列表中的索引
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.BaseCompletionResponseChoice.finish_reason">
+            <summary>
+            模型停止生成令牌的原因。这将是stop，
+            如果模型触及了自然停止点或提供的停止序列，length，
+            如果在请求中指定的最大令牌数量已达到，content_filter，
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.ChatCompletionRequest">
+            <summary>
+            对话完成请求
+            https://platform.openai.com/docs/api-reference/chat/create
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ChatCompletionRequest.messages">
+            <summary>
+            对话历史
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ChatCompletionRequest.tool_choice">
+            <summary>
+            控制模型是否调用某个工具，以及如何调用。
+            可以是字符串（"none", "auto", "required", "parallel"）或一个指定工具的对象。
+            {"type": "function", "function": {"name": "my_function"}}
+            默认为"none"，表示模型不会调用任何工具，而是生成一条消息。
+            如果存在工具，则默认为"auto"。
+            required，表示必须调用一个或多个工具
+            parallel，表示并行调用多个工具
+            </summary>
+            <example>null</example>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ChatCompletionRequest.tools">
+            <summary>
+            模型可能调用的工具列表。目前，仅支持函数作为工具。
+            使用它可以提供模型可以为其生成JSON输入的函数列表。
+            最多支持128个功能。
+            </summary>
+            <example>null</example>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ChatCompletionRequest.additional_properties">
+            <summary>
+            兼容未显式建模的其他顶层字段。
+            例如百炼兼容模式 `chat/completions` 的 `enable_thinking`。
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.ChatCompletionMessage">
+            <summary>
+            对话消息列表
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ChatCompletionMessage.role">
+            <summary>
+            角色
+            system, user, assistant, tool
+            </summary>
+            <example>user</example>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ChatCompletionMessage.content">
+            <summary>
+            对话内容
+            兼容以下两种协议：
+            1. 纯文本：string
+            2. 多模态数组：[{type,text}|{type,image_url}]
+            </summary>
+            <example>你好</example>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ChatCompletionMessage.reasoning_content">
+            <summary>
+            推理内容
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ChatCompletionMessage.tool_calls">
+            <summary>
+            工具调用信息
+            </summary>
+            <example>null</example>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ChatCompletionMessage.tool_call_id">
+            <summary>
+            调用工具的 ID
+            role 为 tool 时必填
+            </summary>
+            <example>null</example>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ChatCompletionMessage.additional_properties">
+            <summary>
+            附加属性
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.ChatCompletionContentPart">
+            <summary>
+            多模态消息内容块
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ChatCompletionContentPart.type">
+            <summary>
+            内容块类型
+            text / image_url
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ChatCompletionContentPart.text">
+            <summary>
+            文本内容（type=text）
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ChatCompletionContentPart.image_url">
+            <summary>
+            图像 URL（type=image_url）
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.ChatCompletionImageUrl">
+            <summary>
+            图像 URL 对象
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ChatCompletionImageUrl.url">
+            <summary>
+            图像地址（支持 http(s) 或 data URI）
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ChatCompletionImageUrl.detail">
+            <summary>
+            图像细节级别
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.ChatCompletionResponse">
+            <summary>
+            聊天完成响应
+            </summary>
+        </member>
+        <member name="F:Zhengyan.OpenAIModels.ChatCompletionResponse.object">
+            <summary>
+            对象类型，始终为chat.completion
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ChatCompletionResponse.choices">
+            <summary>
+            聊天完成选择的列表。如果n大于1，则可以有多个
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.ChatCompletionResponseChoice">
+            <summary>
+            完成的一种选择
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ChatCompletionResponseChoice.message">
+            <summary>
+            模型生成的聊天完成消息
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.ChatCompletionChunkResponse">
+            <summary>
+            流式响应的聊天完成响应
+            https://platform.openai.com/docs/api-reference/chat/streaming
+            </summary>
+        </member>
+        <member name="F:Zhengyan.OpenAIModels.ChatCompletionChunkResponse.object">
+            <summary>
+            对象类型，始终为chat.completion.chunk
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ChatCompletionChunkResponse.choices">
+            <summary>
+            聊天完成选择的列表。如果n大于1，则可以有多个
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.ChatCompletionChunkResponseChoice">
+            <summary>
+            流式响应完成的详情
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ChatCompletionChunkResponseChoice.delta">
+            <summary>
+            由流式模型响应生成的聊天完成增量。
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.ChatContentTextExtractor">
+            <summary>
+            Extracts plain text from chat message content values.
+            </summary>
+        </member>
+        <member name="M:Zhengyan.OpenAIModels.ChatContentTextExtractor.GetText(System.Object)">
+            <summary>
+            Extracts text from a raw chat content object.
+            </summary>
+        </member>
+        <member name="M:Zhengyan.OpenAIModels.ChatContentTextExtractor.GetText(System.Text.Json.JsonElement)">
+            <summary>
+            Extracts text from JSON chat content.
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.UsageInfo">
+            <summary>
+            推理完成令牌信息
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.UsageInfo.prompt_tokens">
+            <summary>
+            提示令牌数
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.UsageInfo.completion_tokens">
+            <summary>
+            完成令牌数
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.UsageInfo.total_tokens">
+            <summary>
+            总令牌数
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.EmbeddingUsageInfo">
+            <summary>
+            Embedding 完成令牌信息
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.EmbeddingUsageInfo.prompt_tokens">
+            <summary>
+            提示令牌数
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.EmbeddingUsageInfo.total_tokens">
+            <summary>
+            总令牌数
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.CompletionRequest">
+            <summary>
+            提示完成请求
+            https://platform.openai.com/docs/api-reference/completions
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.CompletionRequest.prompt">
+            <summary>
+            提示词
+            要为字符串、字符串数组、令牌数组或令牌数组数组生成补全的提示。
+            </summary>
+            <example>今天天气不错，</example>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.CompletionResponse">
+            <summary>
+            聊天完成响应
+            </summary>
+        </member>
+        <member name="F:Zhengyan.OpenAIModels.CompletionResponse.object">
+            <summary>
+            对象类型，始终为text_completion
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.CompletionResponse.choices">
+            <summary>
+            聊天完成选择的列表。如果n大于1，则可以有多个
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.CompletionResponseChoice">
+            <summary>
+            完成的一种选择
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.CompletionResponseChoice.text">
+            <summary>
+            模型生成的完成消息
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.EmbeddingRequest">
+            <summary>
+            嵌入请求
+            https://platform.openai.com/docs/api-reference/embeddings/create
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.EmbeddingRequest.input">
+            <summary>
+            输入文本进行嵌入，编码为字符串或令牌数组。要在单个请求中嵌入多个输入，传递字符串数组或令牌数组数组。
+            输入不能超过模型的最大输入令牌（对于8192个令牌），不能是空字符串，任何数组必须是2048维或更少。
+            </summary>
+            <example>My name is sangsq</example>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.EmbeddingRequest.model">
+            <summary>
+            要使用的模型的ID。您可以使用列表模型API查看所有可用的模型，或查看我们的模型概述以获取它们的描述。
+            </summary>
+            <example>default</example>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.EmbeddingRequest.encoding_format">
+            <summary>
+            返回嵌入的格式。可以是float或base64。
+            </summary>
+            <example>float</example>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.EmbeddingRequest.dimensions">
+            <summary>
+            结果输出嵌入应具有的维数。仅在text-embedding-3及更高版本的模型中受支持。
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.EmbeddingRequest.user">
+            <summary>
+            表示您的最终用户的唯一标识符，可以帮助OpenAI监控和检测滥用。
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.EmbeddingResponse">
+            <summary>
+            返回嵌入的响应
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.EmbeddingResponse.object">
+            <summary>
+            对象类型，始终为list。
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.EmbeddingResponse.data">
+            <summary>
+            嵌入对象列表。
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.EmbeddingResponse.model">
+            <summary>
+            用于嵌入的模型。
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.EmbeddingResponse.usage">
+            <summary>
+            使用统计信息。
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.EmbeddingObject.index">
+            <summary>
+            嵌入在嵌入列表中的索引。
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.EmbeddingObject.embedding">
+            <summary>
+            嵌入向量，是浮点数列表。向量的长度取决于模型，如嵌入指南中所列。
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.EmbeddingObject.object">
+            <summary>
+            对象类型，始终为"embedding"。
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.ResponseRequest">
+            <summary>
+            Responses API 请求
+            https://platform.openai.com/docs/api-reference/responses/create
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ResponseRequest.model">
+            <summary>
+            模型名称
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ResponseRequest.input">
+            <summary>
+            输入内容，可以是字符串、消息对象或消息数组。
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ResponseRequest.instructions">
+            <summary>
+            附加系统级指令。
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ResponseRequest.stream">
+            <summary>
+            是否启用流式响应。
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ResponseRequest.temperature">
+            <summary>
+            采样温度。
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ResponseRequest.top_p">
+            <summary>
+            Top-p 采样参数。
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ResponseRequest.max_output_tokens">
+            <summary>
+            最大输出 token 数。
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ResponseRequest.parallel_tool_calls">
+            <summary>
+            是否允许并行工具调用。
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ResponseRequest.tool_choice">
+            <summary>
+            工具选择策略。
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ResponseRequest.tools">
+            <summary>
+            工具列表。
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ResponseRequest.user">
+            <summary>
+            最终用户标识。
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ResponseRequest.metadata">
+            <summary>
+            元数据。
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ResponseRequest.additional_properties">
+            <summary>
+            兼容未显式建模的其他字段。
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.ResponseResponse">
+            <summary>
+            Responses API 响应
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.ResponseOutputItem">
+            <summary>
+            响应输出项
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ResponseOutputItem.additional_properties">
+            <summary>
+            保留现有 Host 自定义附加信息，例如工具调用结果。
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.ResponseContentPart">
+            <summary>
+            输出内容块
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.ResponseTextConfig">
+            <summary>
+            文本输出配置
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.ResponseTextFormat">
+            <summary>
+            文本输出格式
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.ResponseUsage">
+            <summary>
+            Responses API token 使用统计
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.ResponseTokenDetails">
+            <summary>
+            token 细分统计
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.ToolInfo">
+            <summary>
+            推理完成令牌信息
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ToolInfo.type">
+            <summary>
+            工具类型，当前只支持 function
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ToolInfo.function">
+            <summary>
+            函数信息
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.FunctionInfo">
+            <summary>
+            函数信息
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.FunctionInfo.name">
+            <summary>
+            要调用的函数的名称。必须是a-z、a-z、0-9，或包含下划线和短划线，最大长度为64。
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.FunctionInfo.description">
+            <summary>
+            函数作用的描述，由模型用来选择何时以及如何调用函数。
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.FunctionInfo.parameters">
+            <summary>
+            函数接受的参数，描述为JSON模式对象。
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.Parameters">
+            <summary>
+            函数参数
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.Parameters.type">
+            <summary>
+            参数类型，当前只支持 object
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.Parameters.properties">
+            <summary>
+            参数的属性，描述为JSON模式对象。
+            所含键值的类型为 ParameterInfo
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.Parameters.required">
+            <summary>
+            必需的参数名称列表。
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.ParameterInfo">
+            <summary>
+            参数信息，用于描述函数的参数
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ParameterInfo.type">
+            <summary>
+            参数类型
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ParameterInfo.description">
+            <summary>
+            参数的描述
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ParameterInfo.enum">
+            <summary>
+            参数的可选值
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ParameterInfo.required">
+            <summary>
+            参数是否必需
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.ToolMeaasgeChunk">
+            <summary>
+            工具消息块，流式处理
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ToolMeaasgeChunk.index">
+            <summary>
+            工具调用的索引
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.ToolMeaasge">
+            <summary>
+            工具消息块
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ToolMeaasge.id">
+            <summary>
+            工具调用的 ID
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ToolMeaasge.type">
+            <summary>
+            工具类型，当前固定 function
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ToolMeaasge.function">
+            <summary>
+            调用的函数信息
+            </summary>
+        </member>
+        <member name="T:Zhengyan.OpenAIModels.ToolMeaasgeFuntion">
+            <summary>
+            调用工具的响应选择
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ToolMeaasgeFuntion.name">
+            <summary>
+            函数名称
+            </summary>
+        </member>
+        <member name="P:Zhengyan.OpenAIModels.ToolMeaasgeFuntion.arguments">
+            <summary>
+            调用函数的参数，由JSON格式的模型生成。
+            请注意，该模型并不总是生成有效的JSON，并且可能会产生函数模式未定义的参数的幻觉。
+            在调用函数之前，验证代码中的参数。
+            </summary>
+        </member>
+    </members>
+</doc>
