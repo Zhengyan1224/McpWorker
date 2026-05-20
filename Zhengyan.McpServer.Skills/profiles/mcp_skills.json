@@ -23,6 +23,12 @@
       "SkillsRootPath": "./resources/test3_skills",
       "WorkspaceRootPath": "./resources/test3_skills",
       "EntryFileName": "SKILL.md"
+    },
+    {
+      "SkillsGroupName": "secguard",
+      "SkillsRootPath": "./resources/secguard_skills",
+      "WorkspaceRootPath": "./resources/secguard_skills",
+      "EntryFileName": "SKILL.md"
     }
   ],
   "PreviewLength": 240,
