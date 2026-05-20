@@ -1,7 +1,30 @@
 {
-  "SkillsRootPath": "./resources/skills",
-  "WorkspaceRootPath": "./resources/skills",
-  "EntryFileName": "SKILL.md",
+  "SkillsGroup": [
+    {
+      "SkillsGroupName": "cityagent",
+      "SkillsRootPath": "./resources/cityagent_skills",
+      "WorkspaceRootPath": "./resources/cityagent_skills",
+      "EntryFileName": "SKILL.md"
+    },
+    {
+      "SkillsGroupName": "test1",
+      "SkillsRootPath": "./resources/test1_skills",
+      "WorkspaceRootPath": "./resources/test1_skills",
+      "EntryFileName": "SKILL.md"
+    },
+    {
+      "SkillsGroupName": "test2",
+      "SkillsRootPath": "./resources/test2_skills",
+      "WorkspaceRootPath": "./resources/test2_skills",
+      "EntryFileName": "SKILL.md"
+    },
+    {
+      "SkillsGroupName": "test3",
+      "SkillsRootPath": "./resources/test3_skills",
+      "WorkspaceRootPath": "./resources/test3_skills",
+      "EntryFileName": "SKILL.md"
+    }
+  ],
   "PreviewLength": 240,
   "MaxContentLength": 20000,
   "MaxFileReadLength": 200000,

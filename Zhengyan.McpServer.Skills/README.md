@@ -101,3 +101,57 @@ Zhengyan.McpServer.Skills/resources/skills
 ## 安全注意
 
 `Skills` 具备文件写入、删除、移动和命令执行能力。只应在可信工作区启用，并谨慎设置 `WorkspaceRootPath`。
+
+## SkillsGroup Routing
+
+`Zhengyan.McpServer.Skills` now supports multiple skill groups. Each request is scoped to exactly one group.
+
+### Config shape
+
+```json
+{
+  "SkillsGroup": [
+    {
+      "SkillsGroupName": "default",
+      "SkillsRootPath": "./resources/skills",
+      "WorkspaceRootPath": "./resources/skills",
+      "EntryFileName": "SKILL.md"
+    },
+    {
+      "SkillsGroupName": "test2",
+      "SkillsRootPath": "./resources/test2_skills",
+      "WorkspaceRootPath": "./resources/test2_skills",
+      "EntryFileName": "SKILL.md"
+    }
+  ]
+}
+```
+
+### Selection rules
+
+- `streamablehttp` / `sse`: select the group by HTTP header `SkillsGroupName`
+- `stdio`: select the group by environment variable `SkillsGroupName`
+- if no group is provided, the first configured group is used as default
+- if a provided group name does not exist, tool calls return an error
+
+### McpHost examples
+
+Streamable HTTP or SSE:
+
+```json
+{
+  "AdditionalHeaders": {
+    "SkillsGroupName": "test2"
+  }
+}
+```
+
+Stdio:
+
+```json
+{
+  "EnvironmentVariables": {
+    "SkillsGroupName": "test2"
+  }
+}
+```

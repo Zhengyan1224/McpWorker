@@ -323,11 +323,14 @@ public class DataQueryService : IDataQueryService
         }
 
         var records = new List<IndexedRecord>();
-        foreach (var filePath in Directory.GetFiles(_dataDirectoryPath, "*.csv", System.IO.SearchOption.TopDirectoryOnly).OrderBy(path => path, StringComparer.OrdinalIgnoreCase))
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-            records.AddRange(ReadCsvRecords(filePath));
-        }
+        var extensions = new[] { ".csv", ".db" };
+				foreach (var filePath in extensions
+				    .SelectMany(ext => Directory.GetFiles(_dataDirectoryPath, $"*{ext}", System.IO.SearchOption.TopDirectoryOnly))
+				    .OrderBy(path => path, StringComparer.OrdinalIgnoreCase))
+				{
+				    cancellationToken.ThrowIfCancellationRequested();
+				    records.AddRange(ReadCsvRecords(filePath));
+				}
 
         return records;
     }

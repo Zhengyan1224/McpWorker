@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using Serilog;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
@@ -8,36 +9,60 @@ namespace Zhengyan.McpServer.Skills.Services;
 
 public class SkillsService : ISkillsService
 {
-    private readonly SkillsConfig _skillsConfig;
-    private readonly string _skillsRootPath;
-    private readonly string _workspaceRootPath;
+    private const string SkillsGroupNameKey = "SkillsGroupName";
+    private const string SkillsGroupNameEnvKey = "SKILLS_GROUP_NAME";
 
-    public SkillsService(SkillsConfig skillsConfig)
+    private readonly SkillsConfig _skillsConfig;
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly SkillsGroupRuntime _defaultSkillsGroup;
+    private readonly Dictionary<string, SkillsGroupRuntime> _skillsGroupMap;
+
+    public SkillsService(SkillsConfig skillsConfig, IHttpContextAccessor httpContextAccessor)
     {
         _skillsConfig = skillsConfig ?? throw new ArgumentNullException(nameof(skillsConfig));
-        _workspaceRootPath = Path.GetFullPath(_skillsConfig.WorkspaceRootPath);
-        _skillsRootPath = Path.GetFullPath(_skillsConfig.SkillsRootPath);
+        _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
 
-        if (!Directory.Exists(_workspaceRootPath))
+        var skillsGroups = BuildSkillsGroups(_skillsConfig).ToList();
+        if (skillsGroups.Count == 0)
         {
-            Directory.CreateDirectory(_workspaceRootPath);
+            throw new InvalidOperationException("No skills group configured.");
         }
 
-        if (!Directory.Exists(_skillsRootPath))
+        var duplicatedGroup = skillsGroups
+            .GroupBy(x => x.SkillsGroupName, StringComparer.OrdinalIgnoreCase)
+            .FirstOrDefault(x => x.Count() > 1);
+        if (duplicatedGroup != null)
         {
-            Directory.CreateDirectory(_skillsRootPath);
+            throw new InvalidOperationException($"Duplicate SkillsGroupName found: {duplicatedGroup.Key}");
         }
+
+        foreach (var skillsGroup in skillsGroups)
+        {
+            if (!Directory.Exists(skillsGroup.WorkspaceRootPath))
+            {
+                Directory.CreateDirectory(skillsGroup.WorkspaceRootPath);
+            }
+
+            if (!Directory.Exists(skillsGroup.SkillsRootPath))
+            {
+                Directory.CreateDirectory(skillsGroup.SkillsRootPath);
+            }
+        }
+
+        _defaultSkillsGroup = skillsGroups[0];
+        _skillsGroupMap = skillsGroups.ToDictionary(x => x.SkillsGroupName, StringComparer.OrdinalIgnoreCase);
     }
 
     public async Task<IReadOnlyList<SkillInfo>> ListSkillsAsync(string? keyword = null, CancellationToken cancellationToken = default)
     {
+        var currentSkillsGroup = ResolveCurrentSkillsGroup();
         var query = keyword?.Trim();
         var results = new List<SkillInfo>();
 
-        foreach (var skillFilePath in EnumerateSkillEntryFiles())
+        foreach (var skillFilePath in EnumerateSkillEntryFiles(currentSkillsGroup))
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var skillItem = await ReadSkillItemAsync(skillFilePath, cancellationToken);
+            var skillItem = await ReadSkillItemAsync(currentSkillsGroup, skillFilePath, cancellationToken);
             if (skillItem == null)
             {
                 continue;
@@ -54,6 +79,7 @@ public class SkillsService : ISkillsService
 
     public async Task<IReadOnlyList<SkillInfo>> SearchSkillsAsync(string query, int topK = 10, CancellationToken cancellationToken = default)
     {
+        var currentSkillsGroup = ResolveCurrentSkillsGroup();
         var keyword = query?.Trim() ?? string.Empty;
         if (string.IsNullOrWhiteSpace(keyword))
         {
@@ -63,10 +89,10 @@ public class SkillsService : ISkillsService
         var take = topK <= 0 ? 10 : Math.Min(topK, 100);
         var candidates = new List<(SkillItem Item, int Score)>();
 
-        foreach (var skillFilePath in EnumerateSkillEntryFiles())
+        foreach (var skillFilePath in EnumerateSkillEntryFiles(currentSkillsGroup))
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var skillItem = await ReadSkillItemAsync(skillFilePath, cancellationToken);
+            var skillItem = await ReadSkillItemAsync(currentSkillsGroup, skillFilePath, cancellationToken);
             if (skillItem == null)
             {
                 continue;
@@ -89,7 +115,8 @@ public class SkillsService : ISkillsService
 
     public async Task<SkillDetail?> GetSkillAsync(string skillId, int? maxContentLength = null, CancellationToken cancellationToken = default)
     {
-        var skillItem = await FindSkillItemAsync(skillId, cancellationToken);
+        var currentSkillsGroup = ResolveCurrentSkillsGroup();
+        var skillItem = await FindSkillItemAsync(currentSkillsGroup, skillId, cancellationToken);
         if (skillItem == null)
         {
             return null;
@@ -107,6 +134,7 @@ public class SkillsService : ISkillsService
 
         return new SkillDetail
         {
+            SkillsGroupName = skillItem.SkillsGroupName,
             ID = skillItem.ID,
             Name = skillItem.Name,
             Description = skillItem.Description,
@@ -121,13 +149,14 @@ public class SkillsService : ISkillsService
 
     public async Task<FileReadResult> ReadSkillFileAsync(string skillId, string relativePath, int? maxLength = null, CancellationToken cancellationToken = default)
     {
-        var skillItem = await FindSkillItemAsync(skillId, cancellationToken);
+        var currentSkillsGroup = ResolveCurrentSkillsGroup();
+        var skillItem = await FindSkillItemAsync(currentSkillsGroup, skillId, cancellationToken);
         if (skillItem == null)
         {
             throw new FileNotFoundException($"Skill not found: {skillId}", skillId);
         }
 
-        var absolutePath = ResolveSkillPath(skillItem, relativePath);
+        var absolutePath = ResolveSkillPath(currentSkillsGroup, skillItem, relativePath);
         if (!File.Exists(absolutePath))
         {
             throw new FileNotFoundException("File not found", relativePath);
@@ -145,7 +174,7 @@ public class SkillsService : ISkillsService
 
         return new FileReadResult
         {
-            Path = NormalizePathForClient(absolutePath),
+            Path = NormalizePathForClient(currentSkillsGroup, absolutePath),
             Length = content.Length,
             Truncated = truncated,
             Content = content
@@ -154,9 +183,10 @@ public class SkillsService : ISkillsService
 
     public Task<PathInfoResult> GetPathInfoAsync(string relativePath = ".", CancellationToken cancellationToken = default)
     {
+        var currentSkillsGroup = ResolveCurrentSkillsGroup();
         cancellationToken.ThrowIfCancellationRequested();
-        var absolutePath = ResolveWorkspacePath(relativePath);
-        var normalizedPath = NormalizeWorkspaceRelativePath(absolutePath);
+        var absolutePath = ResolveWorkspacePath(currentSkillsGroup, relativePath);
+        var normalizedPath = NormalizeWorkspaceRelativePath(currentSkillsGroup, absolutePath);
 
         if (File.Exists(absolutePath))
         {
@@ -196,7 +226,8 @@ public class SkillsService : ISkillsService
 
     public Task<IReadOnlyList<FileEntry>> ListFilesAsync(string relativePath = ".", bool recursive = false, CancellationToken cancellationToken = default)
     {
-        var absolutePath = ResolveWorkspacePath(relativePath);
+        var currentSkillsGroup = ResolveCurrentSkillsGroup();
+        var absolutePath = ResolveWorkspacePath(currentSkillsGroup, relativePath);
         var results = new List<FileEntry>();
 
         if (File.Exists(absolutePath))
@@ -204,7 +235,7 @@ public class SkillsService : ISkillsService
             var fileInfo = new FileInfo(absolutePath);
             results.Add(new FileEntry
             {
-                Path = NormalizeWorkspaceRelativePath(absolutePath),
+                Path = NormalizeWorkspaceRelativePath(currentSkillsGroup, absolutePath),
                 IsDirectory = false,
                 Length = fileInfo.Length,
                 LastWriteTimeUtc = fileInfo.LastWriteTimeUtc
@@ -229,7 +260,7 @@ public class SkillsService : ISkillsService
             var directoryInfo = new DirectoryInfo(dir);
             results.Add(new FileEntry
             {
-                Path = NormalizeWorkspaceRelativePath(dir),
+                Path = NormalizeWorkspaceRelativePath(currentSkillsGroup, dir),
                 IsDirectory = true,
                 Length = 0,
                 LastWriteTimeUtc = directoryInfo.LastWriteTimeUtc
@@ -249,7 +280,7 @@ public class SkillsService : ISkillsService
                 var fileInfo = new FileInfo(file);
                 results.Add(new FileEntry
                 {
-                    Path = NormalizeWorkspaceRelativePath(file),
+                    Path = NormalizeWorkspaceRelativePath(currentSkillsGroup, file),
                     IsDirectory = false,
                     Length = fileInfo.Length,
                     LastWriteTimeUtc = fileInfo.LastWriteTimeUtc
@@ -262,7 +293,8 @@ public class SkillsService : ISkillsService
 
     public Task<IReadOnlyList<FileEntry>> FindFilesAsync(string pattern = "*", string relativePath = ".", bool recursive = true, CancellationToken cancellationToken = default)
     {
-        var absolutePath = ResolveWorkspacePath(relativePath);
+        var currentSkillsGroup = ResolveCurrentSkillsGroup();
+        var absolutePath = ResolveWorkspacePath(currentSkillsGroup, relativePath);
         if (File.Exists(absolutePath))
         {
             absolutePath = Path.GetDirectoryName(absolutePath) ?? absolutePath;
@@ -285,7 +317,7 @@ public class SkillsService : ISkillsService
             var fileInfo = new FileInfo(file);
             results.Add(new FileEntry
             {
-                Path = NormalizeWorkspaceRelativePath(file),
+                Path = NormalizeWorkspaceRelativePath(currentSkillsGroup, file),
                 IsDirectory = false,
                 Length = fileInfo.Length,
                 LastWriteTimeUtc = fileInfo.LastWriteTimeUtc
@@ -297,7 +329,8 @@ public class SkillsService : ISkillsService
 
     public async Task<FileReadResult> ReadFileAsync(string relativePath, int? maxLength = null, CancellationToken cancellationToken = default)
     {
-        var absolutePath = ResolveWorkspacePath(relativePath);
+        var currentSkillsGroup = ResolveCurrentSkillsGroup();
+        var absolutePath = ResolveWorkspacePath(currentSkillsGroup, relativePath);
         if (!File.Exists(absolutePath))
         {
             throw new FileNotFoundException("File not found", relativePath);
@@ -315,7 +348,7 @@ public class SkillsService : ISkillsService
 
         return new FileReadResult
         {
-            Path = NormalizeWorkspaceRelativePath(absolutePath),
+            Path = NormalizeWorkspaceRelativePath(currentSkillsGroup, absolutePath),
             Length = content.Length,
             Truncated = truncated,
             Content = content
@@ -324,7 +357,8 @@ public class SkillsService : ISkillsService
 
     public async Task<FileLinesResult> ReadFileLinesAsync(string relativePath, int startLine = 1, int lineCount = 200, CancellationToken cancellationToken = default)
     {
-        var absolutePath = ResolveWorkspacePath(relativePath);
+        var currentSkillsGroup = ResolveCurrentSkillsGroup();
+        var absolutePath = ResolveWorkspacePath(currentSkillsGroup, relativePath);
         if (!File.Exists(absolutePath))
         {
             throw new FileNotFoundException("File not found", relativePath);
@@ -356,7 +390,7 @@ public class SkillsService : ISkillsService
 
         return new FileLinesResult
         {
-            Path = NormalizeWorkspaceRelativePath(absolutePath),
+            Path = NormalizeWorkspaceRelativePath(currentSkillsGroup, absolutePath),
             StartLine = normalizedStartLine,
             RequestedLineCount = normalizedLineCount,
             ReturnedLineCount = lines.Count,
@@ -366,7 +400,8 @@ public class SkillsService : ISkillsService
 
     public async Task<FileWriteResult> WriteFileAsync(string relativePath, string content, bool append = false, CancellationToken cancellationToken = default)
     {
-        var absolutePath = ResolveWorkspacePath(relativePath);
+        var currentSkillsGroup = ResolveCurrentSkillsGroup();
+        var absolutePath = ResolveWorkspacePath(currentSkillsGroup, relativePath);
         var directoryPath = Path.GetDirectoryName(absolutePath);
         if (!string.IsNullOrWhiteSpace(directoryPath) && !Directory.Exists(directoryPath))
         {
@@ -384,7 +419,7 @@ public class SkillsService : ISkillsService
 
         return new FileWriteResult
         {
-            Path = NormalizeWorkspaceRelativePath(absolutePath),
+            Path = NormalizeWorkspaceRelativePath(currentSkillsGroup, absolutePath),
             Appended = append,
             WrittenLength = content?.Length ?? 0
         };
@@ -397,7 +432,8 @@ public class SkillsService : ISkillsService
             throw new ArgumentException("searchText cannot be empty.", nameof(searchText));
         }
 
-        var absolutePath = ResolveWorkspacePath(relativePath);
+        var currentSkillsGroup = ResolveCurrentSkillsGroup();
+        var absolutePath = ResolveWorkspacePath(currentSkillsGroup, relativePath);
         if (!File.Exists(absolutePath))
         {
             throw new FileNotFoundException("File not found", relativePath);
@@ -450,7 +486,7 @@ public class SkillsService : ISkillsService
 
         return new ReplaceTextResult
         {
-            Path = NormalizeWorkspaceRelativePath(absolutePath),
+            Path = NormalizeWorkspaceRelativePath(currentSkillsGroup, absolutePath),
             ReplacedCount = replacedCount
         };
     }
@@ -462,7 +498,8 @@ public class SkillsService : ISkillsService
             throw new ArgumentException("Query cannot be empty.", nameof(query));
         }
 
-        var absolutePath = ResolveWorkspacePath(relativePath);
+        var currentSkillsGroup = ResolveCurrentSkillsGroup();
+        var absolutePath = ResolveWorkspacePath(currentSkillsGroup, relativePath);
         var searchOption = recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
         var fileList = new List<string>();
 
@@ -516,7 +553,7 @@ public class SkillsService : ISkillsService
 
                     result.Matches.Add(new TextSearchMatch
                     {
-                        Path = NormalizeWorkspaceRelativePath(filePath),
+                        Path = NormalizeWorkspaceRelativePath(currentSkillsGroup, filePath),
                         LineNumber = lineNumber,
                         Column = idx + 1,
                         LineText = line
@@ -540,18 +577,19 @@ public class SkillsService : ISkillsService
 
     public Task<PathOperationResult> CreateDirectoryAsync(string relativePath, CancellationToken cancellationToken = default)
     {
+        var currentSkillsGroup = ResolveCurrentSkillsGroup();
         cancellationToken.ThrowIfCancellationRequested();
         if (string.IsNullOrWhiteSpace(relativePath))
         {
             throw new ArgumentException("relativePath cannot be empty.", nameof(relativePath));
         }
 
-        var absolutePath = ResolveWorkspacePath(relativePath);
+        var absolutePath = ResolveWorkspacePath(currentSkillsGroup, relativePath);
         Directory.CreateDirectory(absolutePath);
 
         return Task.FromResult(new PathOperationResult
         {
-            Path = NormalizeWorkspaceRelativePath(absolutePath),
+            Path = NormalizeWorkspaceRelativePath(currentSkillsGroup, absolutePath),
             Operation = "create_directory",
             Success = true,
             Message = "Directory created."
@@ -560,6 +598,7 @@ public class SkillsService : ISkillsService
 
     public Task<PathOperationResult> DeletePathAsync(string relativePath, bool recursive = false, bool force = false, CancellationToken cancellationToken = default)
     {
+        var currentSkillsGroup = ResolveCurrentSkillsGroup();
         cancellationToken.ThrowIfCancellationRequested();
         if (!force)
         {
@@ -572,15 +611,15 @@ public class SkillsService : ISkillsService
             });
         }
 
-        var absolutePath = ResolveWorkspacePath(relativePath);
-        EnsureNotWorkspaceRoot(absolutePath);
+        var absolutePath = ResolveWorkspacePath(currentSkillsGroup, relativePath);
+        EnsureNotWorkspaceRoot(currentSkillsGroup, absolutePath);
 
         if (File.Exists(absolutePath))
         {
             File.Delete(absolutePath);
             return Task.FromResult(new PathOperationResult
             {
-                Path = NormalizeWorkspaceRelativePath(absolutePath),
+                Path = NormalizeWorkspaceRelativePath(currentSkillsGroup, absolutePath),
                 Operation = "delete_file",
                 Success = true,
                 Message = "File deleted."
@@ -592,7 +631,7 @@ public class SkillsService : ISkillsService
             Directory.Delete(absolutePath, recursive);
             return Task.FromResult(new PathOperationResult
             {
-                Path = NormalizeWorkspaceRelativePath(absolutePath),
+                Path = NormalizeWorkspaceRelativePath(currentSkillsGroup, absolutePath),
                 Operation = "delete_directory",
                 Success = true,
                 Message = "Directory deleted."
@@ -601,7 +640,7 @@ public class SkillsService : ISkillsService
 
         return Task.FromResult(new PathOperationResult
         {
-            Path = NormalizeWorkspaceRelativePath(absolutePath),
+            Path = NormalizeWorkspaceRelativePath(currentSkillsGroup, absolutePath),
             Operation = "delete_path",
             Success = false,
             Message = "Path does not exist."
@@ -610,10 +649,11 @@ public class SkillsService : ISkillsService
 
     public Task<PathTransferResult> CopyPathAsync(string sourceRelativePath, string destinationRelativePath, bool overwrite = false, CancellationToken cancellationToken = default)
     {
+        var currentSkillsGroup = ResolveCurrentSkillsGroup();
         cancellationToken.ThrowIfCancellationRequested();
-        var sourcePath = ResolveWorkspacePath(sourceRelativePath);
-        var destinationPath = ResolveWorkspacePath(destinationRelativePath);
-        EnsureNotWorkspaceRoot(sourcePath);
+        var sourcePath = ResolveWorkspacePath(currentSkillsGroup, sourceRelativePath);
+        var destinationPath = ResolveWorkspacePath(currentSkillsGroup, destinationRelativePath);
+        EnsureNotWorkspaceRoot(currentSkillsGroup, sourcePath);
 
         if (File.Exists(sourcePath))
         {
@@ -649,18 +689,19 @@ public class SkillsService : ISkillsService
 
         return Task.FromResult(new PathTransferResult
         {
-            SourcePath = NormalizeWorkspaceRelativePath(sourcePath),
-            DestinationPath = NormalizeWorkspaceRelativePath(destinationPath),
+            SourcePath = NormalizeWorkspaceRelativePath(currentSkillsGroup, sourcePath),
+            DestinationPath = NormalizeWorkspaceRelativePath(currentSkillsGroup, destinationPath),
             Overwritten = overwrite
         });
     }
 
     public Task<PathTransferResult> MovePathAsync(string sourceRelativePath, string destinationRelativePath, bool overwrite = false, CancellationToken cancellationToken = default)
     {
+        var currentSkillsGroup = ResolveCurrentSkillsGroup();
         cancellationToken.ThrowIfCancellationRequested();
-        var sourcePath = ResolveWorkspacePath(sourceRelativePath);
-        var destinationPath = ResolveWorkspacePath(destinationRelativePath);
-        EnsureNotWorkspaceRoot(sourcePath);
+        var sourcePath = ResolveWorkspacePath(currentSkillsGroup, sourceRelativePath);
+        var destinationPath = ResolveWorkspacePath(currentSkillsGroup, destinationRelativePath);
+        EnsureNotWorkspaceRoot(currentSkillsGroup, sourcePath);
 
         if (!File.Exists(sourcePath) && !Directory.Exists(sourcePath))
         {
@@ -706,21 +747,22 @@ public class SkillsService : ISkillsService
 
         return Task.FromResult(new PathTransferResult
         {
-            SourcePath = NormalizeWorkspaceRelativePath(sourcePath),
-            DestinationPath = NormalizeWorkspaceRelativePath(destinationPath),
+            SourcePath = NormalizeWorkspaceRelativePath(currentSkillsGroup, sourcePath),
+            DestinationPath = NormalizeWorkspaceRelativePath(currentSkillsGroup, destinationPath),
             Overwritten = overwrite
         });
     }
 
     public async Task<CommandExecutionResult> ExecuteCommandAsync(string command, string workingDirectory = ".", int? timeoutSeconds = null, CancellationToken cancellationToken = default)
     {
+        var currentSkillsGroup = ResolveCurrentSkillsGroup();
         var cmd = command?.Trim();
         if (string.IsNullOrWhiteSpace(cmd))
         {
             throw new ArgumentException("Command cannot be empty.", nameof(command));
         }
 
-        var workingDirectoryPath = ResolveWorkspacePath(workingDirectory);
+        var workingDirectoryPath = ResolveWorkspacePath(currentSkillsGroup, workingDirectory);
         if (!Directory.Exists(workingDirectoryPath))
         {
             throw new DirectoryNotFoundException($"Working directory not found: {workingDirectory}");
@@ -761,7 +803,7 @@ public class SkillsService : ISkillsService
         return new CommandExecutionResult
         {
             Command = cmd,
-            WorkingDirectory = NormalizeWorkspaceRelativePath(workingDirectoryPath),
+            WorkingDirectory = NormalizeWorkspaceRelativePath(currentSkillsGroup, workingDirectoryPath),
             ExitCode = process.HasExited ? process.ExitCode : -1,
             TimedOut = timedOut,
             StdOutTruncated = stdoutTruncated,
@@ -799,12 +841,12 @@ public class SkillsService : ISkillsService
         return startInfo;
     }
 
-    private string ResolveWorkspacePath(string relativePath)
+    private string ResolveWorkspacePath(SkillsGroupRuntime skillsGroup, string relativePath)
     {
         var path = string.IsNullOrWhiteSpace(relativePath) ? "." : relativePath;
-        var absolutePath = Path.GetFullPath(Path.Combine(_workspaceRootPath, path));
+        var absolutePath = Path.GetFullPath(Path.Combine(skillsGroup.WorkspaceRootPath, path));
 
-        if (!IsSubPath(_workspaceRootPath, absolutePath))
+        if (!IsSubPath(skillsGroup.WorkspaceRootPath, absolutePath))
         {
             throw new UnauthorizedAccessException($"Path '{relativePath}' is outside WorkspaceRootPath.");
         }
@@ -812,16 +854,16 @@ public class SkillsService : ISkillsService
         return absolutePath;
     }
 
-    private string NormalizeWorkspaceRelativePath(string absolutePath)
+    private string NormalizeWorkspaceRelativePath(SkillsGroupRuntime skillsGroup, string absolutePath)
     {
-        var relativePath = Path.GetRelativePath(_workspaceRootPath, absolutePath).Replace('\\', '/');
+        var relativePath = Path.GetRelativePath(skillsGroup.WorkspaceRootPath, absolutePath).Replace('\\', '/');
         return string.IsNullOrWhiteSpace(relativePath) || relativePath == "." ? "." : relativePath;
     }
 
-    private string ResolveSkillPath(SkillItem skillItem, string relativePath)
+    private string ResolveSkillPath(SkillsGroupRuntime skillsGroup, SkillItem skillItem, string relativePath)
     {
         var path = string.IsNullOrWhiteSpace(relativePath) ? "." : relativePath;
-        var skillRootPath = Path.GetFullPath(Path.Combine(_skillsRootPath, skillItem.SkillRootPath));
+        var skillRootPath = Path.GetFullPath(Path.Combine(skillsGroup.SkillsRootPath, skillItem.SkillRootPath));
         var absolutePath = Path.GetFullPath(Path.Combine(skillRootPath, path));
 
         if (!IsSubPath(skillRootPath, absolutePath))
@@ -832,27 +874,27 @@ public class SkillsService : ISkillsService
         return absolutePath;
     }
 
-    private string NormalizePathForClient(string absolutePath)
+    private string NormalizePathForClient(SkillsGroupRuntime skillsGroup, string absolutePath)
     {
-        if (IsSubPath(_workspaceRootPath, absolutePath))
+        if (IsSubPath(skillsGroup.WorkspaceRootPath, absolutePath))
         {
-            return NormalizeWorkspaceRelativePath(absolutePath);
+            return NormalizeWorkspaceRelativePath(skillsGroup, absolutePath);
         }
 
-        if (IsSubPath(_skillsRootPath, absolutePath))
+        if (IsSubPath(skillsGroup.SkillsRootPath, absolutePath))
         {
-            var relativePath = Path.GetRelativePath(_skillsRootPath, absolutePath).Replace('\\', '/');
+            var relativePath = Path.GetRelativePath(skillsGroup.SkillsRootPath, absolutePath).Replace('\\', '/');
             return string.IsNullOrWhiteSpace(relativePath) || relativePath == "." ? "." : relativePath;
         }
 
         return absolutePath.Replace('\\', '/');
     }
 
-    private void EnsureNotWorkspaceRoot(string absolutePath)
+    private void EnsureNotWorkspaceRoot(SkillsGroupRuntime skillsGroup, string absolutePath)
     {
         if (string.Equals(
             Path.TrimEndingDirectorySeparator(absolutePath),
-            Path.TrimEndingDirectorySeparator(_workspaceRootPath),
+            Path.TrimEndingDirectorySeparator(skillsGroup.WorkspaceRootPath),
             StringComparison.OrdinalIgnoreCase))
         {
             throw new UnauthorizedAccessException("Operation on workspace root is not allowed.");
@@ -945,24 +987,24 @@ public class SkillsService : ISkillsService
         return count;
     }
 
-    private IEnumerable<string> EnumerateSkillEntryFiles()
+    private IEnumerable<string> EnumerateSkillEntryFiles(SkillsGroupRuntime skillsGroup)
     {
-        if (!Directory.Exists(_skillsRootPath) || string.IsNullOrWhiteSpace(_skillsConfig.EntryFileName))
+        if (!Directory.Exists(skillsGroup.SkillsRootPath) || string.IsNullOrWhiteSpace(skillsGroup.EntryFileName))
         {
             return [];
         }
 
-        return Directory.GetFiles(_skillsRootPath, _skillsConfig.EntryFileName, SearchOption.AllDirectories)
+        return Directory.GetFiles(skillsGroup.SkillsRootPath, skillsGroup.EntryFileName, SearchOption.AllDirectories)
             .OrderBy(x => x, StringComparer.OrdinalIgnoreCase);
     }
 
-    private async Task<SkillItem?> ReadSkillItemAsync(string skillFilePath, CancellationToken cancellationToken)
+    private async Task<SkillItem?> ReadSkillItemAsync(SkillsGroupRuntime skillsGroup, string skillFilePath, CancellationToken cancellationToken)
     {
         try
         {
             var content = await File.ReadAllTextAsync(skillFilePath, cancellationToken);
-            var entryFilePath = Path.GetRelativePath(_skillsRootPath, skillFilePath).Replace('\\', '/');
-            var skillId = BuildSkillId(entryFilePath);
+            var entryFilePath = Path.GetRelativePath(skillsGroup.SkillsRootPath, skillFilePath).Replace('\\', '/');
+            var skillId = BuildSkillId(entryFilePath, skillsGroup.EntryFileName);
             var fallbackName = BuildFallbackName(entryFilePath);
             var name = ExtractTitle(content, fallbackName);
             var description = ExtractDescription(content, _skillsConfig.PreviewLength);
@@ -970,6 +1012,7 @@ public class SkillsService : ISkillsService
 
             return new SkillItem
             {
+                SkillsGroupName = skillsGroup.SkillsGroupName,
                 ID = skillId,
                 Name = name,
                 Description = description,
@@ -985,11 +1028,11 @@ public class SkillsService : ISkillsService
         }
     }
 
-    private string BuildSkillId(string entryFilePath)
+    private static string BuildSkillId(string entryFilePath, string entryFileName)
     {
         var normalizedPath = entryFilePath.Replace('\\', '/');
         var fileName = Path.GetFileName(normalizedPath);
-        if (string.Equals(fileName, _skillsConfig.EntryFileName, StringComparison.OrdinalIgnoreCase))
+        if (string.Equals(fileName, entryFileName, StringComparison.OrdinalIgnoreCase))
         {
             var folder = Path.GetDirectoryName(normalizedPath)?.Replace('\\', '/');
             if (!string.IsNullOrWhiteSpace(folder))
@@ -1017,7 +1060,65 @@ public class SkillsService : ISkillsService
         return Path.GetFileNameWithoutExtension(normalizedPath);
     }
 
-    private async Task<SkillItem?> FindSkillItemAsync(string? skillId, CancellationToken cancellationToken)
+    private SkillsGroupRuntime ResolveCurrentSkillsGroup()
+    {
+        var requestedGroupName = _httpContextAccessor.HttpContext?.Request?.Headers[SkillsGroupNameKey].FirstOrDefault();
+        if (string.IsNullOrWhiteSpace(requestedGroupName))
+        {
+            requestedGroupName = Environment.GetEnvironmentVariable(SkillsGroupNameKey);
+        }
+
+        if (string.IsNullOrWhiteSpace(requestedGroupName))
+        {
+            requestedGroupName = Environment.GetEnvironmentVariable(SkillsGroupNameEnvKey);
+        }
+
+        if (string.IsNullOrWhiteSpace(requestedGroupName))
+        {
+            return _defaultSkillsGroup;
+        }
+
+        if (_skillsGroupMap.TryGetValue(requestedGroupName.Trim(), out var skillsGroup))
+        {
+            return skillsGroup;
+        }
+
+        throw new InvalidOperationException($"Skills group not found: {requestedGroupName}");
+    }
+
+    private static IEnumerable<SkillsGroupRuntime> BuildSkillsGroups(SkillsConfig skillsConfig)
+    {
+        if (skillsConfig.SkillsGroup != null && skillsConfig.SkillsGroup.Count > 0)
+        {
+            foreach (var group in skillsConfig.SkillsGroup)
+            {
+                if (group == null || string.IsNullOrWhiteSpace(group.SkillsGroupName))
+                {
+                    continue;
+                }
+
+                yield return new SkillsGroupRuntime
+                {
+                    SkillsGroupName = group.SkillsGroupName.Trim(),
+                    SkillsRootPath = Path.GetFullPath(string.IsNullOrWhiteSpace(group.SkillsRootPath) ? "./resources/skills" : group.SkillsRootPath),
+                    WorkspaceRootPath = Path.GetFullPath(string.IsNullOrWhiteSpace(group.WorkspaceRootPath) ? "./" : group.WorkspaceRootPath),
+                    EntryFileName = string.IsNullOrWhiteSpace(group.EntryFileName) ? "SKILL.md" : group.EntryFileName
+                };
+            }
+
+            yield break;
+        }
+
+        yield return new SkillsGroupRuntime
+        {
+            SkillsGroupName = "default",
+            SkillsRootPath = Path.GetFullPath(string.IsNullOrWhiteSpace(skillsConfig.SkillsRootPath) ? "./resources/skills" : skillsConfig.SkillsRootPath),
+            WorkspaceRootPath = Path.GetFullPath(string.IsNullOrWhiteSpace(skillsConfig.WorkspaceRootPath) ? "./" : skillsConfig.WorkspaceRootPath),
+            EntryFileName = string.IsNullOrWhiteSpace(skillsConfig.EntryFileName) ? "SKILL.md" : skillsConfig.EntryFileName
+        };
+    }
+
+    private async Task<SkillItem?> FindSkillItemAsync(SkillsGroupRuntime skillsGroup, string? skillId, CancellationToken cancellationToken)
     {
         var id = skillId?.Trim();
         if (string.IsNullOrWhiteSpace(id))
@@ -1025,10 +1126,10 @@ public class SkillsService : ISkillsService
             return null;
         }
 
-        foreach (var skillFilePath in EnumerateSkillEntryFiles())
+        foreach (var skillFilePath in EnumerateSkillEntryFiles(skillsGroup))
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var skillItem = await ReadSkillItemAsync(skillFilePath, cancellationToken);
+            var skillItem = await ReadSkillItemAsync(skillsGroup, skillFilePath, cancellationToken);
             if (skillItem == null)
             {
                 continue;
@@ -1111,6 +1212,7 @@ public class SkillsService : ISkillsService
     {
         return new SkillInfo
         {
+            SkillsGroupName = skillItem.SkillsGroupName,
             ID = skillItem.ID,
             Name = skillItem.Name,
             Description = skillItem.Description,
@@ -1135,6 +1237,8 @@ public class SkillsService : ISkillsService
 
     private class SkillItem
     {
+        public string SkillsGroupName { get; set; } = string.Empty;
+
         public string ID { get; set; } = string.Empty;
 
         public string Name { get; set; } = string.Empty;
@@ -1146,5 +1250,16 @@ public class SkillsService : ISkillsService
         public string SkillRootPath { get; set; } = string.Empty;
 
         public string Content { get; set; } = string.Empty;
+    }
+
+    private class SkillsGroupRuntime
+    {
+        public string SkillsGroupName { get; set; } = string.Empty;
+
+        public string SkillsRootPath { get; set; } = string.Empty;
+
+        public string WorkspaceRootPath { get; set; } = string.Empty;
+
+        public string EntryFileName { get; set; } = "SKILL.md";
     }
 }

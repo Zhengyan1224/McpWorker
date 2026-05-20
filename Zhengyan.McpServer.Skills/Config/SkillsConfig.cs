@@ -4,8 +4,21 @@ using System.Text.Unicode;
 
 namespace Zhengyan.McpServer.Skills.Config;
 
+public class SkillsGroupConfig
+{
+    public string SkillsGroupName { get; set; } = "default";
+
+    public string SkillsRootPath { get; set; } = "./resources/skills";
+
+    public string WorkspaceRootPath { get; set; } = "./";
+
+    public string EntryFileName { get; set; } = "SKILL.md";
+}
+
 public class SkillsConfig
 {
+    public List<SkillsGroupConfig> SkillsGroup { get; set; } = new();
+
     public string SkillsRootPath { get; set; } = "./resources/skills";
 
     public string WorkspaceRootPath { get; set; } = "./";

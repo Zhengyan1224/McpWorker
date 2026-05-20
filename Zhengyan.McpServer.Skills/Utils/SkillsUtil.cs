@@ -14,6 +14,7 @@ public static class SkillsUtil
         }
 
         services.AddSingleton(skillsConfig);
+        services.AddHttpContextAccessor();
         services.AddSingleton<ISkillsService, SkillsService>();
         return services;
     }
