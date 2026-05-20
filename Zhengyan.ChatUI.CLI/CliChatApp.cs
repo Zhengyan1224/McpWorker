@@ -1,5 +1,7 @@
 using System.Globalization;
 using System.Text;
+using System.Text.Encodings.Web;
+using System.Text.Json;
 using System.Text.Unicode;
 using Zhengyan.ChatUI.CLI.Models;
 using Zhengyan.ChatUI.CLI.Services;
@@ -8,6 +10,12 @@ namespace Zhengyan.ChatUI.CLI;
 
 public sealed class CliChatApp : IDisposable
 {
+    private static readonly JsonSerializerOptions AdditionalPropertiesJsonOptions = new()
+    {
+        WriteIndented = true,
+        Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
+    };
+
     private static readonly IReadOnlyList<InputSuggestion> SlashCommandSuggestions =
     [
         new("/help", "Show help and command usage"),
@@ -487,8 +495,12 @@ public sealed class CliChatApp : IDisposable
         var lastAssistantLength = 0;
         var printedThinkingHeader = false;
         var printedAssistantHeader = false;
+        var printedAdditionalHeader = false;
         var reasoningColumn = 0;
         var assistantColumn = 0;
+        var lastAdditionalPropertiesSnapshot = string.Empty;
+        var printedToolCallResultCount = 0;
+        var printedAdditionalDuringStreaming = false;
 
         void Refresh()
         {
@@ -519,6 +531,16 @@ public sealed class CliChatApp : IDisposable
                 WriteStreamingColor(turn.AssistantMessage[lastAssistantLength..], ConsoleColor.Gray, ref assistantColumn);
                 lastAssistantLength = turn.AssistantMessage.Length;
             }
+
+            if (!string.Equals(turn.AssistantAdditionalProperties, lastAdditionalPropertiesSnapshot, StringComparison.Ordinal))
+            {
+                PrintStreamingAdditionalProperties(
+                    turn.AssistantAdditionalProperties,
+                    ref printedAdditionalHeader,
+                    ref printedToolCallResultCount,
+                    ref printedAdditionalDuringStreaming);
+                lastAdditionalPropertiesSnapshot = turn.AssistantAdditionalProperties;
+            }
         }
 
         try
@@ -538,7 +560,7 @@ public sealed class CliChatApp : IDisposable
             Refresh();
             Console.WriteLine();
 
-            if (!string.IsNullOrWhiteSpace(turn.AssistantAdditionalProperties))
+            if (!printedAdditionalDuringStreaming && !string.IsNullOrWhiteSpace(turn.AssistantAdditionalProperties))
             {
                 WriteSectionHeader("Additional", ConsoleColor.Magenta);
                 Console.WriteLine(turn.AssistantAdditionalProperties);
@@ -1013,6 +1035,73 @@ public sealed class CliChatApp : IDisposable
         }
 
         return builder.ToString();
+    }
+
+    private static void PrintStreamingAdditionalProperties(
+        string additionalProperties,
+        ref bool printedAdditionalHeader,
+        ref int printedToolCallResultCount,
+        ref bool printedAdditionalDuringStreaming)
+    {
+        if (string.IsNullOrWhiteSpace(additionalProperties))
+        {
+            return;
+        }
+
+        if (!printedAdditionalHeader)
+        {
+            Console.WriteLine();
+            WriteSectionHeader("Additional", ConsoleColor.Magenta);
+            printedAdditionalHeader = true;
+        }
+
+        if (TryExtractToolCallResults(additionalProperties, out var toolCallResults)
+            && toolCallResults.Count > printedToolCallResultCount)
+        {
+            for (var index = printedToolCallResultCount; index < toolCallResults.Count; index++)
+            {
+                if (index > 0 || printedAdditionalDuringStreaming)
+                {
+                    Console.WriteLine();
+                }
+
+                Console.WriteLine($"Tool Result #{index + 1}");
+                Console.WriteLine(JsonSerializer.Serialize(toolCallResults[index], AdditionalPropertiesJsonOptions));
+            }
+
+            printedToolCallResultCount = toolCallResults.Count;
+            printedAdditionalDuringStreaming = true;
+            return;
+        }
+
+        Console.WriteLine(additionalProperties);
+        printedAdditionalDuringStreaming = true;
+    }
+
+    private static bool TryExtractToolCallResults(string additionalProperties, out List<JsonElement> toolCallResults)
+    {
+        toolCallResults = [];
+
+        try
+        {
+            using var document = JsonDocument.Parse(additionalProperties);
+            if (!document.RootElement.TryGetProperty("tool_call_results", out var toolCallResultsElement)
+                || toolCallResultsElement.ValueKind != JsonValueKind.Array)
+            {
+                return false;
+            }
+
+            foreach (var item in toolCallResultsElement.EnumerateArray())
+            {
+                toolCallResults.Add(item.Clone());
+            }
+
+            return toolCallResults.Count > 0;
+        }
+        catch (JsonException)
+        {
+            return false;
+        }
     }
 
     private void OnCancelKeyPress(object? sender, ConsoleCancelEventArgs e)

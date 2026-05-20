@@ -112,6 +112,7 @@ namespace Zhengyan.McpHost.Services
             };
             ConfigureCompatibleChatOptions(chatOptions, chatClientConfig, request);
             List<ToolCallResult> toolCallResults = new List<ToolCallResult>();
+            object toolCallResultsSync = new object();
             if (agentConfig.McpClientIDs != null)
                 foreach (var mcpClientID in agentConfig.McpClientIDs)
                 {
@@ -129,7 +130,10 @@ namespace Zhengyan.McpHost.Services
                             {
                                 ValueCapture = (t, args, ret) =>
                                 {
-                                    toolCallResults.Add(new() { tool_name = t.Name, arguments = args, return_values = ret });
+                                    lock (toolCallResultsSync)
+                                    {
+                                        toolCallResults.Add(new() { tool_name = t.Name, arguments = args, return_values = ret });
+                                    }
                                 }
                             };
                             chatOptions.Tools.Add(mcpexttool);
@@ -420,6 +424,14 @@ namespace Zhengyan.McpHost.Services
                     outputAdditionalProperties = MergeAdditionalProperties(
                         outputAdditionalProperties,
                         SetAdditionalProperties(null, delta.additional_properties));
+
+                    yield return CreateSseEvent("response.additional_properties.delta", new
+                    {
+                        type = "response.additional_properties.delta",
+                        output_index = 0,
+                        item_id = outputItemId,
+                        additional_properties = outputAdditionalProperties
+                    });
                 }
             }
 
@@ -537,6 +549,7 @@ namespace Zhengyan.McpHost.Services
             ConfigureCompatibleChatOptions(chatOptions, chatClientConfig, request);
 
             List<ToolCallResult> toolCallResults = new List<ToolCallResult>();
+            object toolCallResultsSync = new object();
 
             if (agentConfig.McpClientIDs != null)
                 foreach (var mcpClientID in agentConfig.McpClientIDs)
@@ -555,7 +568,10 @@ namespace Zhengyan.McpHost.Services
                             {
                                 ValueCapture = (t, args, ret) =>
                                 {
-                                    toolCallResults.Add(new() { tool_name = t.Name, arguments = args, return_values = ret });
+                                    lock (toolCallResultsSync)
+                                    {
+                                        toolCallResults.Add(new() { tool_name = t.Name, arguments = args, return_values = ret });
+                                    }
                                 }
                             };
                             chatOptions.Tools.Add(mcpexttool);
@@ -602,12 +618,40 @@ namespace Zhengyan.McpHost.Services
             yield return $"data: {chunk}\n\n";
 
             // 处理模型输出
+            var emittedToolCallResultsCount = 0;
             await foreach (var responseChunk in chatClient.GetStreamingResponseAsync(chatHistory, chatOptions, cancellationToken))
             {
                 _logger.LogTrace("Message: {output}", responseChunk);
 
                 var content = responseChunk.Text;
                 var reasoningContent = ExtractReasoningContent(responseChunk);
+
+                if (TrySnapshotToolCallResults(toolCallResults, toolCallResultsSync, ref emittedToolCallResultsCount, out var currentToolCallResults))
+                {
+                    chunk = JsonSerializer.Serialize(new ChatCompletionChunkResponse
+                    {
+                        id = id,
+                        created = created,
+                        model = request.model,
+                        choices = [
+                            new ChatCompletionChunkResponseChoice
+                            {
+                                index = ++index,
+                                delta = new ChatCompletionMessage
+                                {
+                                    role = null,
+                                    content = null,
+                                    reasoning_content = null,
+                                    additional_properties = SetAdditionalProperties(currentToolCallResults, null)
+                                },
+                                finish_reason = null
+                            }
+                        ]
+
+                    }, _jsonSerializerOptions);
+
+                    yield return $"data: {chunk}\n\n";
+                }
 
                 if (string.IsNullOrEmpty(content) && string.IsNullOrWhiteSpace(reasoningContent))
                 {
@@ -639,7 +683,32 @@ namespace Zhengyan.McpHost.Services
                 yield return $"data: {chunk}\n\n";
             }
 
-            
+            if (TrySnapshotToolCallResults(toolCallResults, toolCallResultsSync, ref emittedToolCallResultsCount, out var remainingToolCallResults))
+            {
+                chunk = JsonSerializer.Serialize(new ChatCompletionChunkResponse
+                {
+                    id = id,
+                    created = created,
+                    model = request.model,
+                    choices = [
+                        new ChatCompletionChunkResponseChoice
+                        {
+                            index = ++index,
+                            delta = new ChatCompletionMessage
+                            {
+                                role = null,
+                                content = null,
+                                reasoning_content = null,
+                                additional_properties = SetAdditionalProperties(remainingToolCallResults, null)
+                            },
+                            finish_reason = null
+                        }
+                    ]
+                }, _jsonSerializerOptions);
+                yield return $"data: {chunk}\n\n";
+            }
+
+             
 
             // 结束
             chunk = JsonSerializer.Serialize(new ChatCompletionChunkResponse
@@ -656,7 +725,7 @@ namespace Zhengyan.McpHost.Services
                             role = null,
                             content = null,
                             reasoning_content = null,
-                            additional_properties = SetAdditionalProperties(toolCallResults, null)
+                            additional_properties = SetAdditionalProperties(SnapshotToolCallResults(toolCallResults, toolCallResultsSync), null)
                         },
                         finish_reason = "stop"
                     }
@@ -697,6 +766,34 @@ namespace Zhengyan.McpHost.Services
             }
 
             return current;
+        }
+
+        private static List<ToolCallResult> SnapshotToolCallResults(List<ToolCallResult> toolCallResults, object syncRoot)
+        {
+            lock (syncRoot)
+            {
+                return [.. toolCallResults];
+            }
+        }
+
+        private static bool TrySnapshotToolCallResults(
+            List<ToolCallResult> toolCallResults,
+            object syncRoot,
+            ref int emittedCount,
+            out List<ToolCallResult>? snapshot)
+        {
+            lock (syncRoot)
+            {
+                if (toolCallResults.Count <= emittedCount)
+                {
+                    snapshot = null;
+                    return false;
+                }
+
+                emittedCount = toolCallResults.Count;
+                snapshot = [.. toolCallResults];
+                return true;
+            }
         }
 
         private static string? BuildCombinedSystemPrompt(string? systemPrompt, string? additionalSystemPrompt)

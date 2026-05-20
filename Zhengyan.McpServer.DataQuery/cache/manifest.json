@@ -1,19 +1,8 @@
 {
-  "DataFiles": [
-    {
-      "Name": "小区.csv",
-      "Length": 6216,
-      "LastWriteTimeUtcTicks": 639118372742849321
-    },
-    {
-      "Name": "问题指标表.csv",
-      "Length": 6998,
-      "LastWriteTimeUtcTicks": 639118115669625075
-    }
-  ],
+  "DataFiles": [],
   "EmbeddingEnabled": true,
   "EmbeddingModel": "bge_m3",
   "EmbeddingEndpoint": "http://10.10.40.102:32730/openapi/373cd113-3840-4b83-99bd-b228847cfc7b/v1/embeddings",
   "MaxTextLengthPerRecord": 2000,
-  "RecordCount": 165
+  "RecordCount": 450
 }

@@ -274,6 +274,13 @@ public sealed class McpHostChatClient : IDisposable
                         refreshUi();
                     }
                     break;
+                case "response.additional_properties.delta":
+                    var additionalPropertiesPayload = TryGetJsonProperty(sseEvent.Data, "additional_properties");
+                    if (ApplyResponseAdditionalProperties(activeTurn, additionalPropertiesPayload))
+                    {
+                        refreshUi();
+                    }
+                    break;
                 case "response.content_part.done":
                     var contentPart = TryGetJsonProperty(sseEvent.Data, "part");
                     var contentPartText = ExtractResponseTextFromContentPart(contentPart);
@@ -328,6 +335,25 @@ public sealed class McpHostChatClient : IDisposable
         }
 
         return changed;
+    }
+
+    private static bool ApplyResponseAdditionalProperties(ChatTurn activeTurn, JsonElement? additionalPropertiesElement)
+    {
+        if (additionalPropertiesElement is not JsonElement additionalProperties
+            || additionalProperties.ValueKind is JsonValueKind.Null or JsonValueKind.Undefined)
+        {
+            return false;
+        }
+
+        var formattedAdditionalProperties = JsonSerializer.Serialize(additionalProperties, JsonOptions);
+        if (string.IsNullOrWhiteSpace(formattedAdditionalProperties)
+            || string.Equals(activeTurn.AssistantAdditionalProperties, formattedAdditionalProperties, StringComparison.Ordinal))
+        {
+            return false;
+        }
+
+        activeTurn.AssistantAdditionalProperties = formattedAdditionalProperties;
+        return true;
     }
 
     private static bool ApplyResponseCompletedPayload(ChatTurn activeTurn, JsonElement? responseElement)

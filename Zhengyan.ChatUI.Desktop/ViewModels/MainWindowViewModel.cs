@@ -539,6 +539,10 @@ public partial class MainWindowViewModel : ViewModelBase
                         await Dispatcher.UIThread.InvokeAsync(() => ApplyAssistantMessageSnapshot(messagePair, outputText));
                     }
                     break;
+                case "response.additional_properties.delta":
+                    var additionalPropertiesPayload = TryGetResponseItemProperty(sseEvent.Data, "additional_properties");
+                    await Dispatcher.UIThread.InvokeAsync(() => ApplyResponseAdditionalProperties(messagePair, additionalPropertiesPayload));
+                    break;
                 case "response.content_part.done":
                     var contentPart = TryGetResponseItemProperty(sseEvent.Data, "part");
                     var contentPartText = ExtractResponseTextFromContentPart(contentPart);
@@ -1010,6 +1014,21 @@ public partial class MainWindowViewModel : ViewModelBase
         if (!string.IsNullOrWhiteSpace(text))
         {
             ApplyAssistantMessageSnapshot(messagePair, text);
+        }
+    }
+
+    private static void ApplyResponseAdditionalProperties(ChatMessagePairViewModel messagePair, JsonElement? additionalPropertiesElement)
+    {
+        if (additionalPropertiesElement is not JsonElement additionalProperties
+            || additionalProperties.ValueKind is JsonValueKind.Null or JsonValueKind.Undefined)
+        {
+            return;
+        }
+
+        var formattedAdditionalProperties = JsonSerializer.Serialize(additionalProperties, JsonOptions);
+        if (!string.IsNullOrWhiteSpace(formattedAdditionalProperties))
+        {
+            messagePair.AssistantAdditionalProperties = formattedAdditionalProperties;
         }
     }
 

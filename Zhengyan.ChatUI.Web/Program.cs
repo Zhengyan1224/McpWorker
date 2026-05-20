@@ -675,6 +675,14 @@ static async IAsyncEnumerable<Output> ProcessResponsesStreamAsync(
                     yield return CreateChatOutput(chatHistory);
                 }
                 break;
+            case "response.additional_properties.delta":
+                var additionalPropertiesPayload = TryGetJsonProperty(sseEvent.Data, "additional_properties");
+                if (ApplyResponseAdditionalProperties(turn, additionalPropertiesPayload))
+                {
+                    chatHistory[^1].AiMessage.TextMessage = BuildAssistantDisplayText(turn);
+                    yield return CreateChatOutput(chatHistory);
+                }
+                break;
             case "response.output_item.done":
                 var outputItem = TryGetJsonProperty(sseEvent.Data, "item");
                 if (ApplyResponseOutputItem(turn, outputItem))
@@ -1200,6 +1208,25 @@ static bool ApplyResponseOutputItem(WebChatTurn turn, JsonElement? itemElement)
     }
 
     return changed;
+}
+
+static bool ApplyResponseAdditionalProperties(WebChatTurn turn, JsonElement? additionalPropertiesElement)
+{
+    if (additionalPropertiesElement is not JsonElement additionalProperties
+        || additionalProperties.ValueKind is JsonValueKind.Null or JsonValueKind.Undefined)
+    {
+        return false;
+    }
+
+    var formattedAdditionalProperties = JsonSerializer.Serialize(additionalProperties, CreateJsonOptions());
+    if (string.IsNullOrWhiteSpace(formattedAdditionalProperties)
+        || string.Equals(turn.AssistantAdditionalProperties, formattedAdditionalProperties, StringComparison.Ordinal))
+    {
+        return false;
+    }
+
+    turn.AssistantAdditionalProperties = formattedAdditionalProperties;
+    return true;
 }
 
 static bool ApplyResponseCompletedPayload(WebChatTurn turn, JsonElement? responseElement)

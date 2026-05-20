@@ -8,3 +8,5 @@ temp/
 /Zhengyan.McpHost/profiles/chat/
 /Zhengyan.McpHost/profiles/mcp/
 appsettings.Local.json
+/Zhengyan.McpServer.Memory/storage/
+/Zhengyan.McpServer.DataQuery/cache/
