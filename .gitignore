@@ -1,6 +1,5 @@
 bin/
 obj/
-models/
 artifacts/
 temp/
 .vscode/
